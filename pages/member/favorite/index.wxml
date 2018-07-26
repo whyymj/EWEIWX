@@ -1,0 +1,67 @@
+<loading wx:if="{{ !show }}">加载中...</loading>
+<view class="page footer" wx:if="{{ show }}">
+    
+    <block wx:if="{{total>0}}">
+        <view class="fui-list-group" >
+            <block wx:for="{{list}}" wx:key="">
+                <!-- <navigator class="fui-list-group-title noclick" url="/pages/index/index?merchid={{item.merchid}}" hover-class="none" open-type="switchTab">
+                    <view class="fui-list-media">
+                      <text class="icox icox-dianpu1"></text>
+                    </view>
+                    <view class="text">{{item.merchname}}</view>
+                    <view class="fui-list-angle">
+                        <view class="angle"></view>
+                    </view>
+                </navigator> -->
+                <label class="fui-list" data-goodsid="{{item.goodsid}}" data-id="{{item.id}}" bindtap="itemClick">
+                    <view class="fui-list-media" wx:if="{{isedit}}">
+                        <radio class="zoom-80" color="#ef4f4f" checked="{{ checkObj[item.id]?true:'' }}"></radio>
+                    </view>
+                    <view class="fui-list-media">
+                        <image src="{{item.thumb}}" />
+                    </view>
+                    <view class="fui-list-inner">
+                            <view class="subtitle">{{item.title}}</view>
+                        <view class="title"style="    font-size: 30rpx">
+                            <text class="text-danger">¥{{item.marketprice}}</text>
+                            <!-- <text class="text-delete" style="padding-left: 10rpx;">¥{{item.productprice}}</text> -->
+                        </view>
+                    </view>
+                </label>
+            </block>
+        </view>
+    </block>
+
+    <!--数据显示-->
+    <view class="fui-loading" wx:if="{{loading}}">
+        <view class="icon"></view>
+        <view class="text">正在加载</view>
+    </view>
+    <view class="fui-loading empty" wx:if="{{loaded && list.length>0}}">
+        <view class="text">没有更多了</view>
+    </view>
+    <view class="fui-loading empty" wx:if="{{total<=0 && !loading}}">
+        <view class="text">没有数据</view>
+    </view>
+
+    <view class="fui-footer" wx:if="{{list.length>0}}">
+        <view class="tool">
+            <view class="check" wx:if="{{isedit}}">
+                <label bindtap="checkAllClick">
+                    <radio class="zoom-80" color="#ef4f4f" checked="{{ isCheckAll?true:'' }}"></radio>
+                    <text>全选</text>
+                </label>
+            </view>
+            <view class="text"></view>
+            <view class="btns">
+                <view class="btn btn-danger" wx:if="{{!isedit}}" bindtap="btnClick" data-action="edit">编辑</view>
+                <view class="btn btn-warning {{ checkNum>0?'':'disabled' }}" wx:if="{{isedit}}" bindtap="btnClick" data-action="delete">删除</view>
+                <view class="btn btn-danger" wx:if="{{isedit}}"  bindtap="btnClick" data-action="finish">完成</view>
+            </view>
+        </view>
+    </view>
+
+    <!--公用底部菜单-->
+    <include src="/pages/common/menu.wxml"/>
+
+</view>

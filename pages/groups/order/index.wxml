@@ -1,0 +1,105 @@
+<!--pages/groups/order/imdex.wxml-->
+<view class='page order' style='{{isIpx?"padding-bottom:168rpx":""}}'>
+    <view class="fui-tab fixed" scroll-x="true" style='overflow-x:scroll'>
+      <view class="item {{ type_==''?'active':'' }}" bindtap="get_list" data-type_="">全部</view>
+      <view class="item {{ type_=='0'?'active':'' }}" bindtap="get_list" data-type_="0">待付款</view>
+      <view class="item {{ type_=='1'?'active':'' }}" bindtap="get_list" data-type_="1">待发货</view>
+      <view class="item {{ type_=='2'?'active':'' }}" bindtap="get_list" data-type_="2">待收货</view>
+      <view class="item {{ type_=='3'?'active':'' }}" bindtap="get_list" data-type_="3">已完成</view>
+    </view>
+
+    <!--  -->
+    <view class='contain'>
+      <view class='fui-list-group noclick' wx:if='{{list.length>0}}'  wx:for="{{list}}">
+        <navigator url="/pages/groups/order_detail/index?order_id={{item.id}}" hover-class="none" open-type="navigate">
+          <view class='fui-list-group-title' style="color:#666;font-size:26rpx">
+            <view class="order-num">
+              <text selectable='true'>订单号：{{item.orderno}}</text>
+            </view>
+            <view class="text-default" wx:if="{{item.status == -1}}">已取消</view>
+            <view class="text-default" wx:if="{{item.status == 0}}">待付款</view>
+            <view class="text-success" wx:if="{{item.status == 1 && (item.success == 0 && item.is_team == 1)}}">已付款</view>
+            <view class="text-warning" wx:if="{{item.status == 1 && (item.success == 1 || item.is_team == 0) && item.isverify == 0}}">待发货</view>
+            <view class="text-danger" wx:if="{{item.status == 1 && (item.success == 1 || item.is_team == 0) && item.isverify == 1}}">待收货</view>
+            <view class="text-primary" wx:if="{{item.status == 2 && item.success == -1}}">待退款</view>
+            <view class="text-danger" wx:if="{{item.status == 2}}">待收货</view>
+            <view class="text-success" wx:if="{{item.status == 3}}">已完成</view>
+          </view>
+          <view class='fui-list goods-info'>
+            <view class="fui-list-media">
+              <image class="goods_img" src="{{item.thumb}}" />
+            </view>
+            <view class="fui-list-inner" style="height:140rpx">
+              <view class='text text-left'>{{item.title}}</view>
+              <view class='subtitle text-left'>{{item.description}}</view>
+            </view>
+            <view class="num">
+              <view class='text-right'>¥
+                <text >{{item.goods_price}}/{{item.goodsnum}}{{item.units}}</text>
+              </view>
+              <view class='text-right' style="color:#666">x
+                <text>1</text>
+              </view>
+            </view>
+          </view>
+          <view class='fui-list list-padding'>
+            <text class='fui-list-inner text-right totle'>共1件商品 实付<text class='text-danger'>¥<text>{{item.amount}}</text></text>
+            </text>
+          </view>
+        </navigator>
+        <view class='fui-list list-padding' style='padding:0 24rpx'>
+          <view class='fui-list-inner text-right' style='padding:10rpx 0'>
+          <!--取消订单 去付款 删除订单 确认收货 我要使用  -->
+            <view wx:if="{{item.status == 2}}" data-orderid="{{item.id}}" class="btn btn-danger btn-danger-o" bindtap="finish">
+                确认收货 
+              </view>
+
+              <view wx:if="{{item.status == 0}}"  class="btn btn-default btn-default-o">
+              <picker value="{{ cancelindex }}" range="{{ cancel }}" bindchange="cancel" data-orderid="{{ item.id }}">取消订单</picker>
+            </view>
+              <!-- <view wx:if="{{item.status == 0}}" data-orderid="{{item.id}}" class="btn btn-danger btn-default-o" bindtap="cancel">
+                去付款
+              </view> -->
+              <navigator wx:if="{{item.status == 0}}" class="btn btn-danger-o btn-sm" url="/pages/groups/pay/index?id={{ item.id }}&teamid={{item.teamid}}">去付款</navigator>
+              <view wx:if="{{item.isverify == 1 && item.status > 0 && item.vnum > 0 && item.refundstate == 0 && (item.success == 1 || item.is_team == 0)  }}" data-orderid="{{item.id}}" data-verifycode="{{item.verifycode}}" class="btn btn-danger btn-default-o" bindtap="code">
+                我要使用
+              </view>
+              <view class="btn btn-danger btn-default-o" data-orderid="{{item.id}}" bindtap="delete_" wx:if="{{item.status == 3 || item.status == -1}}">
+                删除订单
+              </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!--数据为空  -->
+   <view class='empty' wx:if='{{list.length==0}}'>
+    <image src='/static/images/icon/nolist.png'></image>
+    <view class='text'>暂时没有相关</view>
+  </view> 
+     <!--底部导航  -->
+<view class='fui-navbar footer-nav {{iphonexnavbar}}'>
+    <navigator  url='/pages/index/index' class='nav-item' hover-class="none" open-type='switchTab'>
+      <span class="icox icox-back"></span>
+      <span class="label">返回商城</span>
+    </navigator>
+    <navigator class='nav-item' hover-class="none" url='/pages/groups/index/index' open-type='reLaunch'>
+          <span class="icox icox-shouye1"></span>
+          <span class="label">拼团首页</span>
+        </navigator>
+    <navigator url='/pages/groups/category/index' class='nav-item ' hover-class="none" open-type='reLaunch'>
+          <span class="icox icox-quanbukanjia"></span>
+          <span class="label">活动列表</span>
+        </navigator>
+    <navigator class='nav-item active' hover-class="none" url='/pages/groups/order/index' open-type='reLaunch'>  
+          <span class="icox icox-kanjiazhong"></span>
+          <span class="label">我的订单</span>
+        </navigator>
+    <navigator url='/pages/groups/mygroups/index'  class='nav-item' hover-class="none" open-type='reLaunch'>
+          <span class="icox icox-yigoumai"></span>
+          <span class="label">我的团</span>
+        </navigator>
+      </view>
+  <view class='{{isIpx?"fui-iphonex-button":""}}'></view>
+</view>
+  <!--弹出模态框-->
+  <include src="/pages/order/public/verify.wxml" />

@@ -1,0 +1,100 @@
+<!--pages/groups/goods/index.wxml-->
+<view class='page'  style='{{isIpx?"padding-bottom:168rpx":""}}'>
+<!--轮播图  -->
+  <swiper class="index-adcs-sqiper" indicator-dots="true" circular="{{circular}}" style="width:750rpx;height:750rpx;">
+      <block wx:for='{{data.thumb_url}}'>
+          <swiper-item>
+              <image src="{{item}}" class="goodsadvimg" mode='aspectFit'></image>          
+          </swiper-item>
+      </block>
+  </swiper>
+  <!--信息  -->
+  <view class='goods-info'>
+    <view class='title'>
+       <text class='person'>{{data.is_ladder==1?"阶梯团":data.groupnum + "人团"}}</text>
+       <text>{{data.title}}</text>
+    </view>
+    <view class='subtitle'>{{data.description}}</view>
+    <view class='subtitle'>已有{{data.sales}}人参团，销量{{data.sales}}件</view>
+    <view class='price'>
+        <text class='large'>￥{{data.groupsprice}}</text><text class='line'>原价￥{{data.price}}</text>
+        <view class='fr'>邮费：{{data.freight}}</view>
+    </view>
+    <!--团长优惠  -->
+    <view class='heads' wx:if='{{data.isdiscount==1}}'>
+      <text class='icox icox-gengduocopy'></text><text>团长优惠</text>{{data.headstype==0?"￥"+data.headsmoney:data.headsdiscount/10 + "折"}}
+    </view>
+  </view>
+
+  <!--规则  -->
+    <navigator url='/pages/groups/rules/index?id={{data.id}}' class='rules'>
+        <view class='title'>拼团玩法</view>
+        <view class='inner'>支付开团或参团,达到人数团购成功,人数不足自动退款</view>
+    </navigator>
+
+    <!--图文详情  -->
+    <view class='detail-info' wx:if='{{content}}'>
+      <view class='title'>图文详情</view>
+      <rich-text nodes="{{content}}"></rich-text>
+    </view>
+
+    <!--底部  -->
+    <view wx:if='{{data.stock>0}}' class='detailbtn-group flex {{iphonexnavbar}}' >
+      <navigator class='back' url='/pages/groups/index/index' hover-class='none' open-type='reLaunch'>
+        <view class='icox icox-homepage'></view>
+        <view>拼团首页</view>
+      </navigator>
+      <view class='detailbtn flex1' wx:if='{{data.single==1}}' hover-class='none' bindtap='singlebuy'>
+        <view class='price'>￥{{data.singleprice}}</view>
+        <view>单独购买</view>
+      </view> 
+      <navigator url='/pages/groups/join/index?id={{data.id}}' class='detailbtn flex1' style='background:#ff5555'  wx:if='{{data.is_ladder==0}}'>
+        <view class='price'>￥{{data.groupsprice}}</view>
+        <view>{{data.groupnum}}人成团</view>
+      </navigator>
+      <navigator  url='/pages/groups/join/index?id={{data.id}}' class='detailbtn flex1 ladder' wx:if='{{data.is_ladder==1}}' style='background:#ff5555'>
+          参加阶梯团
+      </navigator>
+    </view>
+    <view wx:if='{{data.stock<=0}}'  class='detailbtn-group black {{iphonexnavbar}}'>库存不足</view>
+    <view class='{{isIpx?"fui-iphonex-button":""}}'></view>
+    <!--提示弹窗  -->
+    <!-- <view class='model'>
+      <view class='box'>
+        <view class='content'>您购买的商品以及更达到上限</view>
+        <view class='footer'>确定</view>
+      </view>
+    </view> -->
+</view>
+<!--蒙层  -->
+ <view class='layer' wx:if='{{layershow}}' bindtap='close'></view> 
+<!--多规格弹窗  -->
+ <view class='fui-modal goods-picker in goodslist'wx:if='{{options}}'>
+  <view class='option-picker'>
+    <view class='option-picker-inner'>
+      <view class='fui-list'>
+        <view class='fui-list-media'>
+           <image class='thumb' src="{{optiondata.thumb || data.thumb}}"></image>
+        </view>
+        <view class='fui-list-inner'>
+          <view class='subtitle'>{{optiondata.title || data.title}}</view>
+          <view class='price'>￥{{optiondata.single_price || data.groupsprice}}</view>
+        </view>
+      </view>
+      <view class='option-picker-options'>
+        <view class='option-picker-cell option spec'>
+        <block wx:for='{{spec}}' wx:for-item='items'wx:for-index='specindex'>
+          <view class='title'>{{items.title}}</view>
+          <view class='select' >
+            <view class='btn btn-default btn-sm nav spec-item {{options.status=="active"?"btn-danger":""}}' wx:for='{{items.item}}' wx:for-item='options'  data-spedid = '{{options.specid}}' bindtap='specsTap' data-idx='{{index}}' data-specindex = '{{specindex}}' data-id ='{{options.id}}'>{{options.title}}</view>
+          </view>
+        </block>
+        </view>
+      </view>
+    </view>
+    <view class='fui-navbar'>
+     <view class='btn btn-danger block' bindtap='buy'> {{optiondata.stock<=0?"库存不足":"确定"}}</view>
+      </view>
+  </view>
+  <view class='icox icox-guanbi-copy' style='color:#fff;text-align:center;font-size:60rpx;margin-top:30rpx;' bindtap='close'> </view> 
+</view>

@@ -1,0 +1,134 @@
+<import src="/utils/wxParse/wxParse.wxml"/> 
+<view class='page navbar'>
+  <view class='goods-detail-goods'>
+  <!--轮播图  -->
+    <swiper class="index-adcs-sqiper" indicator-dots="true" autoplay='true' interval="3000" duration="500" circular="true" style="width:{{advWidth}}px;height:{{advHeight}}rpx;">
+          <block>
+              <swiper-item wx:for="{{ goods.thumbs }}" wx:for-item="thumb" wx:for-index="idx">
+                  <image bindload="{{idx == 0 ? 'imageLoad' : ''}}" src="{{ thumb }}" class="goodsadvimg"></image>        
+              </swiper-item>
+          </block>
+      </swiper>
+      <!--倒计时  -->
+      <view class='countDown'>
+        <text wx:if="{{ istime == 0 }}">{{ istimeTitle }}</text>
+        <text wx:elif="{{ istime == 1 }}">{{ istimeTitle }}：<text wx:for="{{time}}" class="number">{{item}}{{index==0?'天': ''}}{{index==1?'时': ''}}{{index==2?'分': ''}}{{index==3?'秒': ''}}</text></text>
+        <text wx:else="{{ istime == 2 }}">{{ istimeTitle }}</text>
+        
+      </view>
+      <!--标题价格  -->
+      <view class="fui-cell-group fui-detail-group" style='margin-top:0'>
+        <view class="fui-cell">
+            <view class="fui-cell-text name">
+            <image src='/static/images/label.png'></image>
+                <text selectable="true">{{goods.title}}</text>
+            </view>
+             <navigator url='/pages/bargain/rule/rule?id={{ goods.id }}&mid={{ goods.mid }}' class="fui-cell-remark rule" style="margin-left: 60rpx;">
+              <i style="font-size:42rpx;color: #fd5555;" class="icox icox-activity"></i>
+              <view style="font-size: 20rpx;color: #666;margin-top:-6rpx;">规则</view>
+            </navigator> 
+        </view>
+        <view class="subtitle">{{ goods.subtitle }}</view>
+        <block>
+            <view class="fui-cell price" wx:if="{{ goods.type == 1 }}">
+              <text style='display:inline-block;line-height:48rpx'>底价</text>
+              <text class='miniprice' selectable="true">￥{{ goods.end_price }}</text>
+              <text class='original_price'>￥{{ goods.start_price }}</text>
+            </view>
+            <view class="fui-cell price" wx:elif="{{ goods.type == 0 }}">
+              <text style='display:inline-block;line-height:48rpx'>原价</text>
+              <text class='miniprice' selectable="true">￥{{ goods.start_price }}</text>
+              <text class='original_price' style="color:{{ goods['custom']['cutmore_color'] }}">￥{{ goods.custom.cutmore }}</text>
+            </view>
+        </block>
+        <block>
+            <view class="fui-cell">
+                <view class="fui-cell-text number">
+                    已有{{ goods.act_times }}人参与砍价
+                </view>
+            </view>
+        </block>
+      </view>
+      <!--砍价流程  -->
+      <view class='detail-rule'>
+        <view class='detail-rule-top'>
+          砍价流程
+        </view>
+        <view class='detail-rule-bottom'>
+          <view class='step active'>
+            <view class='num'>1</view>
+            <view class='text'>选择心仪商品</view>
+          </view>
+           <view class='step'>
+            <view class='num'>2</view>
+            <view class='text'>邀请好友砍价</view>
+          </view>
+           <view class='step'>
+            <view class='num'>3</view>
+            <view class='text'>砍到底价后支付</view>
+          </view>
+        </view>
+      </view>
+      <!--产品详情  -->
+      <view class="fui-cell-group">
+            <view class='fui-cell'>
+                <view class='fui-cell-info'>商品详情</view>
+            </view>
+        </view>
+       <view class="goods-detail-info">
+            <view class="wxParse">
+                <template is="wxParse" data="{{wxParseData:wxParseData.nodes}}"/>
+            </view>
+        </view>
+      <!--底部按钮  -->
+      <view class='fui-navbar {{iphonexnavbar}}'>
+        <navigator class='nav-item' open-type='switchTab' bindtap='backhome'>
+          <view class="icox icox-homepage"></view>
+          <view class="label">首页</view>
+        </navigator>
+        <navigator class='nav-item' url="/pages/bargain/act/act">
+          <view class="icox icox-people"></view>
+          <view class="label">我的</view>
+        </navigator>
+        <navigator class='nav-item btn buybtn' url="/pages/order/create/index?id={{ goods.goodsid }}" >直接购买</navigator>
+        <!-- <navigator wx:if="{{ goods.swi == 0 && !goods.act_swi.id }}" class='nav-item btn bargainBuy' url="/pages/bargain/bargain/bargain?id={{ goods.id }}&mid={{ goods.mid }}" >立即砍价</navigator> -->
+        <view wx:if="{{ goods.swi == 0 }}" class='nav-item btn bargainBuy' bindtap="{{ act_swi ? 'alreadyHave' : 'goJoin' }}">立即砍价</view>
+        <view wx:if="{{ goods.swi == 1 }}" class='nav-item btn noBargain'>尚未开始</view>
+        <view wx:if="{{ goods.swi == 2 }}" class='nav-item btn noBargain'>已经结束</view>
+        <view wx:if="{{ goods.swi == 3 }}" class='nav-item btn noBargain'>库存不足</view>
+      </view>
+      <view class='{{isIpx?"fui-iphonex-button":""}}'></view>
+      <!--砍价弹窗  -->
+      <view class='layer' wx:if='{{layer}}'>
+          <!--砍价成功提示  -->
+          <view class='content'>
+            <view class='icox icox-close' bindtap='closeLayer'></view>
+            <image src='/static/images/success.png'></image>
+            <view style='line-height:82rpx;font-size:28rpx'>恭喜你成功砍掉</view>
+            <view style='line-height:70rpx;font-size:66rpx;font-weight:bold;color:#ff5555'>4.56元</view>
+            <view class='layerbtn'>知道了</view>
+          </view> 
+      </view>
+
+       <view class='layer' wx:if='{{upper_limit}}'>
+          <!--活动提示  -->
+            <view class='showModal'>
+            <view class='inner'>{{ upper_limitTitle }}</view>
+            <view class='operate flex'>
+              <view class='flex1' bindtap='closeUpper'>取消</view>
+              <view class='flex1' bindtap='affirmUpper'>确定</view>
+            </view>
+          </view>  
+      </view>
+
+       <view class='layer' wx:if='{{error_hint}}'>
+          <!--错误提示  -->
+            <view class='showModal'>
+            <view class='inner'>{{ error_hint_title }}</view>
+            <view class='operate flex'>
+              <view class='flex1' bindtap='closeError'>确定</view>
+            </view>
+          </view>  
+      </view>
+  </view>
+</view>

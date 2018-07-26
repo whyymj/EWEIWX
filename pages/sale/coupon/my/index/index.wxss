@@ -1,0 +1,10 @@
+@import "/static/css/coupon.wxss";
+.btn image {
+    height: 42rpx;
+    width: 42rpx;
+    vertical-align: middle;
+    margin-left: 20rpx
+}
+.btn text {
+    vertical-align: middle;
+}

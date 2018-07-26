@@ -1,0 +1,41 @@
+{
+  "extEnable": false,
+  "extAppid": "wx3d3b2fd41970f6db",
+  "ext": {
+    "config": {
+      "api": "https://api.clubmall.cn/app/ewei_shopv2_api.php?i=16",
+      "approot": "https://api.clubmall.cn/addons/ewei_shopv2/",
+      "appid": "wx3d3b2fd41970f6db"
+    }
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#ff0011",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/images/icon/home.png",
+        "selectedIconPath": "static/images/icon-red/home.png",
+        "text": "首页 "
+      },
+      {
+        "pagePath": "pages/shop/caregory/index",
+        "iconPath": "static/images/icon/cate.png",
+        "selectedIconPath": "static/images/icon-red/cate.png",
+        "text": "全部分类"
+      },
+      {
+        "pagePath": "pages/member/cart/index",
+        "iconPath": "static/images/icon/cart1.png",
+        "selectedIconPath": "static/images/icon-red/cart.png",
+        "text": "购物车"
+      },
+      {
+        "pagePath": "pages/member/index/index",
+        "iconPath": "static/images/icon/people.png",
+        "selectedIconPath": "static/images/icon-red/people.png",
+        "text": "会员中心"
+      }
+    ]
+  }
+}

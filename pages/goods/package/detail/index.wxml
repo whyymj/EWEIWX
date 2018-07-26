@@ -1,0 +1,47 @@
+ <import src="/utils/wxParse/wxParse.wxml"/>  
+<loading wx:if="{{ !show }}">加载中...</loading>
+<view class="page navbar" wx:if="{{ show }}">
+<view class="fui-list-group" id="container">  
+	  <view class="fui-list goods-item align-start"  data-goodsid="{{item.goodsid}}" wx:for="{{packgoods}}">
+			<view class="fui-list-media image-media">
+					<image class=" package-goods-img" src="{{item.thumb}}" bindtap='back' data-id='{{item.goodsid}}'/>
+			</view>
+			<view class="fui-list-inner">
+					<view class="text towline" bindtap='back' data-id='{{item.goodsid}}'>{{item.title}}</view>
+				<view class="text cart-option cartmode">
+					<span wx:if="{{item.option!=''}}" class="option" data-goodsid="{{item.goodsid}}"data-index="{{index}}" bindtap="option">{{item.optionname?item.optionname:'请选择规格 >'}}</span>
+				</view>
+			</view>
+			<view class="fui-list-angle">
+				<span class="price"><span class="marketprice">¥{{item.packageprice}}</span></span>
+				<span class="price" style="justify-content: flex-end"><span class="">x1</span></span>
+			</view>
+		</view>
+	</view>
+    <!--购买start-->
+        <view class="fui-navbar bottom-buttons">
+            <view  class="nav-item packagePrice">
+              <view class="subtitle">
+                套餐价格：<span class="text-danger bigprice">¥</span><span class="text-danger totalprice  bigprice">{{sum?sum:package.price}}</span>
+              </view>
+            </view>
+            <view class="nav-item btn buybtn" bindtap="buy">立刻购买</view>
+        </view>
+    <!--购买end-->
+    <view class="fui-toast {{FoxUIToast.show?'in':'out'}}"><view class="text">{{FoxUIToast.text}}</view></view>
+    <view class="option-mask" wx:if="{{option_mask}}" bindtap='close'></view>
+    <view class="option-picker" wx:if="{{option_mask}}">
+      <view class="fui-cell-group fui-sale-group" style="margin-top:0;">
+        <view class="fui-cell">
+          <view class="fui-cell-text dispatching">
+            请选择规格:
+            <view class="dispatching-info">
+            <i class="package-i {{option_active==item.optionid?'active':''}}" data-optionid="{{item.optionid}}" data-price="{{item.packageprice}}" data-goodsid="{{item.goodsid}}"data-title="{{item.title}}"data-index="{{index}}" wx:for="{{option}}" bindtap="choose">{{item.title}}</i>
+            </view>
+          </view>
+        </view>
+        <view class="btn btn-danger block" bindtap="confirm">确定</view>
+      </view>
+    </view>
+        <include src="/pages/common/menu.wxml"/>
+</view>

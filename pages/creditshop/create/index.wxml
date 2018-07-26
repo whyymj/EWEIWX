@@ -1,0 +1,185 @@
+<view class="fui-content">
+<!--地址信息-->
+<view class="fui-cell-group" id='addressInfo' wx:if="{{isverify==0 && goods.type==0 && goods.goodstype==0}}">
+  <navigator class="fui-cell" style="padding-top:32rpx;padding-bottom:32rpx" wx:if="{{ address }}" hover-class="none"  url="/pages/member/address/select" open-type="navigate">
+      <view class="fui-cell-icon" style='margin-right:24rpx' wx:if="{{address }}"><text class="icox icox-dingwei1"></text> </view>
+      <view class="fui-cell-text textl info" style="{{address?'':'display:flex;justify-content: center;' }}">
+          <view wx:if="{{address}}" class="has-address ">
+          <view>收货人：</view><text class='name'>{{address.realname }} </text><text class="mobile">{{ address.mobile }}</text>
+          </view>
+          <view class='adress' wx:if="{{ address }}">{{ address.province+address.city+address.area+' '+address.address }}</view>
+          <view class="text no-address" bindtap='address' data-type='open' wx:if="{{ !address }}">添加收货地址</view>
+      </view>
+      <view class="fui-cell-remark"></view>
+  </navigator>
+
+  <navigator class="fui-cell" style="padding-top:32rpx;padding-bottom:32rpx" hover-class="none" wx:if="{{ !address && !isonlyverifygoods}}" hover-class="none" url="/pages/member/address/post?type=quickaddress" open-type="navigate">
+      <view class="fui-cell-text textl info" style="display:flex;justify-content: center;">
+          <view class="fui-cell-icon"  ><text class="icox icox-icon02" style='color:#ff5555'></text> </view>
+          <view class="text no-address" data-type='open'>添加收货地址</view>
+      </view>
+      <view class="fui-cell-remark"></view>
+  </navigator>
+</view>
+<!--核销人员信息 start-->
+<view class="fui-cell-group" wx:if="{{isverify==1}}">
+  <view class="fui-cell">
+      <view class="fui-cell-label">姓名</view>
+      <view class="fui-cell-info"><input type="text" placeholder="请输入姓名" class="fui-input textl" value="{{member.realname }}" bindinput="listChange" id="realname"/></view>
+  </view>
+  <view class="fui-cell">
+      <view class="fui-cell-label">电话</view>
+      <view class="fui-cell-info"><input type="text" placeholder="请输入电话" class="fui-input textl" value="{{member.mobile }}" bindinput="listChange" id="mobile"/></view>
+  </view>
+</view>
+<!--核销人员信息 end-->
+<!--门店选择 start-->
+<view class="fui-cell-group" wx:if="{{isverify==1}}">
+    <navigator class="fui-cell" hover-class="none" style="padding-top:16px;padding-bottom:16px"  url="/pages/order/store/index?merchid={{merchid}}" open-type="navigate">
+        <view class="fui-cell-text" style='margin-right:24rpx'>请选择兑换门店</view>
+        <view class="fui-cell-info textl info">
+            <view class='shop_name'>{{carrierInfo.storename}}</view>
+            <view class='adress'>{{carrierInfo.address}}</view>
+        </view>
+        <view class="fui-cell-remark"></view>
+    </navigator>
+</view>
+<!--门店选择 end-->
+
+<!--商品信息  -->
+<view class="fui-list-group">
+  <navigator class="fui-list-group-title" hover-class="none" open-type="" url="">
+    <view class='fui-cell-icon' style='margin-right: 24rpx;'>
+      <i class="icox icox-dianpu1"></i>
+    </view>
+    <view class='shop'>{{shop.name}}</view>
+  </navigator>
+  <view class="fui-list goods-item noclick">
+    <view class='fui-list-media'>
+      <image class='goods_img' src="{{goods.thumb}}" />
+    </view>
+    <view class='fui-list-inner'>
+      <view class='title'>{{goods.title}}</view>
+      <view class='text' wx:if="{{goods.hasoption>0}}">规格：{{goods.optiontitle}}</view>
+      <view class='text'>{{goods.credit}}积分<span wx:if="{{goods.money>0}}">+￥{{goods.money}}</span></view>
+    </view>
+    <view class='fui-list-angle' wx:if="{{goods.type==0}}" bindtap='number' >
+      <view class='fui-number small'>
+        <view class='minus disabled' data-action="minus">-</view>
+        <input class='num shownum' type='tel' value='{{goods.num}}' disabled='disabled'/>
+        <view class='plus' data-action="plus">+</view>
+      </view>
+    </view>
+  </view>
+</view>
+<!--买家留言 start--
+<view class="fui-cell-group">
+    <view class="fui-cell fui-cell-textarea">
+      <view class="fui-cell-label">
+          买家留言
+      </view>
+      <view class="fui-cell-info">
+          <textarea rows="2" placeholder="50字以内（选填）" id="remark" bindinput="dataChange"></textarea>
+      </view>
+  </view>
+</view>
+--买家留言 end-->
+<!--适用门店 start-->
+<view class='fui-cell-group {{togglestore}}' wx:if="{{stores.length>0 }}">
+  <view class='fui-cell' bindtap="toggle">
+        <view class="fui-cell-icon"><text class="icox icox-dianpu1"></text> </view>
+      <view class='fui-cell-label differ'>
+          <text class='store'>适用门店</text>
+      </view>
+      <view class="fui-cell-info"></view>
+      <view class='num'>{{stores.length}}</view>
+      <view class='fui-cell-remark'></view>
+  </view>
+  <view class="send-code">
+      <view class='fui-list noclick' wx:for="{{stores}}">
+          <view class="fui-list-media">
+                <text class="icox icox-dianpu1"></text>
+          </view>
+          <view class="fui-list-inner store-inner">
+              <view class="title">
+                  <text class="storename">{{ item.storename }}</text>
+              </view>
+              <view class="text">
+                  <text class="realname">{{ item.realname }} {{ item.mobile }}</text>
+              </view>
+              <view class="text">
+                  <text class="address">{{ item.address }}</text>
+              </view>
+          </view>
+          <view class="fui-list-angle ">
+               <view class='icox icox-kefu2' bindtap="phone" data-phone="{{ item.mobile }}"></view>
+
+              <navigator url="/pages/order/store/map?id={{ item.id }}&merchid={{item.merchid}}" hover-class="none" open-type="navigate">
+                  <text class="icox icox-dingwei1"></text>
+              </navigator>
+          </view>
+      </view>
+  </view>
+</view>
+<!--使用门店 end-->
+<view class="fui-cell-group">
+  <view class="fui-cell">
+      <view class='fui-cell-label'>商品小计</view>
+      <view class="fui-cell-info"></view>
+      <view class='fui-cell-remark noremark'>
+      {{goods.credit * goods.num}}积分 <span wx:if="{{goods.money>0}}">+ ￥{{goods.money * goods.num}}</span>
+      </view>
+  </view>
+  <view class="fui-cell" wx:if="{{goods.isverify==0 && dispatchprice>0}}">
+      <view class='fui-cell-label'>运费</view>
+      <view class="fui-cell-info"></view>
+      <view class='fui-cell-remark noremark'>¥
+          <text>{{dispatchprice}}</text>
+      </view>
+  </view>
+</view>
+<view style='height:100rpx;display:block;width:100%;'></view>
+<view class='fui-footer'>
+  <view class='tool nopadding'>
+    <view class='text'>
+      <view class='title text-right'>需付：
+        <text class='text-danger'>{{goods.credit * goods.num}}积分<text wx:if="{{allprice>0}}">+￥{{allprice}}</text></text>
+      </view>
+    </view>
+    <view class='btns'>
+      <text class='btn btn-danger' bindtap="pay">立即支付</text>
+    </view>
+  </view>
+</view>
+
+<!--确认兑换弹窗  -->
+<view class='showmodal' wx:if="{{showmodal}}">
+  <view class='inner'>
+    <view class='text'>确认要兑换吗</view>
+    <view class='btns'>
+      <view class='item btn-cancel' bindtap="cancel">取消</view>
+      <view class='item btn-confirm' bindtap="confirm">确定</view>
+    </view>
+  </view>
+</view>
+
+<!-- 兑换成功弹窗 -->
+<view class='successmodal' wx:if="{{successmodal}}">
+  <i class="icox icox-duihao2"></i>
+  <view class='text'>{{successmessage}}</view>
+  <view class='btn-danger' wx:if="{{successstatus}}" bindtap='success'>确定</view>
+</view>
+
+<!--选择支付方式  -->
+<view class='paymentmodal' wx:if="{{paymentmodal}}">
+  <view class='inner'>
+    <view class='item' wx:if="{{iswechat}}" bindtap='payClick' data-type="wechat">微信支付</view>
+    <view class='item' wx:if="{{iscredit}}" bindtap='payClick' data-type="credit">余额支付</view>
+    <view class='item cancel' bindtap="cancel">取消</view>
+  </view>
+</view>
+
+    <view class="fui-toast {{FoxUIToast.show?'in':'out'}}"><view class="text">{{FoxUIToast.text}}</view></view>
+    	<!--空白快  适应iponex  -->
+	<view wx:if="{{isIpx}}" style='hight: 50rpx;'></view>
+</view>

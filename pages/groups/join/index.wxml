@@ -1,0 +1,82 @@
+<!--pages/groups/join/index.wxml-->
+<view class='join'>
+  <view class='goodsinfo flex'>
+    <image src='{{data.thumb}}'></image>
+    <view class='inner flex1'>
+      <view class='title'>{{data.title}}</view>
+      <view> <text class='person'>{{data.is_ladder==1?"阶梯团":data.groupnum + "人团"}}</text></view>
+      <view class='price'>￥{{data.groupsprice}}/{{data.goodsnum}}{{data.units}} <text class='fr'>已有{{data.teamnum}}人参团</text></view>
+    </view>
+  </view>
+  <!--流程  -->
+  <view class='process'>
+    <text class='icox icox-1'></text>下单开团/参团 <text class='line'>--------</text><text class='icox icox-2'></text >邀请好友参团 <text class='line'>--------</text><text class='icox icox-3'></text>人满拼团成功
+  </view>
+  <view class='operation'>
+    <view class='text'>支付开团并邀请好友参加,人数不足自动退款</view>
+    <view class='btn btn-danger-o' data-type ='{{data.is_ladder==1?"ladder":"normal"}}' data-op ='join' bindtap='joinTeam'>我要参团</view>
+    <view data-type ='{{data.is_ladder==1?"ladder":"normal"}}' class='btn btn-danger' bindtap='joinTeam' data-op ='creat'>我要开团</view> 
+  </view>
+
+  <!--更多好团  -->
+  <view class='more'>更多好团</view>
+  <view class='fui-goods-group block'>
+    <view class="fui-goods-item" wx:for='{{teams}}'>
+      <navigator hover-class="none" url='/pages/groups/goods/index?id={{item.id}}'>
+        <view class="image" style="background-image:url({{item.thumb}})"></view>
+        <view class="detail goods_list_detail">
+          <view class="name">
+          <text>{{item.title}}</text>
+          </view>
+        <view class="price">
+          <view class="text">¥{{item.groupsprice}}</view>
+          <text>{{item.teamnum}}人参团</text> 
+        </view>
+      </view>
+      </navigator>
+    </view>
+  </view>
+</view>
+<!--蒙层  -->
+ <view class='layer' wx:if='{{layershow}}' bindtap='close'></view> 
+<!--阶梯团弹窗  -->
+ <view class='chosenum' wx:if='{{chosenum}}'>
+  <view class='title'>请选择拼团人数 <text class='price' wx:if='{{ladder_price}}'>￥{{ladder_price}}</text></view>
+  <view class='num'>
+    <view wx:for='{{ladder}}' class='{{index==selectindex?"active":""}}' bindtap='chosenum' data-index='{{index}}' data-goodsid='{{item.goods_id}}' data-price='{{item.ladder_price}}' data-id='{{item.id}}'>{{item.ladder_num}}人团</view>
+  </view>
+  <navigator bindtap='ladder_buy' class='btn btn-danger'>确定</navigator>
+  <view class='close icox icox-guanbi-copy' bindtap='close'></view>
+</view> 
+<!--多规格弹窗  -->
+ <view class='fui-modal goods-picker in goodslist'wx:if='{{options}}'>
+  <view class='option-picker'>
+    <view class='option-picker-inner'>
+      <view class='fui-list'>
+        <view class='fui-list-media'>
+           <image class='thumb' src="{{optiondata.thumb || data.thumb}}"></image>
+        </view>
+        <view class='fui-list-inner'>
+          <view class='subtitle'>{{optiondata.title || data.title}}</view>
+          <view class='price'>￥{{optiondata.price || data.groupsprice}}</view>
+        </view>
+      </view>
+      <view class='option-picker-options'>
+        <view class='option-picker-cell option spec'>
+        <block wx:for='{{spec}}' wx:for-item='items'wx:for-index='specindex'>
+          <view class='title'>{{items.title}}</view>
+          <view class='select' >
+            <view class='btn btn-default btn-sm nav spec-item {{options.status=="active"?"btn-danger":""}}' wx:for='{{items.item}}' wx:for-item='options'  data-spedid = '{{options.specid}}' bindtap='specsTap' data-idx='{{index}}' data-specindex = '{{specindex}}' data-id ='{{options.id}}'>{{options.title}}</view>
+          </view>
+        </block>
+        </view>
+      </view>
+    </view>
+    <view class='fui-navbar'>
+      <view class='btn btn-danger block' bindtap='buy' data-op='{{op}}'>{{optiondata.stock<=0?"库存不足":"确定"}}</view>
+      </view>
+  </view>
+  <view class='icox icox-guanbi-copy' style='color:#fff;text-align:center;font-size:60rpx;margin-top:30rpx;' bindtap='close'> </view> 
+</view>
+  
+

@@ -1,0 +1,172 @@
+<loading hidden="{{hidden}}" bindchange="loadingChange">
+    加载中...
+  </loading>  
+<!--搜索start-->
+<view class="category-search">
+  <view class="weui-flex">
+    <view class="weui-flex__item category-search-form">
+      <view class="flex-head-search" id="searchBar">
+        <navigator class="weui-search-bar__form" open-type="navigate" hover-class="none" url="">
+          <view class="weui-search-bar__box category-search-box">
+            <view class="flex-icon-search">
+              <i class="icox icox-search" style="color: #b4b4b4;"></i>
+            </view>
+            <input class="weui-search-bar__input flex-input" type="text" bindfocus="focus" bindinput='doinput' placeholder="输入关键字进行搜索"/>
+            <view class="searchbar-cancel searchbtn {{showbtn}}" style="top: 0; right: 0" bindtap="search" >搜索</view>
+            <navigator url="javascript:" class="weui-icon-clear" id="searchClear"></navigator>
+          </view>
+        </navigator>
+      </view>
+    </view>
+  </view>
+</view>
+<!--搜索end-->
+<!--图片start-->
+  <swiper class='con-pic' indicatorDots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}"
+  duration="{{duration}}" circular="{{circular}}" >
+      <block wx:for="{{imgUrls}}">
+        <swiper-item>
+          <image src='{{item.thumb}}' />
+        </swiper-item>
+      </block>
+  </swiper>
+<!--图片end-->
+<!--tab start-->
+<view class="menu">
+  <navigator class="item first" open-type="navigate" url="/pages/creditshop/creditlog/index">我的积分</navigator>
+  <navigator class="item" open-type="navigate" url="/pages/creditshop/log/index">兑换记录</navigator>
+</view>
+<!--tab end-->
+
+<!--分类按钮 start  -->
+<view class="fui-icon-group noborder col-4" style="background: #ffffff">
+  <block wx:for="{{category}}" wx:for-item="item">
+    <navigator class="fui-icon-col external" url="/pages/creditshop/lists/index?cate={{item.id}}" data-nocache="true">
+      <view class="icon">
+        <image src="{{item.thumb}}" />
+      </view>
+      <view class="text" style="color: #666666;">{{item.name}}</view>
+    </navigator>
+  </block>
+</view>
+<!--分类按钮 end  -->
+
+<!--  -->
+<view class="fui-cell-group fui-cell-click" style="margin-top: 20rpx; background-color: #ffffff;" wx:if="{{lotterydraws.length > 0}}">
+  <navigator class="fui-cell">
+    <view class="fui-cell-text" style="color: #333333;">抽奖专区</view>
+    <view class="fui-cell-remark" style="color: #888888;font-size: 26rpx;display:none;" bindtap="changeTo" data-url="/pages/creditshop/lists/index">更多</view>
+  </navigator>
+</view>
+<scroll-view scroll-x="true" class='fui-goods-group block' style='height: auto;white-space: nowrap;background: #fff;' wx:if="{{lotterydraws.length > 0}}">
+   <span class="fui-goods-item" style="display: inline-block;float: none;width:270rpx;padding:0;margin-right:20rpx" wx:for="{{lotterydraws}}" wx:for-item="item" data-gid="{{item.id}}" data-url="/pages/creditshop/detail/index"  bindtap="changeTo">
+    <view class="image" data-text="推荐" style="background-image: url({{item.thumb}})">
+    </view>
+    <view class="detail">
+      <view class="name" style="color: #262626; white-space: initial;">{{item.title}} </view>
+      <view class="price">
+        <span class="text" style="color: #ed2822;font-size: 30rpx;">
+          <p style="text-overflow:ellipsis;display: -webkit-box;overflow:hidden;-webkit-line-clamp: 1;-webkit-box-orient: vertical;word-break: break-all">{{item.credit}}
+            <span style="font-size: 20rpx;">积分</span><span wx:if="{{item.money>0}}">+￥{{item.money}}</span>
+          </p>
+        </span>
+      </view>
+    </view>
+  </span>
+</scroll-view>
+
+<!--  -->
+<view class="fui-cell-group fui-cell-click" style="margin-top: 20rpx; background-color: #ffffff;" wx:if="{{exchanges.length > 0}}">
+  <navigator class="fui-cell">
+    <view class="fui-cell-text" style="color: #333333;">商品兑换</view>
+    <view class="fui-cell-remark" style="color: #888888;font-size: 26rpx;display:none;" bindtap="changeTo" data-url="/pages/creditshop/lists/index">更多</view>
+  </navigator>
+</view>
+<scroll-view scroll-x="true" class='fui-goods-group block' style='height: auto;white-space: nowrap;background: #fff;' wx:if="{{exchanges.length > 0}}">
+
+   <span class="fui-goods-item" style="display: inline-block;float: none;width:270rpx;padding:0;margin-right:20rpx" wx:for="{{exchanges}}" wx:for-item="item" data-gid="{{item.id}}" data-url="/pages/creditshop/detail/index"  bindtap="changeTo">
+    <view class="image" data-text="推荐" style="background-image: url({{item.thumb}})">
+    </view>
+    <view class="detail">
+      <view class="name" style="color: #262626; white-space: initial;">{{item.title}} </view>
+      <view class="price">
+        <span class="text" style="color: #ed2822;font-size: 30rpx;">
+          <p style="text-overflow:ellipsis;display: -webkit-box;overflow:hidden;-webkit-line-clamp: 1;-webkit-box-orient: vertical;word-break: break-all">{{item.credit}}
+            <span style="font-size: 20rpx;">积分</span><span wx:if="{{item.money>0}}">+￥{{item.money}}</span>
+          </p>
+        </span>
+      </view>
+    </view>
+  </span>
+
+</scroll-view>
+
+<view class="fui-cell-group fui-cell-click" style="margin-top: 20rpx; background-color: #ffffff;" wx:if="{{coupons.length > 0}}">
+  <navigator class="fui-cell">
+    <view class="fui-cell-text" style="color: #333333;">商城优惠券</view>
+    <view class="fui-cell-remark" style="color: #888888;font-size: 26rpx;display:none;" bindtap="changeTo" data-url="/pages/creditshop/lists/index">更多</view>
+  </navigator>
+</view>
+<scroll-view scroll-x="true" class='fui-goods-group block' style='height: auto;white-space: nowrap;background: #fff;' wx:if="{{coupons.length > 0}}">
+   <span class="fui-goods-item" style="display: inline-block;float: none;width:270rpx;padding:0;margin-right:20rpx" wx:for="{{coupons}}" wx:for-item="item" data-gid="{{item.id}}" data-url="/pages/creditshop/detail/index"  bindtap="changeTo">
+    <view class="image" data-text="推荐" style="background-image: url({{item.thumb}})">
+    </view>
+    <view class="detail">
+      <view class="name" style="color: #262626; white-space: initial;">{{item.title}} </view>
+      <view class="price">
+        <span class="text" style="color: #ed2822;font-size: 30rpx;">
+          <p style="text-overflow:ellipsis;display: -webkit-box;overflow:hidden;-webkit-line-clamp: 1;-webkit-box-orient: vertical;word-break: break-all">{{item.credit}}
+            <span style="font-size: 20rpx;">积分</span><span wx:if="{{item.money>0}}">+￥{{item.money}}</span>
+          </p>
+        </span>
+      </view>
+    </view>
+  </span>
+</scroll-view>
+
+<view class="fui-cell-group fui-cell-click" style="margin-top: 20rpx; background-color: #ffffff;" wx:if="{{balances.length > 0}}">
+  <navigator class="fui-cell">
+    <view class="fui-cell-text" style="color: #333333;">余额兑换</view>
+    <view class="fui-cell-remark" style="color: #888888;font-size: 26rpx;display:none;" bindtap="changeTo" data-url="/pages/creditshop/lists/index">更多</view>
+  </navigator>
+</view>
+<scroll-view scroll-x="true" class='fui-goods-group block' style='height: auto;white-space: nowrap;background: #fff;' wx:if="{{balances.length > 0}}">
+  <block wx:for="{{balances}}" wx:for-index="idx" wx:for-item="item" >
+    <navigator url='/pages/creditshop/detail/index?id={{item.id}}' class="fui-goods-item" style="display: inline-block;float: none;width:270rpx;padding:0;margin-right:20rpx" hover-class="none" open-type='navigate'>
+      <view class="image" data-text="推荐" style="background-image: url({{item.thumb}})"></view>
+      <view class="detail">
+        <view class="name" style="color: #262626; white-space: initial;">{{item.title}} </view>
+        <view class="price">
+          <span class="text" style="color: #ed2822;font-size: 30rpx;">
+            <p style="text-overflow:ellipsis;display: -webkit-box;overflow:hidden;-webkit-line-clamp: 1;-webkit-box-orient: vertical;word-break: break-all">{{item.credit}}
+              <span style="font-size: 20rpx;">积分</span><span wx:if="{{item.money>0}}">+￥{{item.money}}</span>
+            </p>
+          </span>
+        </view>
+      </view>
+    </navigator>
+  </block>
+</scroll-view>
+
+<view class="fui-cell-group fui-cell-click" style="margin-top: 20rpx; background-color: #ffffff;" wx:if="{{redbags.length > 0}}">
+  <navigator class="fui-cell">
+    <view class="fui-cell-text" style="color: #333333;">红包兑换</view>
+    <view class="fui-cell-remark" style="color: #888888;font-size: 26rpx;display:none;" bindtap="changeTo" data-url="/pages/creditshop/lists/index">更多</view>
+  </navigator>
+</view>
+<scroll-view scroll-x="true" class='fui-goods-group block' style='height: auto;white-space: nowrap;background: #fff;' wx:if="{{redbags.length > 0}}">
+   <span class="fui-goods-item" style="display: inline-block;float: none;width:270rpx;padding:0;margin-right:20rpx" wx:for="{{redbags}}" wx:for-item="item" data-gid="{{item.id}}" data-url="/pages/creditshop/detail/index"  bindtap="changeTo">
+    <view class="image" data-text="推荐" style="background-image: url({{item.thumb}})">
+    </view>
+    <view class="detail">
+      <view class="name" style="color: #262626; white-space: initial;">{{item.title}} </view>
+      <view class="price">
+        <span class="text" style="color: #ed2822;font-size: 30rpx;">
+          <p style="text-overflow:ellipsis;display: -webkit-box;overflow:hidden;-webkit-line-clamp: 1;-webkit-box-orient: vertical;word-break: break-all">{{item.credit}}
+            <span style="font-size: 20rpx;">积分</span><span wx:if="{{item.money>0}}">+￥{{item.money}}</span>
+          </p>
+        </span>
+      </view>
+    </view>
+  </span>
+</scroll-view>

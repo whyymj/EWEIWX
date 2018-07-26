@@ -1,0 +1,103 @@
+<view class='custom' style="{{istopmenu == false ? '' : 'padding-top:' + topmenuheight +'rpx;'}}min-height:100%;background:{{diypages.page.background}}">
+  <block wx:for="{{diypages.items}}" wx:for-index="diyitemid" wx:for-item="diyitem">
+    <!--固定搜索框  -->
+    <include src="/pages/diy/template/tpl_fixedsearch.wxml" wx:if="{{diyitem.id=='fixedsearch'}}"/>
+    <!--轮播图  -->
+    <include src="/pages/diy/template/tpl_banner.wxml" wx:if="{{diyitem.id=='banner'}}"/>  
+    <!--搜索框  -->
+    <include src="/pages/diy/template/tpl_search.wxml" wx:if="{{diyitem.id=='search'}}"/> 
+    <!--公告  -->
+    <include src="/pages/diy/template/tpl_notice.wxml" wx:if="{{diyitem.id=='notice'}}"/> 
+    <!--辅助线  -->
+    <include src="/pages/diy/template/tpl_line.wxml" wx:if="{{diyitem.id=='line'}}"/> 
+    <!--辅助空白  -->
+    <include src="/pages/diy/template/tpl_blank.wxml" wx:if="{{diyitem.id=='blank'}}"/> 
+    <!--标题栏  -->
+    <include src="/pages/diy/template/tpl_title.wxml" wx:if="{{diyitem.id=='title'}}"/> 
+    <!--按钮组  -->
+    <include src="/pages/diy/template/tpl_menu.wxml" wx:if="{{diyitem.id=='menu'}}"/> 
+    <!--按钮组2  -->
+    <include src="/pages/diy/template/tpl_menu2.wxml" wx:if="{{diyitem.id=='menu2'}}"/> 
+    <!--列表导航  -->
+    <include src="/pages/diy/template/tpl_listmenu.wxml" wx:if="{{diyitem.id=='listmenu'}}"/> 
+    <!--单图组  -->
+    <include src="/pages/diy/template/tpl_picture.wxml" wx:if="{{diyitem.id=='picture'}}"/>
+    <!--图片橱窗  -->
+    <include src="/pages/diy/template/tpl_picturew.wxml" wx:if="{{diyitem.id=='picturew'}}"/> 
+    <!--优惠券  --> 
+    <include src="/pages/diy/template/tpl_coupon.wxml" wx:if="{{diyitem.id=='coupon'}}"/>  
+    <!--商品组  -->
+    <include src="/pages/diy/template/tpl_goods.wxml" wx:if="{{diyitem.id=='goods'}}"/> 
+    <!--富文本  --> 
+    <include src="/pages/diy/template/tpl_richtext.wxml" wx:if="{{diyitem.id=='richtext'}}"/> 
+    <!--视频组  -->
+    <include src="/pages/diy/template/tpl_video.wxml" wx:if="{{diyitem.id=='video'}}"/>
+    <!--版权  -->
+    <include src="/pages/diy/template/tpl_copyright.wxml" wx:if="{{diyitem.id=='copyright'}}"/>
+    <!--图片展播  -->
+    <include src="/pages/diy/template/tpl_pictures.wxml" wx:if="{{diyitem.id=='pictures'}}"/>
+    <!--图标组  -->
+    <include src="/pages/diy/template/tpl_icongroup.wxml" wx:if="{{diyitem.id=='icongroup'}}"/>  
+    <!--音频组  -->
+    <include src="/pages/diy/template/tpl_audio.wxml" wx:if="{{diyitem.id=='audio'}}"/>
+    <!--选项卡-->
+    <include src="/pages/diy/template/tpl_topmenu.wxml" wx:if="{{ diyitem.id == 'topmenu'}}"/>
+    <include src="/pages/diy/template/tpl_tabbar.wxml" wx:if="{{diyitem.id=='tabbar'}}"/>
+    <!-- 秒杀 -->
+    <include src="/pages/diy/template/tpl_seckill_times.wxml" wx:if="{{diyitem.id=='seckill_times'}}"/>
+    <include src="/pages/diy/template/tpl_seckill_rooms.wxml" wx:if="{{diyitem.id=='seckill_rooms'}}"/>
+    <include src="/pages/diy/template/tpl_seckill_advs.wxml" wx:if="{{diyitem.id=='seckill_advs'}}"/>
+    <include src="/pages/diy/template/tpl_seckill_list.wxml" wx:if="{{diyitem.id=='seckill_list'}}"/>
+  </block>
+  <view class="fui-toast {{FoxUIToast.show?'in':'out'}}"><view class="text">{{FoxUIToast.text}}</view></view>
+  <view class="nav-mask" style="{{active?'display:block':''}}" bindtap='emptyActive'></view>
+  
+  <button  wx:if="{{customer==1}}" class="suspended-service" style='background-color:{{customercolor}}' open-type="contact" session-from="weapp" show-message-card="true">
+    <text class="icox icox-customerservice"></text>
+  </button> 
+  <view class="phone" bindtap='phone' wx:if="{{phone==1}}"style='background-color:{{phonecolor}}' >
+    <text class="icox icox-dianhua"></text>
+  </view>
+  <include src="/pages/common/goods-picker.wxml"/>
+  <include src="/pages/common/city-picker.wxml"/>
+</view>
+<view class="model" wx:if="{{modelShow}}">
+	<view class="inner">
+		<view class="title">用户未授权</view>
+		<view class="image"><image src="/static/images/shouquan.png"></image></view>
+		<view class="subtitle">您需要先开启【用户信息】，才能使用此功能哦~</view>
+		<view class="model-btns">
+			<view class="cancel" bindtap="cancelclick">取消</view>
+			<view class="confirm" bindtap="confirmclick">去设置</view>
+		</view>
+	</view>
+</view>
+<!--优惠券 新人礼包  -->
+<view class='shoucoupon' wx:if="{{showcoupon}}">
+  <image src='/static/images/coupon/bg1.png' style='position: absolute; width: 620rpx;height: 820rpx;top: 130rpx;left: 50%;margin-left: -310rpx;' />
+  <view class='inner' >
+    <view class='title'>新人礼包</view>
+    <view class='subtitle'>数量有限，先到先得哦</view>
+    <scroll-view scroll-y="true" class='coupon-list'>
+      <block wx:for="{{cpinfos}}" wx:for-item="item">
+          <view class='item'>
+              <view class='item-cell'>
+                  <view class='item-inner'>
+                      <view class='t'>{{item.couponname}}</view>
+                      <view class='b'>
+                      {{item.enoughtext}}
+                      </view>
+                  </view>
+                  <view class='item-remark'>{{item.t2}}<span style="font-size:30rpx;">{{item.t1}}</span></view>
+              </view>
+              <view class='indate'>{{item.timelimittext}}</view>
+          </view>
+      </block>
+
+    </scroll-view>
+    <view class='know'  bindtap="closecoupon">知道了</view>
+  </view>
+  <view class='closecoupon'>
+    <i class="icox icox-guanbi-copy" bindtap="closecoupon"></i>
+  </view>
+</view>

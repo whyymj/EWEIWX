@@ -1,0 +1,41 @@
+<loading wx:if="{{ !show }}">加载中...</loading>
+<view class="page" wx:if="{{ show }}">
+
+    <view class="fui-cell-group">
+        <view class="fui-cell must">
+            <view class="fui-cell-label">手机号</view>
+            <view class="fui-cell-info"><input type="number" class="fui-input" maxlength="11" placeholder="请输入您的手机号" value="{{ postData.mobile }}" bindinput="inputChange" data-type="mobile" /></view>
+        </view>
+        <view class="fui-cell must" wx:if="{{ smsimgcode==1 }}">
+            <view class="fui-cell-label">图形验证码</view>
+            <view class="fui-cell-info"><input type="number" class="fui-input" maxlength="5" placeholder="请输入图形验证码" value="{{ postData.verifyImg }}" bindinput="inputChange" data-type="verifyImg" /></view>
+            <view class="fui-cell-remark noremark">
+                <image src="{{ verifycode_img }}" bindtap="imageChange"></image>
+            </view>
+        </view>
+        <view class="fui-cell must">
+            <view class="fui-cell-label">验证码</view>
+            <view class="fui-cell-info"><input type="number" class="fui-input" maxlength="5" placeholder="5位验证码" value="{{ postData.code }}" bindinput="inputChange" data-type="code" /></view>
+            <view class="fui-cell-remark noremark">
+                <text class="btn btn-default btn-default-o btn-sm {{ endtime>0?'disabled':'' }}" bindtap="getCode">{{ endtime>0?endtime+'秒后重发':'获取验证码' }}</text>
+            </view>
+        </view>
+        <view class="fui-cell must">
+            <view class="fui-cell-label">登录密码</view>
+            <view class="fui-cell-info">
+                <input type="password" class="fui-input" placeholder="请输入您的登录密码" value="{{ postData.password }}" bindinput="inputChange" data-type="password" />
+            </view>
+        </view>
+        <view class="fui-cell must">
+            <view class="fui-cell-label">确认密码</view>
+            <view class="fui-cell-info">
+                <input type="password" class="fui-input" placeholder="请输入确认登录密码" value="{{ postData.password1 }}" bindinput="inputChange" data-type="password1" />
+            </view>
+        </view>
+    </view>
+
+    <view class="btn btn-danger block" bindtap="submit">{{ subtext }}</view>
+
+    <view class="fui-toast {{FoxUIToast.show?'in':'out'}}"><view class="text">{{FoxUIToast.text}}</view></view>
+
+</view>

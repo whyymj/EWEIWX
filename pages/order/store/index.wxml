@@ -1,0 +1,31 @@
+<loading wx:if="{{ !show }}">加载中...</loading>
+<view class='page' wx:if="{{ show }}">
+    <view class="fui-header">
+        <view class="searchbar">
+            <icon type="search" size="18"></icon>
+			<input name="search" bindfocus="bindSearch" placeholder="输入关键字进行搜索" bindinput="search"/>
+		</view>
+        <view class='{{search?"block":"none"}}'>搜索</view>
+    </view>
+
+   <view class='fui-cell-group shop'>
+        <view class="fui-list" wx:for="{{ list }}">
+            <view class='fui-list-media'>
+                 <text class="icox icox-dianpu1" style='font-size:40rpx'></text>
+            </view>
+            <view class='fui-list-inner' bindtap="select" data-index="{{ index }}">
+                <view class='subtitle'>{{ item.storename }}</view>
+                 <view class='text'>{{ item.realname }} {{ item.mobile }}</view> 
+                <view class='text'>地址：{{ item.address }}</view>
+            </view>
+            <view class='fui-list-angle'>
+                <navigator bindtap="phone" data-phone="{{ item.mobile }}">
+                     <text class="icox icox-dianhua"></text>
+                </navigator>
+                <navigator url="/pages/order/store/map?id={{ item.id }}" hover-class="none" open-type="redirect">
+                     <text class="icox icox-dingwei1"></text>
+                </navigator>
+            </view>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,79 @@
+<!--pages/groups/imdex/index.wxml-->
+<view class='page' style='{{isIpx?"padding-bottom:168rpx":""}}'>
+<!--幻灯片  -->
+  <!-- <view class='banner'>
+   <swiper style='height:{{advheight}}rpx'>
+     <block wx:for="{{res.advs}}">
+        <swiper-item>
+          <image src="{{item.thumb}}" class="slide-image" style='width:750rpx;height:auto' mode='widthFix' bindload='advheight' bindtap='navigate' data-link = "{{item.link}}"/>
+        </swiper-item>
+      </block>
+   </swiper>
+  </view> -->
+<!--分类  -->
+<block wx:if='{{res.category.length>0 || res.recgoods.length>0 }}'>
+  <view class='fui-icon-group noborder col-4' >
+    <navigator url='/pages/groups/category/index?id={{item.id}}' class="fui-icon-col external" wx:for='{{res.category}}'>
+          <view class='icon'>
+            <image class='radius' 
+              src='{{item.thumb}}'>
+            </image>
+          </view> 
+          <view class='text'>
+            {{item.name}}
+          </view>
+      </navigator>
+  </view>
+  <!--热卖  -->
+  <view class='fui-list-group'>
+    <navigator class='fui-list' url='/pages/groups/goods/index?id={{item.id}}' wx:for='{{res.recgoods}}'>
+      <view class='fui-list-media'>
+        <image class='radius' 
+              src='{{item.thumb}}'>
+            </image>
+      </view>
+      <view class='fui-list-inner'>
+        <view class='des'>
+        <text class='person'>{{item.is_ladder==1?"阶梯团":item.groupnum + "人团"}}</text>{{item.title}}
+        </view>
+        <text class='line'>原价￥{{item.price}}</text>
+        <view class='price'>
+          <text>￥{{item.groupsprice}}</text>
+          <view class='groupbtn'>去拼团</view>
+        </view>
+      </view>
+    </navigator>
+  </view>
+</block>
+<view class='backHome'></view>
+<!--数据为空  -->
+ <view class='empty' wx:if='{{res.recgoods.length == 0 }}'>
+  <image src='/static/images/search_empty.png'></image>
+  <view class='text'>未找到任何活动</view>
+</view> 
+
+<!--底部导航  -->
+<view class='fui-navbar footer-nav {{iphonexnavbar}}'>
+    <navigator  url='/pages/index/index' class='nav-item' hover-class="none" open-type='switchTab'>
+      <span class="icox icox-back"></span>
+      <span class="label">返回商城</span>
+    </navigator>
+    <navigator class='nav-item active' hover-class="none" open-type='reLaunch'>
+      <span class="icox icox-shouye1"></span>
+      <span class="label">拼团首页</span>
+    </navigator>
+    <navigator url='/pages/groups/category/index' class='nav-item' hover-class="none" open-type='reLaunch'>
+      <span class="icox icox-quanbukanjia"></span>
+      <span class="label">活动列表</span>
+    </navigator>
+    <navigator url='/pages/groups/order/index' class='nav-item' hover-class="none" open-type='reLaunch'>  
+      <span class="icox icox-kanjiazhong"></span>
+      <span class="label">我的订单</span>
+    </navigator>
+    <navigator url='/pages/groups/mygroups/index' class='nav-item' hover-class="none" open-type='reLaunch'>
+      <span class="icox icox-yigoumai"></span>
+      <span class="label">我的团</span>
+    </navigator>
+  </view>
+  <view class='{{isIpx?"fui-iphonex-button":""}}'></view>
+</view>

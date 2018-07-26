@@ -1,0 +1,147 @@
+@import "static/css/foxui.wxss";
+@import "static/css/base.wxss";
+@import "static/css/icon.wxss"; 
+@import "static/css/iconfont.wxss"; 
+
+page{
+    background-color: #f3f3f3;
+    font-size: 16px;
+    height: 100%;
+    font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+}
+.page{
+    overflow-x: hidden;
+    height:auto;  
+    min-height:100%; 
+    overflow-y:scroll; 
+}
+.page.navbar,
+.page.footer {
+    padding-bottom: 120rpx;
+}
+.page.navbar-footer,
+.page.footer-navbar {
+    padding-bottom: 200rpx;
+}
+ /* .page.navbar-footer .fui-navbar,
+.page.footer-navbar .fui-footer {
+    bottom: 100rpx;
+}  */
+.page.navbar-footer .fui-footer,
+.page.footer-navbar .fui-navbar {
+    bottom: 0;
+}
+
+.page.header {
+    padding-top: 88rpx;
+}
+
+.page.header-sort {
+    padding-top: 168rpx;
+}
+
+.show {
+    display: block !important;
+}
+.hidden {
+    display: none !important;
+}
+.center{
+    text-align: center !important;
+}
+.right{
+  text-align: right !important;
+}
+.inline {
+    display: inline-block;
+}
+
+.fui-iphonex-button {
+  width: 100%;
+  z-index: 9999;
+  height: 68rpx;
+  position: fixed;
+  left: 0;
+  bottom:0;
+  background: #fff;
+}
+/*ipone X*/
+.fui-navbar.bottom-buttons.fui-iphonex-navbar{
+  bottom: 68rpx;
+}
+.detailbtn-group.fui-iphonex-navbar{
+  bottom: 68rpx;
+}
+.fui-navbar.fui-iphonex-navbar{
+  bottom: 68rpx;
+}
+.bottom-buttons.fui-iphonex-navbar{
+  bottom: 68rpx;
+}
+.picker-modal.in.fui-iphonex-navbar{
+  bottom: 68rpx;
+}
+.fui-modal.in.fui-iphonex-navbar{
+  bottom: 68rpx;
+}
+.inner.in.fui-iphonex-navbar{
+  bottom: 68rpx;
+}
+.fui-footer.fui-iphonex-navbar{
+  bottom: 68rpx;
+}
+.page.footer.padding-b{
+  padding-bottom: 170rpx;
+}
+.page.navbar.padding-b{
+  padding-bottom: 170rpx;
+}
+
+/*优惠券顶部提示  */
+.coupontips{
+  height: 88rpx;
+	background: #fdfde5;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 188;
+	color: #ff8000;
+	font-size: 26rpx;
+	line-height: 88rpx;
+	padding-left: 20rpx;
+  display: flex;
+}
+.coupontips .text{
+  flex: 1;
+}
+.coupontips .close{
+  width:80rpx;
+}
+
+
+/*周期购标签*/
+.cycle-tip {
+  font-size: 24rpx;
+  font-style: normal;
+  padding: 4rpx 8rpx 4rpx; 
+  color: #fff;
+	width: 92rpx;
+  margin-right: 4rpx;
+	border-radius: 8rpx;
+  /* vertical-align: top; */
+	background: rgb(255, 22, 45);
+	background: radial-gradient(ellipse at bottom left, rgba(255, 115, 94, 1) 30%, rgba(255, 51, 51, 1) 57%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff4d81', endColorstr='#ff162d', GradientType=1);  
+}
+.bargain_label{
+  display: inline-block;
+  width: 50rpx;
+  height: 24rpx;
+  vertical-align: middle;
+  margin-top: -5rpx;
+  margin-right: 10rpx
+}
+rich-text img{
+  vertical-align: middle;
+  max-width: 100% !important
+}

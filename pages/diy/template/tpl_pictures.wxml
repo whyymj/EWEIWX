@@ -1,0 +1,30 @@
+ <!--图片展播单页展示  --> 
+<block wx:if="{{diyitem.params.showtype==0}}" style=''>
+  <view class="fui-pictures single row-{{diyitem.params.rownum}}" style='padding:{{diyitem.style.paddingtop*2}}rpx {{diyitem.style.paddingleft*2}}rpx;background:{{diyitem.style.background}};'>
+    <block wx:for='{{diyitem.data}}' wx:for-index='idx' wx:for-item='item'>
+      <view data-url='{{item.linkurl}}' bindtap='navigate' class="item" style='padding:10rpx'>
+          <view class="image" style='text-align:{{diyitem.style.titlealign}};color:{{diyitem.style.titlecolor}}'>
+              <image src='{{item.imgurl}}' mode='widthFix'></image>
+              <view class="title" style='color:{{item.titlecolor}}'>{{item.title}}</view>
+          </view>
+          <view class="text" style='text-align:{{diyitem.style.textalign}};color:{{diyitem.style.textcolor}}'>{{item.text}}</view>
+      </view>
+    </block>
+  </view>
+</block>
+<!--图片展播滑动样式  -->
+<block wx:else>
+  <view style='overflow:hidden;white-space:nowrap;padding:{{diyitem.style.paddingtop*2}}rpx {{diyitem.style.paddingleft*2}}rpx;background:{{diyitem.style.background}};'>
+    <scroll-view class='fui-pictures row-{{diyitem.params.rownum}}'scroll-x>
+    <block wx:for='{{diyitem.data}}' wx:for-index='idx' wx:for-item='item'>
+      <view data-url='{{item.linkurl}}' bindtap='navigate' class="item" style='padding:10rpx'>
+        <view class='image' style="text-align:{{diyitem.style.titlealign}};color:{{diyitem.style.titlecolor}}">
+          <image src='{{item.imgurl}}'  mode='widthFix' />
+          <view class="title" style='color:{{item.titlecolor}}'>{{item.title}}</view>
+        </view>
+        <view class="text" style='text-align:{{diyitem.style.textalign}};color:{{diyitem.style.textcolor}}'>{{item.text}}</view>
+      </view>  
+    </block>  
+  </scroll-view> 
+  </view>
+</block>

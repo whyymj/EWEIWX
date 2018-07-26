@@ -1,0 +1,563 @@
+<view class="{{isIpx?'fui-iphonex-button':''}}"></view>
+<loading wx:if="{{ !show }}">加载中...</loading>
+<view class="page footer {{paddingb}}" wx:if="{{ show }}">
+  <view class="nav" wx:if="{{ list.showTab && !list.isonlyverifygoods}}">
+    <view class="{{ data.dispatchtype==0?'red':'default' }}" bindtap="dispatchtype" data-type="0">快递配送</view>
+    <view class="{{ data.dispatchtype==1?'red':'default' }}" wx:if="{{ list.iscycelbuy != 1 }}" bindtap="dispatchtype" data-type="1">上门自提</view>
+  </view>
+
+  <!--快递配送-->
+  <view>
+    <block wx:if="{{ list.showAddress && !list.isonlyverifygoods }}">
+      <!--地址信息-->
+      <view class="fui-cell-group" id='addressInfo' wx:if="{{ data.dispatchtype==0}}">
+        <navigator class="fui-cell" style="padding-top:32rpx;padding-bottom:32rpx" wx:if="{{ list.address }}" hover-class="none" url="/pages/member/address/select" open-type="navigate">
+
+          <view class="fui-cell-icon" style='margin-right:24rpx' wx:if="{{list.address }}">
+            <text class="icox icox-dingwei1"></text> </view>
+          <view class="fui-cell-text textl info" style="{{list.address?'':'display:flex;justify-content: center;' }}">
+
+            <view class="fui-cell-icon" wx:if="{{ !list.address }}">
+              <text class="icox icox-icon02" style='color:#ff5555'></text> </view>
+            <view wx:if="{{ list.address }}" class="has-address ">
+              <view>收货人：</view>
+              <text class='name'>{{ list.address.realname }} </text>
+              <text class="mobile">{{ list.address.mobile }}</text>
+            </view>
+            <view class='adress' wx:if="{{ list.address }}">{{ list.address.province+list.address.city+list.address.area+' '+list.address.address }}</view>
+            <view class="text no-address" bindtap='address' data-type='open' wx:if="{{ !list.address }}">添加收货地址</view>
+          </view>
+          <view class="fui-cell-remark"></view>
+        </navigator>
+
+        <navigator class="fui-cell" style="padding-top:32rpx;padding-bottom:32rpx" hover-class="none" wx:if="{{ !list.address && !list.isonlyverifygoods}}" hover-class="none" url="/pages/member/address/post?type=quickaddress" open-type="navigate">
+          <view class="fui-cell-text textl info" style="display:flex;justify-content: center;">
+            <view class="fui-cell-icon">
+              <text class="icox icox-icon02" style='color:#ff5555'></text> </view>
+            <view class="text no-address" data-type='open'>添加收货地址</view>
+          </view>
+          <view class="fui-cell-remark"></view>
+        </navigator>
+
+        <!-- <view class="fui-cell" style="padding-top:32rpx;padding-bottom:32rpx" hover-class="none" wx:if="{{false }}">                    
+                    <view class="fui-cell-text textl info" style="display:flex;justify-content: center;">
+                        <view class="fui-cell-icon"  ><text class="icox icox-icon02" style='color:#ff5555'></text> </view>
+                        <view class="text no-address"  bindtap='showaddressview' data-type='open'>添加收货地址</view>
+                    </view>
+                    <view class="fui-cell-remark"></view>
+                </view> -->
+
+      </view>
+
+      <!--周期购  -->
+      <view class="fui-cell-group" wx:if="{{ list.iscycelbuy }}">
+        <view class="fui-cell">
+          <view class="fui-cell-icon">
+            <i class="icox icox-xiangmuzhouqi" style="color: #ff6a54;"></i>
+          </view>
+          <view class="fui-cell-info" style="color: #333;">周期购</view>
+        </view>
+        <view class="fui-cycle">
+          <view class="fui-cycle-left" style="background-color: #ffe8df;" bindtap='editdate'>
+            <view class="text">预计送达时间</view>
+            <view class="date">
+              <span class="predicttime" data-date="">{{currentDate}}</span>
+              <i class="icox icox-xiugai select-showtime" style="font-size: 24rpx; margin-left:4rpx"></i>
+            </view>
+          </view>
+          <view class="fui-cycle-right">
+            <view class="text">套餐内容</view>
+            <view class="date">
+              <span class="cycel_day">{{ list.cycelComboDay }}</span>
+              <span wx:if="{{ list.cycelComboUnit == '0'}}">天</span>
+              <span wx:if="{{ list.cycelComboUnit == '1'}}">周</span>
+              <span wx:if="{{ list.cycelComboUnit == '2'}}">月</span>1期，共
+              <span class="cycel_num">{{ list.cycelComboPeriods }}</span>期</view>
+          </view>
+        </view>
+      </view>
+
+      <!--自提点选择-->
+      <view class="fui-cell-group" wx:if="{{ data.dispatchtype==1}}">
+        <navigator class="fui-cell" hover-class="none" style="padding-top:16px;padding-bottom:16px" url="/pages/order/store/index?merchid={{merchid}}" open-type="navigate">
+
+          <view class="fui-cell-icon" style='margin-right:24rpx'>
+            <text class="icox icox-dianpu1"></text> </view>
+          <view class="fui-cell-text textl info">
+            <view class='shop_name'>{{ list.carrierInfo.storename }}</view>
+            <view class='adress'>{{ list.carrierInfo.address }}</view>
+          </view>
+          <view class="fui-cell-remark"></view>
+        </navigator>
+      </view>
+    </block>
+
+
+
+    <view class="fui-cell-group" wx:if="{{ !list.showAddress||data.dispatchtype==1 }}">
+      <view class="fui-cell">
+        <view class="fui-cell-label">姓名</view>
+        <view class="fui-cell-info">
+          <input type="text" placeholder="请输入姓名" class="fui-input textl" value="{{ list.member.realname }}" bindinput="listChange" id="realname" />
+        </view>
+      </view>
+      <view class="fui-cell">
+        <view class="fui-cell-label">电话</view>
+        <view class="fui-cell-info">
+          <input type="text" placeholder="请输入电话" class="fui-input textl" value="{{ list.member.mobile }}" bindinput="listChange" id="mobile" />
+        </view>
+      </view>
+    </view>
+
+
+    <!--核销门店选择-->
+      <view class="fui-cell-group" wx:if="{{ list.isforceverifystore==1 && list.isverify==1}}">
+        <navigator class="fui-cell" hover-class="none" style="padding-top:16px;padding-bottom:16px" url="/pages/order/store/index?merchid={{merchid}}&ids={{list.storeids}}&type=2" open-type="navigate">
+          
+          <view class="fui-cell-icon" style='margin-right:24rpx'>
+            <text class="icox icox-dianpu1"></text> </view><text wx:if="{{ !list.storeInfo }}">请选择门店</text>  
+          <view class="fui-cell-text textl info">
+             <view class='shop_name'>{{ list.storeInfo.storename }}</view>
+             <view class='adress'>{{ list.storeInfo.address }}</view> 
+          </view>
+          <view class="fui-cell-remark"></view>
+        </navigator>
+      </view>
+
+
+    <!--同城配送-->
+    <block wx:if="{{city_express_state}}">
+      <view class="fui-cell-group" bindtap="sendclick">
+        <view class="fui-cell">
+          <view class="fui-cell-label" style="width: 50rpx;">
+            <i class="icox icox-huoche" style="color: #21ca4d;"></i>
+          </view>
+          <view class="fui-cell-info">本单支持同城配送</view>
+          <view class="fui-cell-remark"></view>
+        </view>
+      </view>
+    </block>
+
+
+    <!--商品信息-->
+    <view class='fui-list-group' wx:for="{{ list.goods }}">
+      <navigator url="/pages/index/index" class='fui-list-group-title' open-type="switchTab" hover-class="none">
+
+        <view class="fui-cell-icon" style="margin-right:12px">
+          <text class="icox icox-dianpu1"></text> </view>
+        <text class='shop'>{{ item.shopname }}</text>
+      </navigator>
+      <view class='fui-list goods-item noclick' wx:for="{{ item.goods }}" wx:for-index="key" wx:for-item="val">
+        <view class="fui-list-media" data-url="/pages/goods/detail/index?id={{ val.goodsid }}" bindtap="url">
+          <image class=" goods_img" src="{{ val.thumb }}" />
+        </view>
+        <view class="fui-list-inner" data-url="/pages/goods/detail/index?id={{ val.goodsid }}" bindtap="url">
+          <view class="text">
+            <block wx:if="{{ val.hasdiscount }}">
+              <text class='fui-label fui-label-danger'>折扣</text>
+            </block>{{ val.title }}</view>
+          <view class="subtitle cart-option" wx:if="{{ val.optionid!=0 }}">
+            {{ val.optiontitle }}
+          </view>
+        </view>
+        <view class="fui-list-angle">
+          <view class="fui-cell text-danger" wx:if="{{ list.isdiscountprice>0 }}">￥{{ val.promotionprice }}</view>
+          <text class="price" style="text-decoration:{{ list.isdiscountprice > 0 ? 'line-through': '' }}">¥{{ val.price }}</text>
+          <view wx:if="{{ list.changenum && list.iscycelbuy != true && bargainid <= 0}}" class="fui-number small" bindtap='number' data-min="{{ val.minbuy }}" data-value="{{ val.total }}" data-max="{{ val.totalmaxbuy }}" data-id="{{ val.id }}" data-index="{{index}}" data-key="{{key}}">
+            <view class="minus {{ val.total<=1?'disabled':'' }}" data-action="minus">-</view>
+            <input class="num shownum" type="tel" name="" value="{{val.total }}" bindblur="inputNumber" />
+            <view class="plus {{ val.total>=val.totalmaxbuy?'disabled':'' }}" data-action="plus">+</view>
+          </view>
+          <view wx:elif="{{ !list.changenum || list.iscycelbuy == true || bargainid > 0}}" class="text-right">
+            x{{ val.total }}
+          </view>
+        </view>
+      </view>
+
+      <!--赠品-->
+      <block wx:if="{{list.giftid>0}}">
+        <view class="fui-list no-border" style="background: #f9f9f9;margin-top: 4rpx">
+          <block wx:for="{{list.gift}}" wx:for-item="val">
+            <view class="fui-list-media" wx:if="{{index<5}}">
+              <image src="{{val.thumb}}" style="width:100rpx;height:100rpx;" />
+            </view>
+          </block>
+          <view class="fui-list-inner"></view>
+          <view class="row-remark">
+            <view>
+              <text>共{{list.gift.length}}件</text>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <block wx:if="{{list.giftid==0 && gifts}}">
+      <view class="fui-cell-group fui-sale-group" bindtap='giftPicker'>
+        <view class="fui-cell">
+          <view class="fui-cell-label">赠品</view>
+          <!-- <view class="fui-cell-info">{{list.gifts.length==1?'满'+list.gifts[0].orderprice+'送 '+list.gifts[0].title:''}}</view>  -->
+          <view class="fui-cell-info" wx:if="{{list.gifts.length==1}}">{{list.gifts[0].title}}</view>
+          <view class="fui-cell-info" wx:else style='{{gift_title?"":"color:#666;"}}'>{{gift_title?gift_title:'请选择赠品'}}</view>
+          <view class="fui-cell-remark"></view>
+        </view>
+      </view>
+    </block>
+    <!--全返-->
+    <view class="fui-cell-group bordertop" style="margin-top: 0;">
+      <view class="fui-cell" wx:if="{{list.fullbackgoods != '' && list.fullbackgoods != undefined}}">
+        <view class="fui-cell-label">{{ list.fullbacktext }}详情</view>
+        <view class="fui-cell-info">
+          <i style="color: #ff5555;position: relative;top: 4rpx;margin-right: 5rpx;" class="icox icox-xiaofei1"></i> 总金额
+          <i style="color: #ff5555;">
+            <block wx:if="{{list.fullbackgoods.type == 0}}">￥{{list.fullbackgoods.minallfullbackallprice}}</block>
+            <block wx:if="{{list.fullbackgoods.type == 1}}">{{list.fullbackgoods.minallfullbackallratio}}%</block>
+          </i> ,每天返
+          <i style="color: #ff5555;">
+            <block wx:if="{{list.fullbackgoods.type == 0}}">￥{{list.fullbackgoods.fullbackprice}}</block>
+            <block wx:if="{{list.fullbackgoods.type == 1}}">{{list.fullbackgoods.fullbackratio}}%</block>
+          </i> ，时间：
+          <i style="color: #ff5555;">{{list.fullbackgoods.day}}天</i>
+        </view>
+      </view>
+    </view>
+
+    <!-- 发票信息 -->
+    <view class='fui-list-group' wx:if="{{ hasinvoice }}">
+      <view class="fui-cell-group">
+        <view class="fui-cell">
+          <view class="fui-cell-label">发票抬头</view>
+          <view class="fui-cell-info">
+            <input type="text" name="" class="fui-input" value="{{ list.invoicename }}" disabled="true" bindtap="showinvoicepicker" bindinput="listChange" id="invoicename" />
+          </view>
+        </view>
+        <view class="fui-cell">
+          <view class="fui-cell-info" style="text-align: right;">共
+            <text class="text-danger">{{ list.total }}</text> 件商品 合计：
+            <text class="text-danger">¥ {{ list.goodsprice }}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 发票picker -->
+    <view class="fui-mask" style='display:block' wx:if="{{invoicepicker}}"></view>
+    <view class="{{ invoicepicker?'invoice-picker':'invoice-picker invoice-pickernone' }}">
+      <view style='flex: 1;' bindtap="noinvoicepicker"></view>
+      <view class='whiteinvoice'>
+        <!-- <view class='invoicetit' style='text-align: right'></view> -->
+        <view class='invoicetit'>发票材质 <text style='float: right;text-align: right;padding-left:50rpx;' bindtap="clearinvoice">清空</text></view>
+        <view class='flex invoice-title'>
+          <view wx:if="{{ list.invoice_type!=0 }}" class="{{ list.invoice_info.entity?'':'active' }}" bindtap="chaninvoice" data-type="0">电子普通发票</view>
+          <view wx:if="{{ list.invoice_type!=1 }}" class="{{ list.invoice_info.entity?'active':'' }}" bindtap="chaninvoice" data-type="1">纸质普通发票</view>
+        </view>
+        <view class='invoicetit'>发票类型</view>
+        <view class='flex invoice-title'>
+          <view class="{{ list.invoice_info.company?'':'active'}}" bindtap="changeType" data-type="0">个人</view>
+          <view class="{{ list.invoice_info.company?'active':''}}" bindtap="changeType" data-type="1">单位</view>
+        </view>
+
+        <view class='flex'>
+          <text class='invoicesubtit'>发票抬头：</text>
+          <input type='text' value="{{ list.invoice_info.title?list.invoice_info.title:'' }}" bindblur='invoicetitle'></input>
+        </view>
+        <view class='flex' wx:if="{{ list.invoice_info.company }}">
+          <text class='invoicesubtit'>纳税人识别号：</text>
+          <input type='text' value="{{ list.invoice_info.number?list.invoice_info.number:'' }}" bindblur='invoicenumber'></input>
+        </view>
+        <!-- <view class='flex'>
+          <text class='invoicesubtit'>发票金额：</text>
+          <input type='text' value=''></input>
+        </view>
+        <view class='flex'>
+          <text class='invoicesubtit'>发票内容：</text>
+          <input type='text' value=''></input>
+        </view> -->
+        <view class='btn btn-danger' bindtap="confirminvoice">确定</view>
+      </view>
+    </view>
+
+    <!--买家留言-->
+    <view class="fui-cell-group">
+      <view class="fui-cell fui-cell-textarea">
+        <view class="fui-cell-label">
+          买家留言
+        </view>
+        <view class="fui-cell-info">
+          <textarea wx:if="{{!cycledate&&!invoicepicker}}" rows="2" placeholder="50字以内（选填）" id="remark" bindinput="dataChange"></textarea>
+        </view>
+      </view>
+    </view>
+
+    <view class="fui-cell-group clearform" wx:if="{{ diyform.fields!=null && diyform.fields.length>0 }}">
+      <view class="fui-cell" bindtap='clearform'>
+        <view class="fui-cell-info">表单</view>
+        <view class='fui-cell-remark noremark' style='color:#999'>
+          <text class='icox icox-delete' style='font-size:26rpx'></text> 清空</view>
+      </view>
+    </view>
+    <include src="/pages/common/diyform.wxml" />
+    <include src="/pages/common/city-picker.wxml" />
+    <view class="fui-mask {{ showPicker||gift?'show':'' }}"></view>
+    <include src="/pages/common/gift-picker.wxml" />
+    <!--优惠券余额-->
+    <view class="fui-cell-group">
+      <navigator class="fui-cell" hover-class="none" url="/pages/public/coupon/index?type=0" wx:if="{{ list.couponcount>0 }}" open-type="navigate">
+        <view class="fui-cell-info" style='color:#666'>{{ !data.couponname?"选择优惠券":"已选择优惠券："+data.couponname }}</view>
+        <view class="fui-cell-remark">
+          <view class='badge badge-danger'>{{ list.couponcount }}</view>
+        </view>
+        <text class="text" wx:if="{{ list.couponcount<=0 }}">无可用</text>
+      </navigator>
+      <view class="fui-cell" wx:if="{{ list.deductcredit>0 }}">
+        <text class='text-danger'>{{ list.deductcredit }}</text>
+        <view class="fui-cell-label" style='text-align:left;width:auto'>积分可抵扣
+          <text class='text-danger'>{{ list.deductmoney }}</text> 元
+        </view>
+        <view class="fui-cell-info">
+          <switch class='switch-80 pull-right' bindchange="dataChange" id="deduct" />
+        </view>
+      </view>
+      <view class="fui-cell" wx:if="{{ list.deductcredit2>0 }}">
+        <view class="fui-cell-label" style='text-align:left;width:auto'>余额可抵扣
+          <text class='text-danger'>{{ list.deductcredit2 }}</text> 元
+        </view>
+        <view class="fui-cell-info">
+          <switch class='switch-80 pull-right' bindchange="dataChange" id="deduct2" />
+        </view>
+      </view>
+    </view>
+
+    <view class='fui-cell-group {{ toggleStore?"toggleSend-group":"" }}' wx:if="{{ list.stores.length>0 && list.isforceverifystore!=1}}">
+      <view class='fui-cell' bindtap="toggle" data-id="{{ toggleStore }}" data-type="toggleStore">
+        <view class="fui-cell-icon">
+          <text class="icox icox-dianpu1"></text> </view>
+        <view class='fui-cell-label differ'>
+          <text class='store'>适用门店</text>
+        </view>
+        <view class="fui-cell-info"></view>
+        <view class='num'>{{ stores.length }}</view>
+        <view class='fui-cell-remark'></view>
+      </view>
+      <view class="send-code">
+        <view class='fui-list noclick' wx:for="{{ list.stores }}">
+          <view class="fui-list-media">
+            <text class="icox icox-dianpu1"></text>
+          </view>
+          <view class="fui-list-inner store-inner">
+            <view class="title">
+              <text class="storename">{{ item.storename }}</text>
+            </view>
+            <view class="text">
+              <text class="realname">{{ item.realname }} {{ item.mobile }}</text>
+            </view>
+            <view class="text">
+              <text class="address">{{ item.address }}</text>
+            </view>
+          </view>
+          <view class="fui-list-angle ">
+            <view class='icox icox-kefu2' bindtap="phone" data-phone="{{ item.mobile }}"></view>
+            <navigator url="/pages/order/store/map?id={{ item.id }}&merchid={{item.merchid}}" hover-class="none" open-type="navigate">
+              <text class="icox icox-dingwei1"></text>
+            </navigator>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="fui-cell-group">
+      <view class="fui-cell">
+        <view class='fui-cell-label'>商品小计</view>
+        <view class="fui-cell-info"></view>
+        <view class='fui-cell-remark noremark'>¥
+          <text>{{ispackage?originalprice: list.goodsprice }}</text>
+        </view>
+      </view>
+      <view class="fui-cell" wx:if="{{ ispackage }}">
+        <view class='fui-cell-label'>套餐优惠</view>
+        <view class="fui-cell-info"></view>
+        <view class='fui-cell-remark noremark'>-¥
+          <text>{{comboprice}}</text>
+        </view>
+      </view>
+      <view class="fui-cell" wx:if="{{ list.buyagain>0 }}">
+        <view class='fui-cell-label'>重复购买优惠</view>
+        <view class="fui-cell-info"></view>
+        <view class='fui-cell-remark noremark'>-¥
+          <text>{{ list.buyagain }}</text>
+        </view>
+      </view>
+      <view class="fui-cell" wx:if="{{ list.taskdiscountprice>0 }}">
+        <view class='fui-cell-label'>任务活动优惠</view>
+        <view class="fui-cell-info"></view>
+        <view class='fui-cell-remark noremark'>-¥
+          <text>{{ list.taskdiscountprice }}</text>
+        </view>
+      </view>
+      <view class="fui-cell" bindtap='selectCard' wx:if="{{card_info.all_mycardlist.length > 0}}">
+        <view class='fui-cell-label'>会员卡</view>
+        <view class="fui-cell-info"></view>
+        <view class='fui-cell-remark'>
+          <text class='text-danger'>{{cardname || '未使用会员卡'}}</text>
+        </view>
+      </view>
+      
+      <view class="fui-cell" wx:if="{{card_info.length != 0 && carddiscountprice != 0}}">
+        <view class='fui-cell-label'>会员卡优惠</view>
+        <view class="fui-cell-info"></view>
+        <view class='fui-cell-remark noremark'>-￥{{carddiscountprice}}</view>
+      </view>
+      <view class="fui-cell" wx:if="{{ list.discountprice>0 }}">
+        <view class='fui-cell-label'>会员优惠</view>
+        <view class="fui-cell-info"></view>
+        <view class='fui-cell-remark noremark'>-¥<text>{{ list.discountprice }}</text>
+        </view>
+      </view>
+      <view class="fui-cell" wx:if="{{ list.isdiscountprice>0 }}">
+        <view class='fui-cell-label'>促销优惠</view>
+        <view class="fui-cell-info"></view>
+        <view class='fui-cell-remark noremark'>-¥
+          <text>{{ list.isdiscountprice }}</text>
+        </view>
+      </view>
+      <view class="fui-cell" wx:if="{{ list.showenough }}">
+        <view class="fui-cell-label" style='text-align:left;width:auto'>商城单笔满
+          <text class='text-danger'>{{ list.enoughmoney }}</text>元立减
+        </view>
+        <view class="fui-cell-info"></view>
+        <view class='fui-cell-remark noremark'>-¥
+          <text>{{ list.enoughdeduct }}</text>
+        </view>
+      </view>
+
+      <view class="fui-cell" wx:if="{{ list.merch_showenough }}">
+        <view class="fui-cell-label" style='text-align:left;width:auto'>商户单笔满
+          <text class='text-danger'>{{ list.merch_enoughmoney }}</text>元立减
+        </view>
+        <view class="fui-cell-info"></view>
+        <view class='fui-cell-remark noremark'>-¥
+          <text>{{ list.merch_enoughdeduct }}</text>
+        </view>
+      </view>
+      <view class="fui-cell" wx:if="{{ list.seckill_price>0 }}">
+        <view class='fui-cell-label'>秒杀优惠</view>
+        <view class="fui-cell-info"></view>
+        <view class='fui-cell-remark noremark'>-¥
+          <text>{{list.seckill_price}}</text>
+        </view>
+      </view>
+
+      <view class="fui-cell">
+        <view class='fui-cell-label' style='width: 300rpx'>{{city_express_state?"同城运费":"运费"}}<span style="color:#ff5555;" wx:if="{{list.card_free_dispatch}}">(会员卡包邮)</span></view>
+        <view class="fui-cell-info"></view>
+        <view class='fui-cell-remark noremark'>¥
+          <text wx:if="{{ list.iscycelbuy == true }}">{{ list.dispatch_price }}(x{{ list.cycelComboPeriods }}期)</text>
+          <text wx:else>{{ list.dispatch_price }}</text>
+        </view>
+      </view>
+      <view class="fui-cell" wx:if="{{ data.couponname && coupon.deductprice }}">
+        <view class="fui-cell-label" style='width: 350rpx;'>{{ coupon.coupondeduct_text }}</view>
+        <view class='fui-cell-info'></view>
+        <view class="fui-cell-remark noremark">-¥
+          <text>{{ coupon.deductprice }}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!--底部固定-->
+  <view class="fui-footer {{iphonexnavbar}}">
+    <view class="tool nopadding">
+      <view class="text">
+        <view class="title text-right">需付：
+          <text class="text-danger">{{ list.realprice }}元</text>
+        </view>
+      </view>
+      <view class="btns">
+        <text class='btn btn-danger {{ submit && "disabled"}}' bindtap="submit">立即支付</text>
+      </view>
+    </view>
+  </view>
+  <view class="fui-toast {{FoxUIToast.show?'in':'out'}}">
+    <view class="text">{{FoxUIToast.text}}</view>
+  </view>
+  <!--空白快  适应iponex  -->
+  <view wx:if="{{isIpx}}" style='hight: 50rpx;'></view>
+
+</view>
+
+
+<view id="address" class="{{ showaddressview ? '' : 'shut'}}">
+  <view class="address-alert">
+    <view class="address-title">请填写收货地址哦！</view>
+    <view class="fui-cell-group" style="margin-top:0">
+      <view class="fui-cell">
+        <view class="fui-cell-label">收货人</view>
+        <view class="fui-cell-info c000">
+          <input value="{{ areaDetail.detail.realname }}" placeholder="收件人" class="fui-input" bindinput="onChange2" data-type="realname" />
+        </view>
+      </view>
+      <view class="fui-cell">
+        <view class="fui-cell-label">联系电话</view>
+        <view class="fui-cell-info c000">
+          <input value="{{ areaDetail.detail.mobile }}" placeholder="联系电话" class="fui-input" type="number" bindinput="onChange2" data-type="mobile" />
+        </view>
+      </view>
+      <view class="fui-cell">
+        <view class="fui-cell-label">所在地区</view>
+        <view class="fui-cell-info c000" bindtap="selectArea" data-hasarea="1" data-areaKey="detail" data-area="{{ areaDetail.detail.province }} {{ areaDetail.detail.city }} {{ areaDetail.detail.area }}">{{ !areaDetail.detail.province||!areaDetail.detail.city?"请选择所在地区":areaDetail.detail.province+" "+areaDetail.detail.city+" "+areaDetail.detail.area }}</view>
+      </view>
+      <view class="fui-cell" wx:if="{{ street.length>0 }}">
+        <view class="fui-cell-label">所在街道</view>
+        <view class="fui-cell-info c000">
+          <picker value="{{ streetIndex||0 }}" range="{{ street }}" range-key="name" bindchange="onChange2" data-type="street">
+            <view class="picker"> {{ areaDetail.detail.street||'请选择街道' }}</view>
+          </picker>
+        </view>
+      </view>
+      <view class="fui-cell">
+        <view class="fui-cell-label">详细地址</view>
+        <view class="fui-cell-info c000">
+          <input value="{{ areaDetail.detail.address }}" placeholder="街道，楼牌号等" class="fui-input" bindinput="onChange2" data-type="address" />
+        </view>
+      </view>
+    </view>
+    <a id="btn-submit" class=" btn btn-danger disable block" bindtap="submitaddress">保存地址</a>
+    <i data-type="close" bindtap="showaddressview" class="icox icox-guanbi1" id="address-colse" style="font-size:60rpx;color:#fff;position: absolute;top:105%;left:46%"></i>
+  </view>
+</view>
+<!--周期购  -->
+<view wx:if="{{cycledate}}" class='date-model'>
+  <view class='inner' style='height: 764rpx;width: 690rpx;background: #fff;overflow: hidden;border-radius: 10rpx;'>
+    <include src="/pages/date/date.wxml" />
+    <view class="datebtns">
+      <view class="date-btn date-btn-cancel" bindtap="syclecancle" style="margin-right: 0.75rem">取消</view>
+      <view class="date-btn date-btn-confirm" bindtap="sycleconfirm">确定</view>
+    </view>
+  </view>
+</view>
+
+
+<!--会员卡列表 选择  -->
+<view class='card-list-modal {{selectcard}}' bindtap='closeCardModal'></view>
+<view class='card-list-group {{selectcard}}'>
+  <view class='card-list-title'>选择会员卡</view>
+  <view class='card-list-cancel' bindtap='changecard' data-id=''>
+    <view class='text'>不使用会员卡</view>
+    <view  class="icon {{cardid == '' ? 'activeselect' : ''}}"><i class="icox icox-duihao1"></i></view>
+  </view>
+  <view class='card-list-content'>
+    <view class='item {{item.card_style}}' wx:for="{{card_info.all_mycardlist}}" wx:for-item="item" data-id="{{item.id}}" bindtap='changecard'>
+      <view bindtap='cancalCard' class="iconselect {{cardid == item.id ? 'activeselect' : ''}}"><i class="icox icox-duihao2"></i></view>
+      <i class="iconbg icox icox-huiyuan"></i>
+      <view class='content'>
+        <view class='title'><image src='/static/images/icon-white.png' />{{item.name}}</view>
+        <view class='date'>{{item.validate}}</view>
+        <view class='tip'>
+          <view class='tip-item' wx:if="{{item.member_discount == 1}}">{{item.discount_rate}}折</view>
+          <view class='tip-item' wx:if="{{item.shipping == 1}}">包邮</view>
+          <view class='tip-item' wx:if="{{item.is_card_coupon == 1 || item.is_month_coupon == 1}}">优惠券</view>
+          <view class='tip-item' wx:if="{{item.is_card_points == 1 || item.is_month_points == 1}}">积分</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

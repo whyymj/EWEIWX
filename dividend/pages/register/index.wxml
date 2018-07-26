@@ -1,0 +1,112 @@
+<view class="fui-toast {{FoxUIToast.show?'in':'out'}}">
+    <view class="text">{{FoxUIToast.text}}</view>
+  </view>
+<view class="fui-modal {{isdeal ? 'in': ''}}">
+    <view class="inner-con">
+        <view class="qrcode">
+            <view class="inner1">
+                <view class="title">{{message.set.applytitle}}</view>
+                <view class="text"><rich-text nodes="{{message.set.applycontent}}" bindtap="tap"></rich-text></view>
+            </view>
+            <view class="inner-btn" style="padding: 20rpx;">
+                <view class="btn btn-danger" style="width: 100%; margin: 0;" bindtap='close'>我已阅读</view>
+            </view>
+        </view>
+    </view>
+    <view class="close" bindtap='close'><i class="icon icon-roundclose"></i></view>
+</view>
+ <image src="{{message.set.regbg || '/static/images/banner.png'}}" mode='widthFix' class='applybanner'></image>
+
+<view class='content-info' wx:if="{{message.member.headsstatus == 1 && message.member.isheads == 1}}">
+  <i class='icon icon-roundcheck text-success'></i>
+  <view class="text">您的申请已经审核通过！</view>
+  <navigator open-type='switchTab' url='/pages/index/index' hover-class='none' class="btn block">去商城逛逛</navigator> 
+</view>
+<view class='content-info' wx:if="{{message.member.headsstatus == 0 && message.member.isheads == 1}}">
+  <i class='icon icon-time'></i>
+  <view class="text">谢谢您的支持，请等待审核！</view>
+   <navigator open-type='switchTab' url='/pages/index/index' hover-class='none' class="btn block">去商城逛逛</navigator> 
+</view>
+
+<block wx:if="{{message.status == 0 && message.member.isheads == 0 && (message.set.condition == 1 || message.set.condition == 2 || message.set.condition == 3 ||message.set.condition == 4)}}">
+  <view class="fui-list-group">
+    <view class="fui-list-group-title"><i class="icon icon-lights"></i> 友情提醒</view>
+    <view class="fui-list" wx:if="{{message.set.condition == 1 && message.status==0}}">
+      <view class="fui-list-inner">
+        <view class="text">本店累计招募一级下线
+          <text style="color: #cfa943;" class=" text-bold">{{message.member_totalcount || '0'}}</text>人， 才可成为
+          <text style="color: #cfa943;" class=" text-bold">{{message.sysset.shopname}}</text>购物中心团队分红队长，您已招募了
+          <text style="color: #cfa943; " class=" text-bold">{{message.member_count || '0' }}</text> 人，请继续努力！</view>
+      </view>
+    </view>
+
+    <view class="fui-list" wx:if="{{message.set.condition == 2 && message.status==0}}">
+      <view class="fui-list-inner">
+        <view class="text">本店累计招募一级下线分销商
+          <text style="color: #cfa943;" class=" text-bold">{{message.commissiondownline_totalcount || '0'}}</text>人， 才可成为
+          <text style="color: #cfa943;" class=" text-bold">{{message.sysset.shopname}}</text>购物中心团队分红队长，您已有
+          <text style="color: #cfa943; " class=" text-bold">{{message.commissiondownline_count || '0'}}</text> 一级下线成为分销商，请继续努力！</view>
+      </view>
+    </view>
+
+    <view class="fui-list" wx:if="{{message.set.condition == 3 && message.status==0}}">
+      <view class="fui-list-inner">
+        <view class="text">本店累计佣金总额为
+          <text style="color: #cfa943;" class=" text-bold">{{message.total_commission_totalcount || '0'}}</text>{{message.set.texts.yuan}}，才可成为
+          <text style="color: #cfa943;" class=" text-bold">{{message.sysset.shopname}}</text>购物中心团队分红队长，您已拥有
+          <text style="color: #cfa943; " class=" text-bold">{{message.total_commission_count || '0'}}</text>{{message.set.texts.yuan}}佣金，请继续努力！</view>
+      </view>
+    </view>
+
+    <view class="fui-list" wx:if="{{message.set.condition == 4 && message.status==0}}">
+      <view class="fui-list-inner">
+        <view class="text">本店累计提现佣金
+          <text style="color: #cfa943;" class=" text-bold">{{message.cash_commission_totalcount || '0'}}</text>{{message.set.texts.yuan}}，才可成为
+          <text style="color: #cfa943;" class=" text-bold">{{message.sysset.shopname}}</text>购物中心团队分红队长，您已有
+          <text style="color: #cfa943; " class=" text-bold">{{message.cash_commission_count || '0'}}</text>{{message.set.texts.yuan}}佣金，请继续努力！</view>
+      </view>
+    </view>
+
+  </view>
+  <navigator url='/pages/commission/index' hover-class='none' open-type='navigate' class="btn block" style="background: #1b1a20; color: #cfa943; border-color: #1b1a20;">继续去招募</navigator>
+</block>
+
+
+
+<block wx:if="{{message.member.headsstatus==0 &&  message.member.isheads==0 && message.set.condition==0}}">
+  <view class='welcome'>欢迎加入
+    <text>{{message.set.texts.agent}}</text>，请填写申请信息</view>
+  <view class='applymsg'>
+    <view class='flex msgitem line' wx:if="{{!message.template_flag}}">
+      <view>姓名</view>
+      <input type='text' placeholder='请填写真实姓名，用于结算' placeholder-style="color:#ccc" bindinput="changeinput" data-input="realname"></input>
+    </view>
+    <view class='flex msgitem line' wx:if="{{!message.template_flag}}">
+      <view>手机号</view>
+      <input type='number' placeholder='请填写手机号' placeholder-style="color:#ccc" bindinput="changeinput" data-input="mobile"></input>
+    </view>
+    <include src="/pages/common/diyform.wxml"/> 
+    <view wx:if="{{message.set.open_protocol == 1}}" class='flex msgitem line' style='border: none'>
+      <view>我已阅读并了解
+        <text bindtap='opendeal'>【{{message.set.applytitle}}】</text>
+      </view>
+      <radio color='#cfa943' data-checked='{{checked}}' checked="{{ checked == 1 ? true: false }}" bindtap="selected" />
+    </view>
+  </view>
+  <view wx:if="{{message.set.open_protocol == 1}}"  class="{{checked ? 'agreebtn' : 'agreebtn noagree'}}" data-open_protocol = "{{message.set.open_protocol}}" bindtap='submit'>申请{{message.set.texts.become}}</view>
+  <view wx:if="{{message.set.open_protocol == 0}}" class="agreebtn" data-open_protocol = "{{message.set.open_protocol}}" bindtap='submit'>申请{{message.set.texts.become}}</view>
+
+  <view class='specialadvan'>
+    <view class='specialitem'>
+      <icon class='icox icox-tequan' style='margin-right: 12rpx;color: #cfa943;'></icon>
+      <text>队长特权</text>
+    </view>
+    <view class='flex'>
+      <icon class='icox icox-yishenqingyongjin' style='margin-right: 12rpx;color: #cfa943;'></icon>
+      <view>
+        <view>销售拿分红</view>
+        <view class='smallfont'>成为队长后下线卖出商品，您可以获得分红</view>
+      </view>
+    </view>
+  </view>
+</block> 

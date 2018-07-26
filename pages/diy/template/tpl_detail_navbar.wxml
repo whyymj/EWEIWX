@@ -1,0 +1,48 @@
+ <block wx:if="{{goods.canbuy}}">
+    <view class="fui-navbar bottom-buttons {{iphonexnavbar}}" style="background:{{diyitem.style.background}}">
+         <!-- <view wx:if="{{diyitem.params.hidelike != 1}}" class="nav-item favorite-item" bindtap="favorite">
+            <view class="icox {{ goods.isfavorite?'icox-likefill':'icox-like'}}" style="color:{{diyitem.style.iconcolor}}"></view>
+            <view class="label">关注</view>
+        </view> -->
+
+
+        <view class="nav-item favorite-item {{ goods.isfavorite?'active':''}}" bindtap="favorite" data-isfavorite="{{ goods.isfavorite?1:0 }}" wx:if="{{diyitem.params.hidelike != 1 && goods.customer!=1}}">
+            <view class="icox {{ goods.isfavorite?'icox-likefill':'icox-like'}}" style="color:{{diyitem.style.iconcolor}}"></view>
+            <view class="label" style="color:{{diyitem.style.textcolor}}">{{diyitem.params.liketext}}</view>
+        </view> 
+        <button class="nav-item customer-item" open-type="contact" wx:if="{{goods.customer==1}}" session-from="weapp" show-message-card="true">
+            <view class="icox icox-customerservice"></view>
+            <view class="label">客服</view>
+        </button> 
+        <!-- <button class="nav-item customer-item " bindtap="favorite" data-isfavorite="{{ goods.isfavorite?1:0 }}"  open-type="contact" wx:if="{{diyitem.params.hidelike != 1}}" session-from="weapp" show-message-card="true">
+            <view class="icox {{diyitem.params.likeiconclass}}" style="color:{{diyitem.style.iconcolor}}"></view>
+            <view class="label" style="color:{{diyitem.style.textcolor}}">{{diyitem.params.liketext}}</view>
+        </button>  -->
+
+
+        <navigator class="nav-item external" url="/pages/index/index?merchid={{goods.merchid}}" open-type="switchTab" wx:if="{{diyitem.params.hideshop != 1}}">
+            <view class="icox {{diyitem.params.shopiconclass}}" style="color:{{diyitem.style.iconcolor}}"></view>
+            <view class="label" style="color:{{diyitem.style.textcolor}}">{{diyitem.params.shoptext}}</view>
+        </navigator>
+
+
+        <navigator class="nav-item cart-item"  id="menucart" url="/pages/member/cart/index" open-type="switchTab" wx:if="{{diyitem.params.hidecart != 1}}">
+            <block wx:if="{{goods.cartcount && limits}}" >
+                <view class='badge {{goods.cartount<=0?"out":"in"}}' style="background:{{diyitem.style.dotcolor}}">{{goods.cartcount}}</view>
+            </block>
+            <view class="icox {{diyitem.params.carticonclass}}" style="color:{{diyitem.style.iconcolor}}"></view>
+            <view class="label" style="color:{{diyitem.style.textcolor}}">{{diyitem.params.carttext}}</view>
+        </navigator>
+
+
+
+
+
+        <view wx:if="{{diyitem.params.hidecartbtn != 1}}" class="nav-item btn cartbtn" bindtap="selectPicker" data-tap="{{active}}" data-id="{{goods.id}}" data-buytype="cart" style="background:{{diyitem.style.cartcolor}}">加入购物车</view>
+        
+        
+        <view wx:if="{{ !goods.access_time && !goods.timeout}}" class="nav-item btn buybtn" bindtap="selectPicker" data-tap="{{active}}" data-buytype="buy"  data-id="{{goods.id}}" style="background:{{diyitem.style.buycolor}}">{{diyitem.params.textbuy}}</view>
+        <view wx:if="{{ goods.access_time}}" class="nav-item btn buybtn" bindtap="selectPicker" data-tap="{{active}}" data-buytype="buy"  data-id="{{goods.id}}" style="background:{{diyitem.style.buycolor}}" data-time="access_time" data-timeout="false">{{diyitem.params.textbuy}}</view>
+        <view wx:if="{{ goods.timeout}}" class="nav-item btn buybtn" bindtap="selectPicker" data-tap="{{active}}" data-buytype="buy"  data-id="{{goods.id}}" style="background:{{diyitem.style.buycolor}}" data-time="timeout" data-timeout="false">{{diyitem.params.textbuy}}</view>
+    </view>
+</block>

@@ -1,0 +1,15 @@
+<!--幻灯片轮播start-->
+<block wx:if="{{item.data.length>0}}">
+    <view class="index-advs">
+        <swiper class="index-adcs-sqiper" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="{{circular}}" style="{{ advsheight?'height:'+advsheight+'px':'' }}">
+            <block wx:for="{{item.data}}" wx:for-index="idx" wx:for-item="item">
+                <swiper-item>
+                    <navigator url="{{item.link}}" class="index-advs-navigator" open-type="navigate">
+                        <image src="{{item.thumb}}" class="advimg" mode="widthFix" bindload="imagesHeight" data-type="advsheight"/>
+                    </navigator>            
+                </swiper-item>
+            </block>
+        </swiper>
+    </view>
+</block>
+<!--幻灯片轮播end-->

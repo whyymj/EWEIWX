@@ -1,0 +1,5 @@
+<view class='fui-picture' style='background:{{diyitem.style.background}}'>
+    <view wx:for='{{diyitem.data}}' wx:for-index="childid" wx:for-item="childitem" data-url='{{childitem.linkurl}}' data-phone='{{childitem.phone}}' data-appid='{{childitem.appid}}' data-appurl='{{childitem.appurl}}' bindtap='navigate' style='padding:{{diyitem.style.paddingtop==0?0:diyitem.style.paddingtop + "rpx"}} {{diyitem.style.paddingleft==0?0:diyitem.style.paddingleft + "rpx"}}'>
+        <image mode='widthFix' src="{{childitem.imgurl}}" style="{{bannerheight?'height:'+bannerheight+'px':'height:auto' }}"></image>
+    </view>
+</view>

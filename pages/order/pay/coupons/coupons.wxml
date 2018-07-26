@@ -1,0 +1,58 @@
+<view class="page">
+  <view class="coupon-headblock">
+    <view class="top-layer"></view>
+    <view class="line-layer"></view>
+    <view class="bottom-layer"></view>
+    <view class="gold" style="background-image: url('{{ approot }}template/mobile/default/static/images/gold.png')"></view>
+    <view class="link-text">请至【
+      <navigator class="inline" hover-class="none" url="/pages/sale/coupon/my/index/index" open-type="redirect">我的优惠券</navigator>】查看</view>
+    <view class="paper">
+      <view class="title">恭喜获得</view>
+      <view class="text">
+        <i class="d1"></i>
+        <i class="d2"></i>
+        <p class="t1">1张优惠券</p>
+      </view>
+      <i class="line"></i>
+      <i class="dot-top"></i>
+      <i class="dot-left"></i>
+      <i class="dot-right"></i>
+      <i class="dot-1"></i>
+      <i class="dot-2"></i>
+      <i class="dot-3"></i>
+      <i class="dot-4"></i>
+      <i class="dot-5"></i>
+      <i class="dot-6"></i>
+    </view>
+  </view>
+
+<view id="container" class="coupon-container coupon-index-list">
+
+	<view href="" class="coupon-index-list-a  blue">
+		<view class="fui-list coupon-list">
+			<span class="coupon-ling"><image src="https://jqnyrv.ifkvip.com/addons/ewei_shopv2/template/mobile/default/static/images/coupon/ling.png" alt="" /></span>
+			<view class="fui-list-inner coupon-index-list-left">
+				<b style="width: 92px ; text-align:center ;">满减券</b>
+				<view class="coupon-index-list-info fui-list">
+					<view class="fui-list-media">
+						<image src=" https://jqnyrv.ifkvip.com/attachment/images/4/2017/12/k9z004aLNRNROWWiUNWNloIWU7l90l.png" alt="" />
+					</view>
+					<view class="fui-list-inner">
+						<view class="h3">新人50元券</view>
+						<view class="coupon-full"> 消费满150元立减50元</view>
+						<view class="coupon-time">有效期 2018-01-24 </view>
+					</view>
+				</view>
+			</view>
+			<view class="fui-list-media coupon-index-list-right">
+				<view class="forth0 circle coupon-list-canvas"></view>
+				<i class="coupon-list-ling">立即使用</i>
+			</view>
+		</view>
+	</view>
+</view>
+
+  <navigator class="btn btn-danger block" hover-class="none" url="/pages/sale/coupon/index/index" open-type="redirect" style="margin: 0 20rpx 20rpx;">继续领取优惠券</navigator>
+
+  <navigator class="btn btn-default block" hover-class="none" url="/pages/sale/coupon/my/index/index" open-type="redirect" style="margin: 0 20rpx 20rpx;">查看我的优惠券</navigator>
+</view>

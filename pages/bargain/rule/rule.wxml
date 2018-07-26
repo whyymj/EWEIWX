@@ -1,0 +1,6 @@
+<import src="/utils/wxParse/wxParse.wxml"/> 
+<view class='page' style='background:#fff;padding:0 24rpx'>
+  <view class='fui-content'>
+    <template is="wxParse" data="{{wxParseData:wxParseData.nodes}}"/>
+  </view>
+</view>

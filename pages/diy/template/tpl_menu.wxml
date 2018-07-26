@@ -1,0 +1,26 @@
+<view wx-if="{{diyitem.style.showtype=='0'}}" class='fui-icon-group noborder col-{{diyitem.style.rownum}}' style='background:{{diyitem.style.background}}'>
+   <view class="fui-icon-col external" wx:for="{{diyitem.data}}" wx:for-index="childid" wx:for-item="childitem" data-url='{{childitem.linkurl}}' data-appurl='{{childitem.appurl}}' bindtap='navigate' data-phone='{{childitem.phone}}' data-appid='{{childitem.appid}}'>
+        <view class='icon'>
+          <image class='{{diyitem.style.navstyle}}' 
+            src='{{childitem.imgurl}}'>
+          </image>
+        </view> 
+        <view class='text' style='color:{{childitem.color}}'>
+          {{childitem.text}}
+        </view>
+    </view>
+</view>
+<swiper class='menu' wx-if="{{diyitem.style.showtype=='1'}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" indicator-dots='{{diyitem.style.showdot==1?true:false}}' style='background:{{diyitem.style.background}};padding:20rpx 0;height:{{diyitem.data_line*160 + diyitem.data_line*30}}rpx'>
+  <block>
+    <swiper-item class='col-{{diyitem.style.rownum}}' wx:for="{{diyitem.data_temp}}" wx:for-index="childid" wx:for-item="childitem">
+       <view class="fui-icon-col external" wx:for="{{childitem}}" wx:for-index="menu_index" wx:for-item="menu_item" data-url='{{menu_item.linkurl}}' data-appurl='{{menu_item.appurl}}' data-appid='{{menu_item.appid}}' data-phone='{{menu_item.phone}}' bindtap='navigate'>
+        <view class='icon'>
+          <image class='{{diyitem.style.navstyle}}'src="{{menu_item.imgurl}}" ></image>
+        </view> 
+        <view class='text' style='color:{{menu_item.color}}'>
+        {{menu_item.text}}
+        </view>
+    </view>
+    </swiper-item>
+  </block>
+</swiper>

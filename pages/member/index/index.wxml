@@ -1,0 +1,294 @@
+<loading wx:if="{{ !show }}">加载中...</loading>
+<view class="model" wx:if="{{modelShow}}">
+  <view class="inner">
+    <view class="title">用户未授权</view>
+    <view class="image">
+      <image src="/static/images/shouquan.png"></image>
+    </view>
+    <view class="subtitle">您需要先开启【用户信息】，才能使用此功能哦~</view>
+    <view class="model-btns">
+      <view class="cancel" bindtap="cancelclick">取消</view>
+      <view class="confirm" bindtap="confirmclick">去设置</view>
+    </view>
+  </view>
+  <!-- <include src="/pages/index/openauth.wxml"/> -->
+</view>
+<block wx:if='{{diypages.page.type==3}}'>
+  <view class='member page' style='background:{{diypages.page.background}};'>
+    <include src="/pages/diy/index.wxml" />
+  </view>
+</block>
+<view class="page member" wx:if="{{ show && diypages.page.type!=3 }}">
+  <view style="overflow: hidden;height:{{member.usemembercard ? '360rpx' : '290rpx'}};position: relative;background: #fff">
+    <view class="member-head" style="z-index:100;border: none;">
+      <view class="child">
+        <view class="title">{{member.moneytext}}</view>
+        <view class="number">{{member.credit2}}</view>
+        <navigator url="/pages/member/recharge/index" class="btn" hover-class="btn-hover" wx:if="{{ member.open_recharge }}" open-type="navigate">充值</navigator>
+      </view>
+      <view class="child userinfo">
+        <view class="avatar">
+          <image class="icon" src="{{member.avatar||'/static/images/noface.png'}}"></image>
+        </view>
+        <view class="nickname">{{member.nickname||'未更新用户信息'}}</view>
+        <view class="level">{{member.levelname}}</view>
+      </view>
+      <view class="child">
+        <view class="title">{{member.credittext}}</view>
+        <view class="number">{{member.credit1}}</view>
+        <navigator wx:if="{{ member.open_creditshop }}" class="btn" hover-class="btn-hover" url="/pages/creditshop/index" hover-class="btn-hover">兑换</navigator>
+      </view>
+    </view>
+    <view class="member_header"></view>
+    
+    <!--会员卡  -->
+    <block wx:if='{{member.usemembercard}}'>
+      <navigator hover-class='none' open-type='navigate' url='/pages/member/membercard/index?hasmembercard={{member.hasmembercard}}' class='member_card'>
+        <image class='icon' src='/static/images/icon-huangguan.png' />
+        <view class='title'>我的会员卡</view>
+        <view class='card-num'>已拥有{{member.hasbuycardnum}}张</view>
+      </navigator>
+      <image class='cover-img' src='/static/images/cover.png' />
+    </block>
+  </view>
+  <view>
+    <view class="fui-cell-group fui-cell-click" wx:if="{{ member.needbind==1 }}">
+      <navigator class="fui-cell" hover-class="none" url="/pages/member/bind/index" open-type="navigate">
+        <!-- <image class="fui-cell-icon" src="{{icons.mobile}}" /> -->
+        <view class="fui-cell-icon">
+          <text class="icox icox-mobilephone"></text>
+        </view>
+        <view class="fui-cell-text">
+          <p class="text text-danger">绑定手机号</p>
+        </view>
+        <view class="fui-cell-remark"></view>
+      </navigator>
+      <view class="fui-cell-tip">{{ member.bindtext }}</view>
+    </view>
+
+    <!-- 订单 -->
+    <view class="fui-cell-group fui-cell-click">
+      <navigator class="fui-cell" hover-class="none" url="/pages/order/index" open-type="navigate">
+        <view class="fui-cell-icon">
+          <text class="icox icox-order"></text>
+        </view>
+        <view class="fui-cell-text">我的订单</view>
+        <view class="fui-cell-remark">查看全部订单</view>
+      </navigator>
+      <view class="fui-icon-group col-{{ iscycelbuy ? 5 : 4}} nomargin">
+        <navigator class="fui-icon-col" hover-class="none" url="/pages/order/index?status=0" open-type="navigate">
+          <view class="badge" wx:if="{{member.statics.order_0>0}}">{{member.statics.order_0}}</view>
+          <text class="icox icox-payment"></text>
+          <view class="text">待付款</view>
+        </navigator>
+        <navigator class="fui-icon-col" hover-class="none" url="/pages/order/index?status=1" open-type="navigate">
+          <view class="badge" wx:if="{{member.statics.order_1>0}}">{{member.statics.order_1}}</view>
+          <text class="icox icox-shipment"></text>
+          <view class="text">待发货</view>
+        </navigator>
+        <navigator class="fui-icon-col" hover-class="none" url="/pages/order/index?status=2" open-type="navigate">
+          <view class="badge" wx:if="{{member.statics.order_2>0}}">{{member.statics.order_2}}</view>
+          <text class="icox icox-daishouhuo1-copy-copy"></text>
+          <view class="text">待收货</view>
+        </navigator>
+        <navigator class="fui-icon-col" hover-class="none" url="/pages/order/index?status=4" open-type="navigate">
+          <view class="badge" wx:if="{{member.statics.order_4>0}}">{{member.statics.order_4}}</view>
+          <text class="icox icox-return"></text>
+          <view class="text">退换货</view>
+        </navigator>
+        <navigator class="fui-icon-col cycle" hover-class="none" url="/pages/order/cycle/order?iscycelbuy=1" open-type="navigate" wx:if="{{ iscycelbuy }}">
+          <text class="icox icox-xiangmuzhouqi" style='color: #ff6a54;'></text>
+          <view class="text">周期购</view>
+        </navigator>
+      </view>
+    </view>
+
+    <!--砍价-->
+    <view class="fui-cell-group fui-cell-click" open-type="navigate">
+    <navigator class="fui-cell" hover-class="none" url="/pages/member/membercard/index" wx:if="{{ member.bargain }}">
+        <view class="fui-cell-icon">
+          <text class="icox icox-bargain"></text>
+        </view>
+        <view class="fui-cell-text">我的会员卡</view>
+        <view class="fui-cell-remark"></view>
+      </navigator>
+      <navigator class="fui-cell" hover-class="none" url="/pages/bargain/index/index" wx:if="{{ member.bargain }}">
+        <view class="fui-cell-icon">
+          <text class="icox icox-bargain"></text>
+        </view>
+        <view class="fui-cell-text">砍价首页</view>
+        <view class="fui-cell-remark"></view>
+      </navigator>
+      <navigator class="fui-cell" wx:if="{{ member.hassign }}" hover-class="none" url="/pages/web/index?module=sign&domain={{ member.sign_url_domain }}&params={{ member.sign_url_params }}&mid={{member.id}}">
+        <view class="fui-cell-icon">
+          <text class="icox icox-qiandao"></text>
+        </view>
+        <view class="fui-cell-text">{{ member.sign_text }}</view>
+        <view class="fui-cell-remark"></view>
+      </navigator>
+      <navigator class="fui-cell" hover-class="none" wx:if="{{ member.commission }}" url="{{ member.commission_url }}">
+        <view class="fui-cell-icon">
+          <text class="icox icox-distribution"></text>
+        </view>
+        <view class="fui-cell-text">{{ member.commission_text }}</view>
+        <view class="fui-cell-remark"></view>
+      </navigator>
+    </view>
+
+    <!--积分签到-->
+    <!-- <view class="fui-cell-group fui-cell-click" wx:if="{{ member.hassign }}" open-type="navigate">
+            <navigator class="fui-cell" hover-class="none" url="/pages/web/index?module=sign&domain={{ member.sign_url_domain }}&params={{ member.sign_url_params }}&mid={{member.id}}">
+                <view class="fui-cell-icon">
+                    <text class="icox icox-qiandao"></text>
+                </view>
+                <view class="fui-cell-text">{{ member.sign_text }}</view>
+                <view class="fui-cell-remark"></view>
+            </navigator>
+        </view>
+
+        <view class="fui-cell-group fui-cell-click" wx:if="{{ member.commission }}" open-type="navigate">
+            <navigator class="fui-cell" hover-class="none" url="{{ member.commission_url }}">
+                <view class="fui-cell-icon">
+                    <text class="icox icox-distribution"></text>
+                </view>
+                <view class="fui-cell-text">{{ member.commission_text }}</view>
+                <view class="fui-cell-remark"></view>
+            </navigator>
+        </view> -->
+
+    <!--核销商品start-->
+    <view class="fui-cell-group fui-cell-click" wx:if="{{ member.haveverifygoods}}">
+      <navigator class="fui-cell external" url="/pages/verifygoods/index">
+        <view class="fui-cell-icon">
+          <i class="icox icox-qrcode"></i>
+        </view>
+        <view class="fui-cell-text">待使用商品信息</view>
+        <view class="fui-cell-remark"></view>
+      </navigator>
+      <block wx:if="{{member.verifygoods.length>0}}">
+        <view class="fui-icon-group selecter" style="overflow-X: scroll;">
+          <view class="banner-ul" style='width:{{member.verifygoods.length*170}}px'>
+            <block wx:for="{{member.verifygoods}}" wx:for-item="item">
+              <view class="banner-li {{item.numlimit>0?'banner-li-blue':''}}">
+                <navigator url='/pages/verifygoods/detail/index?id={{item.id}}' open-type='navigate'>
+                  <view></view>
+                  <span>待使用</span>
+                  <image src="{{item.thumb}}" alt="{{item.title}}" />
+                  <p>{{item.title}}</p>
+                </navigator>
+              </view>
+            </block>
+          </view>
+        </view>
+      </block>
+    </view>
+    <view class="fui-cell-group fui-cell-click" wx:if="{{member.hasdividend}}">
+      <navigator class="fui-cell" hover-class="none" open-type="navigate" url="{{member.isheads ? '/dividend/pages/index/index' : '/dividend/pages/register/index'}}" >
+        <view class="fui-cell-icon">
+          <text class="icox icox-coupons"></text>
+        </view>
+        <view class="fui-cell-text">{{member.isheads ? '分红中心':'申请成为队长'}}</view>
+        <view class="fui-cell-remark"></view>
+      </navigator>
+    </view>
+    <!--核销商品end-->
+    <view class="fui-cell-group fui-cell-click" wx:if="{{ member.hascoupon }}">
+      <navigator class="fui-cell" hover-class="none" open-type="navigate" url="/pages/sale/coupon/index/index" wx:if="{{ member.hascouponcenter }}">
+        <view class="fui-cell-icon">
+          <text class="icox icox-coupons"></text>
+        </view>
+        <view class="fui-cell-text">{{ member.coupon_text }}</view>
+        <view class="fui-cell-remark"></view>
+      </navigator>
+      <navigator class="fui-cell" hover-class="none" url="/pages/sale/coupon/my/index/index" open-type="navigate">
+        <view class="fui-cell-icon">
+          <text class="icox icox-coupons"></text>
+        </view>
+        <view class="fui-cell-text">{{ member.couponcenter_text }}</view>
+        <view class="fui-cell-remark">
+          <text class="badge" wx:if="{{member.statics.coupon>0}}">{{member.statics.coupon}}</text>
+        </view>
+      </navigator>
+    </view>
+    
+    <!-- 列表 -->
+    <view class="fui-cell-group fui-cell-click">
+      <navigator class="fui-cell" hover-class="none" url="/pages/member/cart/index" open-type="switchTab">
+        <view class="fui-cell-icon">
+          <text class="icox icox-cart2"></text>
+        </view>
+        <view class="fui-cell-text">我的购物车</view>
+        <view class="fui-cell-remark">
+          <text class="badge" wx:if="{{member.statics.cart>0}}">{{member.statics.cart}}</text>
+        </view>
+      </navigator>
+      <navigator class="fui-cell" hover-class="none" url="/pages/member/favorite/index" open-type="navigate">
+        <view class="fui-cell-icon">
+          <text class="icox icox-like1"></text>
+        </view>
+        <view class="fui-cell-text">我的关注</view>
+        <view class="fui-cell-remark">
+          <text class="badge" wx:if="{{member.statics.favorite>0}}">{{member.statics.favorite}}</text>
+        </view>
+      </navigator>
+      <navigator class="fui-cell" hover-class="none" url="/pages/member/history/index" open-type="navigate">
+        <view class="fui-cell-icon">
+          <text class="icox icox-foot"></text>
+        </view>
+        <view class="fui-cell-text">我的足迹</view>
+        <view class="fui-cell-remark"></view>
+      </navigator>
+      <!--要改条件的这个-->
+      <navigator wx:if="{{member.hasFullback}}" class="fui-cell" hover-class="none" url="/pages/commission/return/index" open-type="navigate">
+        <view class="fui-cell-icon">
+          <text class="icox icox-xiaofei1"></text>
+        </view>
+        <view class="fui-cell-text">我的{{ member.fullbacktext }}</view>
+        <view class="fui-cell-remark"></view>
+      </navigator>
+    </view>
+
+    <view class="fui-cell-group fui-cell-click">
+      <navigator class="fui-cell" hover-class="none" open-type="navigate" url="/pages/member/withdraw/index" wx:if="{{ member.open_withdraw }}">
+        <view class="fui-cell-icon">
+          <text class="icox icox-details"></text>
+        </view>
+        <view class="fui-cell-text">{{ member.moneytext }}提现</view>
+        <view class="fui-cell-remark"></view>
+      </navigator>
+      <navigator class="fui-cell" hover-class="none" url="/pages/member/log/index" open-type="navigate">
+        <view class="fui-cell-icon">
+          <text class="icox icox-details"></text>
+        </view>
+        <view class="fui-cell-text">{{ member.logtext }}</view>
+        <view class="fui-cell-remark"></view>
+      </navigator>
+    </view>
+
+    <view class="fui-cell-group fui-cell-click">
+      <navigator class="fui-cell" hover-class="none" url="/pages/member/address/index" open-type="navigate">
+        <view class="fui-cell-icon">
+          <text class="icox icox-coordinates"></text>
+        </view>
+        <view class="fui-cell-text">收货地址管理</view>
+      </navigator>
+      <navigator class="fui-cell setting" hover-class="none" url="/pages/member/info/index" open-type="navigate">
+        <view class="fui-cell-icon">
+          <text class="icox icox-setup"></text>
+        </view>
+        <view class="fui-cell-text">会员资料设置</view>
+      </navigator>
+    </view>
+
+    <include src="/pages/common/copyright.wxml" />
+
+    <include src="/pages/common/menu.wxml" />
+  </view>
+
+</view>
+<button wx:if="{{customer==1}}" class="suspended-service" style='background-color:{{customercolor}}' open-type="contact" session-from="weapp" show-message-card="true">
+  <text class="icox icox-customerservice"></text>
+</button>
+<view class="phone" bindtap='phone' wx:if="{{phone==1}}" style='background-color:{{phonecolor}}'>
+  <text class="icox icox-dianhua"></text>
+</view>

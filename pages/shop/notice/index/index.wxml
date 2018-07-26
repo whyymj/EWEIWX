@@ -1,0 +1,32 @@
+<!--index.wxml-->
+<loading wx:if="{{ !show }}">加载中...</loading>
+<view class="fui-page page-shop-notice-detail" wx:if="{{ show }}">
+   <view class='fui-content'>
+     <view class='fui-list-group'>
+     <block wx:for="{{list}}" wx:key="">
+        <template is="tpl_list" data="{{item}}"/>
+     </block>
+     </view>
+   </view>
+   <view wx:if="{{list.length<=0 && !loading}}" class='content-empty'><icon type='search' size='80'/><view>暂时没有任何公告</view></view>
+</view>
+       
+<template name="tpl_list">
+     <navigator url="../detail/detail?id={{item.id}}">
+		<view class="fui-list">
+			<view class="fui-list-media">
+				<image src="{{item.thumb}}" class="round" />
+			</view>
+			<view class="fui-list-inner">
+				<view class="row">
+					<view class="row-text">{{item.title}}</view>
+				</view>
+				<view class="subtitle">{{item.createtime}}</view>
+		 	</view>
+			<view class="fui-list-angle">
+				<view class="angle"></view>
+			</view>
+		</view>
+	</navigator>
+
+</template>

@@ -1,0 +1,3 @@
+/* pages/order/cycle/order.wxss */
+/* pages/order/list/index.wxss */
+@import '/pages/order/index.wxss';

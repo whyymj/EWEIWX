@@ -1,0 +1,77 @@
+<loading wx:if="{{ !show }}">加载中...</loading>
+<view class='page com-log' wx:if="{{ show }}">
+   <view class='fui-cell-group'style="margin-top:0px;background: #fea23d;color: #fff;">
+        <view class='fui-cell'>
+            <view class='fui-cell-info'style="width:auto;color: #fff;text-align:left">预计{{ textcomm }}<text>+{{ commissioncount }}</text>{{ textyuan }}</view>
+        </view>
+    </view>
+    <view class='fui-tab fui-tab-warning'>
+        <view class="item {{ status==0?'active':'' }}" bindtap="myTab" data-status="0">所有</view>
+        <view class="item {{ status==1?'active':'' }}" bindtap="myTab" data-status="1">待审核</view>
+        <view class="item {{ status==2?'active':'' }}" bindtap="myTab" data-status="2">待打款</view>
+        <view class="item {{ status==3?'active':'' }}" bindtap="myTab" data-status="3">已打款</view>
+        <view class="item {{ status==4?'active':'' }}" bindtap="myTab" data-status="4">无效</view>
+    </view>
+
+    <view class='fui-list-group' wx:if="{{ list.length>0 }}" style="background:#f3f3f3">
+        <navigator wx:for="{{ list }}" hover-class="none" url="/pages/commission/log/detail?id={{ item.id }}" open-type="navigate" style="background:#fff; display:block;margin-top: 20rpx;">
+            <view  class='fui-list' >
+              <view class='fui-list-inner'>
+                  <view class='row'>
+                    <view class='row-text' wx:if="{{ item.type==0 }}">提现到余额</view>
+                    <view class='row-text' wx:if="{{ item.type==1 }}">提现到微信红包</view>
+                    <view class='row-text' wx:if="{{ item.type==2 }}">提现到支付宝</view>
+                    <view class='row-text' wx:if="{{ item.type==3 }}">提现到银行卡</view>
+                  </view>
+                  <view class='subtitle' >{{ item.dealtime }}</view>
+              </view>
+              <view class='row-remark'>
+                  <view style="font-size: 30rpx;{{ item.status==-1?'color:#b2b2b2;':'' }}{{ item.status==-2?'color:#b2b2b2;':'' }}">+{{ item.commission_pay }}</view>
+                  <view style="color:#b2b2b2;{{ item.status==1?'color:#ff8000;':'' }}{{ item.status==2?'color:#ff5555;':'' }}{{ item.status==3?'color:#04ab02;':'' }}">{{ item.statusstr }}</view>
+              </view>
+            </view>
+            <view class="fui-list particulars">
+              <view class="div">
+                  <view>申请{{ textcomm }}</view> <view style="color: #999">{{ item.commission }}</view>
+              </view>
+              <view class="div">
+                  <view>实际金额</view> <view style="color: #999">{{ item.deductionmoney }}</view>
+              </view>
+              <view class="div">
+                  <view>提现手续费</view> <view style="color: #999">{{ item.deductionmoney+textyuan }}</view>
+              </view>
+            </view>
+          <view class="fui-list-inner" style="background: #f9f9f9;text-align: center;line-height:84rpx;color: #666;font-size:24rpx">查看提现详情</view>
+        </navigator>
+        <!-- <navigator class='fui-list' wx:for="{{ list }}" hover-class="none" url="/pages/commission/log/detail?id={{ item.id }}" open-type="navigate">
+            <view class='fui-list-inner'>
+                <view class='row'>
+                    <view class='row-text'>编号: {{ item.applyno }}</view>
+                </view>
+                <view class='text'>
+                    申请{{ textcomm }}: {{ item.commission }} 实际金额: {{ item.deductionmoney }} 个人所得税: {{ item.deductionmoney+textyuan }}
+                </view>
+                <view class='text' wx:if="{{ item.status==1 }}">申请时间: {{ item.dealtime }}</view>
+                <view class='text' wx:elif="{{ item.status==2 }}">审核时间: {{ item.dealtime }}</view>
+                <view class='text' wx:elif="{{ item.status==3 }}">打款时间: {{ item.dealtime }}</view>
+                <view class='text' wx:else="{{ item.status==-1 }}">无效时间: {{ item.dealtime }}</view>
+            </view>
+            <view class='row-remark'>
+                <view>+{{ item.commission_pay }}</view>
+                <view>{{ item.statusstr }}</view>
+            </view>
+        </navigator> -->
+    </view>
+
+    <view class="center" wx:if="{{ list.length<1 }}">
+        <view class='empty-tip'>
+            <image class='light' src="/static/images/icon/nolist.png"></image>
+            <view class='text-cancel'>暂时没有任何数据</view>
+        </view>
+    </view>
+<!-- 
+    <view class="fui-loading empty" wx:if="{{loaded && list.length>0}}">
+        <view class="text">没有更多了</view>
+    </view> -->
+
+</view>

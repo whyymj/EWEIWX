@@ -1,0 +1,127 @@
+<!--pages/member/cart/index.wxml-->
+<loading wx:if="{{ !show }}">加载中...</loading>
+<view class="model" wx:if="{{modelShow}}">
+  <view class="inner">
+		<view class="title">用户未授权</view>
+		<view class="image"><image src="/static/images/shouquan.png"></image></view>
+		<view class="subtitle">您需要先开启【用户信息】，才能使用此功能哦~</view>
+		<view class="model-btns">
+			<view class="cancel" bindtap="cancelclick">取消</view>
+			<view class="confirm" bindtap="confirmclick">去设置</view>
+		</view>
+	</view>
+	<!-- <include src="/pages/index/openauth.wxml"/> -->
+</view>
+<view class="page footer-navbar" wx:if="{{ show }}">
+    <view class="fui-cell-group  cartlist" bindtap='edit'wx:if="{{ !empty }}">
+      <navigator class="fui-cell edit" wx:if="{{ !edit }}" data-action="edit">编辑</navigator>
+      <navigator class="fui-cell edit" wx:if="{{ edit }}" data-action="complete">完成</navigator>
+    </view>
+    <block wx:for="{{ merch_list }}" wx:key>
+        <view class="fui-cell-group fui-cell-click">
+            <navigator class="fui-cell" hover-class="none" url="/pages/index/index?merchid={{ item.merchid }}" open-type="switchTab">
+
+                <view class="fui-cell-icon"><text class="icox icox-dianpu1"></text> </view>
+                <view class="fui-cell-text">{{ item.merchname?item.merchname:'自营商品' }}</view>
+                <view class="fui-cell-remark"></view>
+            </navigator>
+        </view>
+        <view class="fui-list-group cartlist" wx:for="{{ item.list }}" wx:for-index="key" wx:for-item="val" wx:key>
+            <view class="fui-list noclick">
+                <radio color="#ff5555" class="zoom-80" wx:if="{{ !edit }}" checked="{{ val.selected==1?true:'' }}" bindtap="selected" data-id="{{ val.id }}" data-select="{{ val.selected }}"/>
+                <radio color="#ff5555" class="zoom-80" wx:if="{{ edit }}" checked="{{ edit_list[val.id]?true:'' }}" bindtap="edit_list" data-id="{{ val.id }}"/>
+                <view class="fui-list-media" data-url="/pages/goods/detail/index?id={{ val.goodsid }}" bindtap="url">
+                    <image class="" src="{{ val.thumb }}"/>
+                </view>
+                <view class="fui-list-inner">
+                   <navigator data-url="/pages/goods/detail/index?id={{ val.goodsid }}" bindtap="url">
+                    <view class="text">{{ val.title }}</view>
+                    <view class="subtitle cart-option" wx:if="{{ val.optionid!=0 }}">
+                        <view class="choose-option">{{ val.optiontitle }}</view>
+                    </view>
+                  </navigator>
+                  <view class="price">
+                      <text class="bigprice">
+                          <text class="text-danger">¥{{ val.marketprice }}</text>
+                          <text class="productprice" wx:if="{{ val.productprice > val.marketprice }}">¥{{ val.productprice }}</text>
+                      </text>
+                      <view class="fui-number small" bindtap='number' data-min="{{ val.minbuy }}" data-value="{{ val.total }}" data-max="{{ val.totalmaxbuy }}" data-id="{{ val.id }}" data-optionid="{{ val.optionid }}">
+                          <view class="minus {{ val.total<=1?'disabled':'' }}" data-action="minus">-</view>
+                          <input class="num shownum" type="tel" name="" value="{{ val.total }}" disabled/>
+                          <view class="plus {{ val.total>=val.totalmaxbuy?'disabled':'' }}" data-action="plus">+</view>
+                      </view>
+                  </view>
+                </view>
+            </view>
+        </view>
+    </block>
+
+    <view class="fui-cell-group fui-cell-click" wx:if="{{ list.length>0 }}">
+        <navigator class="fui-cell" hover-class="none">
+
+
+             <view class="fui-cell-icon"><text class="icox icox-dianpu1"></text> </view>
+            <view class="fui-cell-text">自营商品</view>
+            <view class="fui-cell-remark"></view>
+        </navigator>
+    </view>
+    <view class="fui-list-group cartlist" wx:for="{{ list }}" wx:for-index="key" wx:for-item="val" wx:key>
+        <view class="fui-list noclick">
+            <radio color="#ff5555" class="zoom-80" wx:if="{{ !edit }}" checked="{{ val.selected==1?true:'' }}" bindtap="selected" data-id="{{ val.id }}" data-select="{{ val.selected }}"/>
+            <radio color="#ff5555" class="zoom-80" wx:if="{{ edit }}" checked="{{ edit_list[val.id]?true:'' }}" bindtap="edit_list" data-id="{{ val.id }}"/>
+            <view class="fui-list-media">
+                <image class="" src="{{ val.thumb }}"/>
+            </view>
+            <view class="fui-list-inner">
+                <navigator>
+                    <view class="text">{{ val.title }}</view>
+                    <view class="subtitle cart-option" wx:if="{{ val.optionid!=0 }}">
+                        <view class="choose-option">{{ val.optiontitle }}</view>
+                    </view>
+                </navigator>
+                <view class="price">
+                    <text class="bigprice text-danger">¥{{ val.marketprice }}</text>
+                    <view class="fui-number small" bindtap='number' data-min="{{ val.minbuy }}" data-value="{{ val.total }}" data-max="{{ val.totalmaxbuy }}" data-id="{{ val.id }}" data-optionid="{{ val.optionid }}">
+                        <view class="minus {{ val.total<=1?'disabled':'' }}" data-action="minus">-</view>
+                        <input class="num shownum" type="tel" name="" value="{{ val.total }}" disabled/>
+                        <view class="plus {{ val.total>=val.totalmaxbuy?'disabled':'' }}" data-action="plus">+</view>
+                    </view>
+                </view>
+            </view>
+           
+        </view>
+    </view>
+
+    <view class="center" wx:if="{{ empty }}">
+        <view class='empty'>
+            <image class='light' src="/static/images/icon/nogoods.png"></image>
+            <view class='text-cancel'>您的购物车中没有商品哦！</view>
+            <navigator class='btn btn-danger-o' url="/pages/index/index" open-type="switchTab">去首页逛逛吧</navigator>
+        </view>
+    </view>
+
+        <view class="fui-footer" wx:if="{{ !empty }}">
+            <view class="tool">
+                <view class="check">
+                    <label bindtap="checkall" wx:if="{{ !edit }}"><radio color="#ef4f4f" class="zoom-80" style="margin-right:20rpx" checked="{{ ischeckall?true:'' }}"></radio>全选</label>
+                    <label bindtap="editcheckall" wx:if="{{ edit }}" data-check="{{ editcheckall?true:false }}"><radio color="#ef4f4f" class="zoom-80"  style="margin-right:20rpx" checked="{{ editcheckall?true:'' }}"/>全选</label>
+                </view>
+                <view class="text">
+                    <block wx:if="{{ !edit }}">
+                        <view class="title">合计：<text class="text-danger">{{ totalprice }}元</text></view>
+                        <view class="subtitle">不含运费</view>
+                    </block>
+                </view>
+                <view class="btns" bindtap='edit'>
+                    <text class="btn btn-warning {{ editischecked?'':'disabled' }}" wx:if="{{ edit }}" data-action="move">移到关注</text>
+                    <text class="btn btn-danger {{ editischecked?'':'disabled' }}" wx:if="{{ edit }}" data-action="delete">删除</text>
+
+                    <text class='btn btn-danger {{ total?"":"disabled" }}' wx:if="{{ !edit }}" data-action="pay" style="width:200rpx">结算({{ total }})</text>
+                </view>
+            </view>
+        </view>
+
+        <!--公用底部菜单-->
+        <include src="/pages/common/menu.wxml"/>
+</view>
+

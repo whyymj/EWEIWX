@@ -1,0 +1,5 @@
+<view class="assembly-container">
+    <view class="assembly" style="width:{{ room_num*170 }}rpx">
+        <view wx:for="{{ rooms }}" wx:for-item="room" class="{{ roomid==room.id?'active':'' }}" bindtap="selected" data-id="{{ room.id }}">{{room.title}}</view>
+    </view>
+</view>

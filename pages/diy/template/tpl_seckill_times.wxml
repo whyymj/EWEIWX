@@ -1,0 +1,11 @@
+<scroll-view scroll-x="true"  scroll-left="{{ (timeindex-1)*70 }}" class="swiper-container time-container"  wx:if="{{ goods_error==0}}">
+	<view class="swiper-wrapper" data-num="{{time_num}}" style="width:{{ time_num*140 }}rpx">
+		<view class="swiper-slide time-slide  {{ timeindex==index?'current':'' }}" wx:for="{{ times }}" wx:for-item="time" bindtap="current" data-timeid="{{time.id}}" data-index="{{ index }}">
+			<view class="time">{{time.time}}:00</view>
+			<view class="text" wx:if="{{ time.status == 0 }}">抢购中</view>
+			<view class="text" wx:elif="{{ time.status == 1 }}">即将开始</view>
+			<view class="text" wx:else>已结束</view>
+		</view>
+
+	</view>
+</scroll-view>

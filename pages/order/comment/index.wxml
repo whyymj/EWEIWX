@@ -1,0 +1,61 @@
+<!--pages/order/evaluate/index.wxml-->
+<loading wx:if="{{ !show }}">加载中...</loading>
+<view clas='page'  wx:if="{{ show }}">
+    <view class='fui-list-group'> 
+        <view class='fui-list-group-title'>
+            <!-- <image src="/static/images/icon/shop.png"></image> -->
+            <text class="icox icox-dianpu1"></text>
+            <text class='shop'>{{ shopname }}</text>
+        </view>
+        <view class='fui-list' wx:for="{{ goods }}">
+            <view class='fui-list-media'>
+                <image src="{{ item.thumb }}"></image>
+            </view>
+            <view class='fui-list-inner'>
+                <view class='text'>{{ item.title }}</view>
+                <view class='subtitle' wx:if="{{ item.optiontitle }}">{{ item.optiontitle }}</view>
+            </view>
+            <!-- 普通商品  -->
+            <view class='fui-list-angle'>
+                <view class='text-right'>{{ item.price }}</view>
+                <view class='text-right'>x{{ item.total }}</view>
+            </view>
+        </view>
+    </view>
+     
+
+    <view class='fui-title'>
+        整单评价
+    </view>
+    <view class='fui-cell-group evaluate'>
+        <view class='fui-cell must'>
+            <view class='fui-cell-label'>评分</view>
+            <block wx:for="{{stars_class}}">
+                <text class="{{key>=index ?selectedSrc : normalSrc}}" data-key="{{index}}" bindtap="select">
+                </text>
+            </block>
+            <text style='font-size: 28rpx;' class='{{stars_class[key]}}'>{{key!=-1 ? stars_text[key]:'未评价'}}</text>
+        </view>
+        <view class='fui-cell' wx:if="{{ order.iscomment==0 }}">
+            <view class='fui-cell-label'>晒图</view>
+            <view class="fui-images fui-images-sm">
+                <image class="image image-sm" wx:for="{{ imgs }}" src="{{ item }}" catchtap="upload" data-type="image-preview" data-index="{{ index }}">
+                    <text class="image-remove" catchtap="upload" data-type="image-remove" data-index="{{ index }}"><text class="icox icox-close"></text></text>
+                </image>
+            </view>
+            <view class="fui-uploader fui-uploader-sm" catchtap="upload" data-type="image"></view>
+        </view>
+        <view class='fui-cell must'>
+           <view class='fui-cell-label'>评论</view>
+            <textarea placeholder="商品满意吗？来分享你的感受吧" bindinput="change" data-name="content"/>
+           <view class='fui-cell-info'></view>
+        </view>
+        <!-- <view class='textarea'>
+            <textarea placeholder="商品满意吗？来分享你的感受吧" bindinput="change" data-name="content"/>
+        </view> -->
+    </view>
+
+    <view class='fui-footer'>
+        <view class='nav-item btn btn-danger block' bindtap="submit">提交评价</view>
+    </view>
+</view>

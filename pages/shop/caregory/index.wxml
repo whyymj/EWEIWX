@@ -1,0 +1,143 @@
+<loading wx:if="{{ !show }}">加载中...</loading>
+<view class="page navbar" wx:if="{{ show }}">
+    <!--搜索start-->
+    <view class="category-search">
+        <view class="weui-flex">
+            <view class="weui-flex__item category-search-form">
+                <view class="flex-head-search" id="searchBar">
+                    <navigator class="weui-search-bar__form" open-type="navigate" hover-class="none" url="/pages/goods/index/index?fromsearch=1">
+                        <view class="weui-search-bar__box category-search-box">
+                            <view class="flex-icon-search">
+
+                                                    <i class="icox icox-search" style="color: #b4b4b4;"></i>
+                            </view>
+                            <view class="weui-search-bar__input flex-input">输入关键字进行搜索</view>
+                            <navigator url="javascript:" class="weui-icon-clear" id="searchClear"></navigator>
+                        </view>
+                    </navigator>
+                </view>
+            </view>
+        </view>
+    </view>
+    <!--搜索end-->
+    <!--分类start-->
+    <view class="category-content category-search-bar weui-flex">
+        <block wx:if="{{set.level>1}}">
+            <view class="category-content-left">
+                <scroll-view class="scroll-view_H" scroll-y="true" style="height: 100%;">
+                    <view class="content-left-item {{selector==0?'active':''}}" bindtap="tabCategory" data-id="0" data-src="{{set.advimg}}" data-child="{{recommands}}">推荐分类</view>
+                    <block wx:for="{{category}}" wx:for-index="idx" wx:for-item="item">
+                        <view class="content-left-item {{selector==item.id?'active':''}}" bindtap="tabCategory" data-id="{{item.id}}" data-src="{{item.advimg}}" data-url="{{item.advurl}}" data-child="{{item.child}}">
+                                {{item.name}}
+                        </view>
+                    </block>
+                </scroll-view>
+            </view>
+        </block>
+
+        <view class="category-ceontet-right weui-flex__item">
+            <scroll-view class="scroll-view_H" scroll-y="true" style="height:100%;">
+                <view class="content-right-item">
+                    <block wx:if="{{set.level>1 && advimg}}">
+                        <view class="" style="width:100%;display:block;margin-bottom:28rpx">
+                            <navigator id="advurl" class="swipe external" url="{{advurl}}">
+                                <image id="advimg" src="{{advimg}}" mode="widthFix"></image>
+                            </navigator>
+                        </view>
+                    </block>
+                    <block wx:if="{{set.level==1}}">
+                        <view class="fui-title">所有分类</view>
+                        <view class="fui-icon-group col-3">  
+                            <navigator class="fui-icon-col block" url="/pages/goods/index/index" open-type="navigate">
+                                <view class="icon {{set.style==0?'radio':''}}"><text class='icox icox-app'></text></view>
+                                <view class="text">所有商品</view>
+                            </navigator>
+                            <block wx:for="{{category}}" wx:for-index="idx" wx:for-item="item">
+                                <navigator url="/pages/goods/index/index?cate={{item.id}}" class="fui-icon-col" open-type="navigate">
+                                    <view class="icon {{set.style==0?'radio':''}}">
+                                        <image src="{{item.advimg}}"></image>
+                                    </view>
+                                    <view class="text">{{item.name}}</view>
+                                </navigator>
+                            </block>
+                        </view>
+                    </block>
+                    <block wx:if="{{set.level>1}}">
+                        <view class="fui-icon-group col-3">  
+                            <navigator class="fui-icon-col "wx:if="{{selector==0 && back==0}}" url="/pages/goods/index/index" open-type="navigate">
+                                <view class="icon {{set.style==0?'radio':''}}"><text class='icox icox-app'></text></view>
+                                <view class="text">所有商品</view>
+                            </navigator>
+                            <block wx:if="{{set.level==2}}">
+                                <block wx:for="{{child}}" wx:for-index="idx" wx:for-item="item">
+                                    <navigator url="/pages/goods/index/index?cate={{item.id}}" open-type="navigate" class="fui-icon-col"wx:if="{{set.level>=item.level}}">
+                                        <view class="icon {{set.style==0?'radio':''}}">
+                                            <image src="{{item.thumb||icons.nopic}}"></image>
+                                        </view>
+                                        <view class="text">{{item.name}}</view>
+                                    </navigator>
+                                </block>
+                            </block>
+                            <block wx:if="{{set.level==3}}">
+                              <block wx:if="{{set.show==0}}">
+                                    <block wx:if='{{selector==0}}'>
+                                         <block wx:if="{{back==1}}">
+                                          <navigator class="fui-icon-col" bindtap="backParent" data-id="{{selector}}" data-parent="{{parent}}">
+                                              <view class="icon {{set.style==0?'radio':''}}">
+                                                  <text class='icox icox-toleft'></text>
+                                              </view>
+                                              <view class="text">返回上一级</view>
+                                          </navigator>
+                                        </block>
+                                        <navigator url="{{item.child.length>0?'':'/pages/goods/index/index?cate='+item.id}}"  open-type="navigate" class="fui-icon-col" wx:for="{{child}}" wx:for-index="idx" wx:for-item="item" bindtap="{{item.child.length>0?'cateChild':''}}" data-child="{{item.child}}" data-parent="{{child}}">
+                                          <view class="icon {{set.style==0?'radio':''}}">
+                                              <image src="{{item.thumb||icons.nopic}}"></image>
+                                          </view>
+                                          <view class="text">{{item.name}}</view>
+                                      </navigator>
+                                    </block>
+                                    <block wx:else>
+                                      <view  wx:for="{{child}}" wx:for-index="idx" wx:for-item="item" style="overflow:hidden">
+                                          <view style='font-size:28rpx'> {{item.name}}</view> 
+                                            <block wx:for="{{item.child}}" wx:for-item="items">
+                                            <navigator url="/pages/goods/index/index?cate={{items.id}}" class="fui-icon-col str">
+                                                <view class="icon {{set.style==0?'radio':''}}">
+                                                    <image src="{{items.thumb||icons.nopic}}" binderror="error"></image>
+                                                </view>
+                                                <view class="text" style='line-height:50px'>{{items.name}}</view>
+                                            </navigator> 
+                                          </block>  
+                                      </view> 
+                                    </block>
+                              </block>
+                              <block wx:else>
+                                <block wx:if="{{back==1}}">
+                                  <navigator class="fui-icon-col" bindtap="backParent" data-id="{{selector}}" data-parent="{{parent}}">
+                                      <view class="icon {{set.style==0?'radio':''}}">
+                                          <text class='icox icox-toleft'></text>
+                                      </view>
+                                      <view class="text">返回上一级</view>
+                                  </navigator>
+                                </block>
+                                <block wx:for="{{child}}" wx:for-index="idx" wx:for-item="item">
+                                    <navigator url="{{item.child.length>0?'':'/pages/goods/index/index?cate='+item.id}}" class="fui-icon-col str"  data-child="{{item.child}}" data-parent="{{child}}" bindtap="{{item.child.length>0?'cateChild':''}}">
+                                        <view class="icon {{set.style==0?'radio':''}}">
+                                            <image src="{{item.thumb||icons.nopic}}" binderror="error"></image>
+                                        </view>
+                                        <view class="text">{{item.name}}</view>
+                                    </navigator> 
+                                </block>
+                              </block>  
+                            </block>
+                        </view>
+                    </block>
+                    
+                </view>
+            </scroll-view>
+        </view>
+    </view>
+    <!--分类end-->
+
+    <!--公用底部菜单-->
+    <include src="/pages/common/menu.wxml"/>
+</view>

@@ -1,0 +1,145 @@
+<view class="fui-page seckill-page {{ seckill_style }} {{ seckill_color }} fui-page-current" style='background:{{background_color}}' >
+    <view wx:if='{{diypages}}' style='min-height:100%;height:100%;'>
+            <include src="/pages/custom/index.wxml"/>
+    </view>
+    <view  wx:else>
+
+    <view class="fui-content " wx:if="{{ list_error==0}}">
+        <view class="assembly-container">
+            <view class="assembly" style="width:{{ room_num*170 }}rpx">
+                <view wx:for="{{ rooms }}" wx:for-item="room" class="{{ roomid==room.id?'active':'' }}" bindtap="selected" data-id="{{ room.id }}">{{room.title}}</view>
+            </view>
+        </view>
+
+        <view class="swiper-container time-container"  wx:if="{{ goods_error==0}}">
+            <view class="swiper-wrapper" style="width:{{ time_num*140 }}rpx">
+
+                <view class="swiper-slide time-slide  {{ timeindex==index?'current':'' }}" wx:for="{{ times }}" wx:for-item="time" bindtap="current" data-timeid="{{time.id}}" data-index="{{ index }}">
+                    <view class="time">{{time.time}}:00</view>
+                    <view class="text" wx:if="{{ time.status == 0 }}">抢购中</view>
+                    <view class="text" wx:elif="{{ time.status == 1 }}">即将开始</view>
+                    <view class="text" wx:else>已结束</view>
+                </view>
+
+            </view>
+        </view>
+        <!-- <view class="swiper-container adv-container" wx:if="{{ goods_error==0}}" >
+            <view class="swiper-wrapper" style="width:{{ adv_num*268 }}rpx">
+                <view class="swiper-slide adv-slide"  wx:for="{{ advs }}" wx:for-item="adv">
+                    <navigator url="./index.php?i=12&amp;c=entry&amp;m=ewei_shopv2&amp;do=mobile&amp;r=goods.detail&amp;mid=12643&amp;id=9346"class="text " >
+                        <image src="{{ adv.thumb }}" mode="widthFix"></image>
+                     </navigator >
+                </view>
+            </view>
+        </view> -->
+        <view class="swiper-container goods-container swiper-container-horizontal" wx:if="{{ goods_error==0}}">
+            <view class="swiper-wrapper" >
+
+                <view class="swiper-slide goods-slide swiper-slide-active "  wx:for="{{ times }}" wx:for-item="time"  wx:if="{{timeindex==index}}"  data-starttime="{{ time.starttime }}"  data-endtime="{{ time.endtime }}"  data-status="{{ time.status }}"  data-timeid="{{ time.id }}">
+                    <view class="fui-list-group noborder">
+
+                        <view class="fui-list-group-title" >
+                            <view style='color:#666;font-size:26rpx'>
+                                <view class="text" wx:if="{{ time.status == -1 }}">还可以继续抢购哦~</view>
+                                <view class="text" wx:if="{{ time.status == 0 }}">抢购中 先下单先得哦</view>
+                                <view class="text" wx:if="{{ time.status == 1 }}">即将开始 先下单先得哦</view>
+                            </view>
+                            <view class="timer" wx:if="{{ time.status>=0 }}" >
+                                {{ time.status==1?'距开始':'距结束' }}<span class="time-hour" >{{ hour }}</span>:<span class="time-min" >{{ min }}</span>:<span class="time-sec" >{{ sec }}</span>
+                            </view>
+                        </view>
+
+
+                        <view class="fui-list align-start" wx:for="{{ goods }}" wx:for-item="goods_item">
+                            <view class="fui-list-media">
+                                <navigator url="/pages/goods/detail/index?id={{goods_item.goodsid}}"><image src="{{goods_item.thumb}}"></image></navigator >
+                            </view>
+                            <view class="fui-list-inner">
+                                <navigator url="/pages/goods/detail/index?id={{goods_item.goodsid}}"class="text " >{{ goods_item.title }}</navigator >
+                                <view class="info-container1">
+                                    <view class="info">
+                                        <view wx:if="{{ time.status == 1 }}">
+                                            <navigator url="/pages/goods/detail/index?id={{goods_item.goodsid}}"class="btn btn-success btn-sm "> 等待抢购</navigator >
+                                        </view>
+                                        <view wx:elif="{{ goods_item.percent >=100 }}">
+                                            <navigator url="/pages/goods/detail/index?id={{goods_item.goodsid}}"class="btn btn-default btn-sm "> 已抢空</navigator >
+                                        </view>
+                                        <view wx:else>
+                                            <navigator url="/pages/goods/detail/index?id={{goods_item.goodsid}}"class="btn btn-danger btn-sm "> 去抢购</navigator >
+                                        </view>
+                                        <view class="price" wx:if="{{goods_item.price}}" >¥{{ goods_item.price }}</view>
+                                    </view>
+                                    <view class="info info1" wx:if="{{ time.status != 1 }}">
+                                        <view class="process" >
+                                            <view class="inner" style="width:{{ goods_item.percent }}%;"></view>
+                                        </view>
+                                        <span class="process-text" >已抢 <span>{{ goods_item.percent }}%</span></span>
+                                        <view class="price1" wx:if="{{goods_item.marketprice}}">¥{{ goods_item.marketprice }} </view>
+                                    </view>
+                                </view>
+                                <view class="info-container2">
+                                    <view class="info">
+                                        <view class="price" wx:if="{{goods_item.price}}">¥{{ goods_item.price }}</view>
+                                        <view class="price1" wx:if="{{goods_item.marketprice}}" >¥{{ goods_item.marketprice }}</view>
+                                    </view>
+                                    <view class="info info1">
+                                            <view wx:if="{{ time.status == 1 }}">
+                                                <navigator url="/pages/goods/detail/index?id={{goods_item.goodsid}}"class="btn btn-success btn-sm "> 等待抢购</navigator >
+                                            </view>
+                                            <view wx:elif="{{ goods_item.percent >=100 }}">
+                                                <navigator url="/pages/goods/detail/index?id={{goods_item.goodsid}}"class="btn btn-default btn-sm "> 已抢空</navigator >
+                                            </view>
+                                            <view wx:else>
+                                                <navigator url="/pages/goods/detail/index?id={{goods_item.goodsid}}"class="btn btn-danger btn-sm "> 去抢购</navigator >
+                                            </view>
+                                        <view class="process-container" wx:if="{{ time.status != 1 }}">
+                                            <view class="process" >
+                                                <view class="inner" style="width:{{ goods_item.percent }}%;"></view>
+                                            </view>
+                                            <view class="process-text" >已抢 <span>{{ goods_item.percent }}%</span></view>
+                                        </view>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+
+
+            </view>
+        </view>
+    </view>
+    </view>
+
+    <view class="center" wx:if="{{ list_error==1 || goods_error==1}}">
+      <view class='empty'>
+        <image class='light' src="/static/images/icon/nolist.png"></image>
+        <view class='text-cancel'>{{message}}</view>
+        <navigator class='btn btn-danger-o' url="/pages/index/index" open-type="switchTab">去首页逛逛吧</navigator>
+      </view>
+    </view>
+
+    <view class="fui-footer {{ seckill_color }} " style='height:{{height}}'>
+        <view class="fui-nav"  data-url="/pages/index/index" bindtap="navigate">
+            <view >
+                <text class="icox icox-shouye1"></text>返回商城
+            </view>
+        </view>
+        <view class="fui-nav"  bindtap="onLoad">
+            <view class='active'>
+                <text class="icox icox-miaoshashouye"></text>秒杀首页
+            </view>
+        </view>
+        <view class="fui-nav" data-url="/pages/member/cart/index" bindtap="navigate">
+            <view>
+                <text class="icox icox-gouwuche1"></text>购物车
+            </view>
+        </view>
+        <view  class="fui-nav" data-url="/pages/order/index" bindtap="navigate">
+            <view>
+                <text class="icox icox-wodedingdan"></text>我的订单
+            </view>
+        </view>
+    </view>
+
+</view>

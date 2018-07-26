@@ -1,0 +1,126 @@
+<!--pages/commission/apply/index.wxml-->
+<loading wx:if="{{ !show }}">加载中...</loading>
+<view class='page apply' wx:if="{{ show }}">
+    <view class='fui-cell-group'>
+        <view class='fui-cell' style="padding-top:40rpx">
+            <view class='fui-cell-info'style="font-size: .7rem;color: #666;">我的{{ set['texts']['commission_ok'] }}</view>
+        </view>
+        <view class='fui-cell' style="padding-bottom:40rpx;padding-top:0;">
+         
+            <view class='fui-cell-label price'>¥</view>
+             <view class='fui-cell-info price'>{{ commission_ok }}</view>
+        </view>
+        </view>
+        <view class='fui-cell-group'>
+        <view class='fui-cell'>
+            <view class='fui-cell-label'>提现方式</view>
+               <!-- <view class='fui-cell-info'><picker value="{{ applyIndex }}" range="{{ type_array }}" range-key="title" bindchange="typeChange">{{ type_array[applyIndex].title }}</picker></view> -->
+        </view>
+        <radio-group wx:for="{{type_array}}">
+          <label bindtap="typeChange" data-name="0" wx:if="{{item.type=='0'}}">
+             <view class="fui-cell applyradio">
+                <view class="fui-cell-icon"><image src="/static/images/icon-white/ye.png" alt="" /></view>
+                <view class="fui-cell-info">
+                    {{item.title}}
+                </view>
+                <view class="fui-cell-remark noremark"><radio color="#ff5555" value="1"class="fui-radio fui-radio-danger"  id="applytype" data-type="0" checked="{{applytype==0?'checked':''}}" /></view>
+            </view>
+          </label>
+           <label  bindtap="typeChange" data-name="1" wx:if="{{item.type=='1'}}">
+          
+            <view class="fui-cell applyradio">
+                <view class="fui-cell-icon"><image src="/static/images/icon-white/wx.png" alt="" /></view>
+                <view class="fui-cell-info">
+                    {{item.title}}
+                </view>
+                <view class="fui-cell-remark noremark"><radio color="#ff5555"  value="1"class="fui-radio fui-radio-danger"  data-type="1" checked="{{applytype==1?'checked':''}}" /></view>
+            </view>
+          </label> 
+          <label  bindtap="typeChange" data-name="2" wx:if="{{item.type=='2'}}">
+            
+            <view class="fui-cell applyradio">
+                <view class="fui-cell-icon"><image src="/static/images/icon-white/zfb.png" alt="" /></view>
+                <view class="fui-cell-info">
+                    {{item.title}}
+                </view>
+                <view class="fui-cell-remark noremark"><radio color="#ff5555" value="1" class="fui-radio fui-radio-danger" data-type="2" checked="{{applytype==2?'checked':''}}" /></view>
+            </view>
+          </label>
+           <block wx:if="{{ applytype==2&&item.type=='2' }}">
+              <view class="fui-cell" >
+                    <view class="fui-cell-label">姓名</view>
+                    <view class="fui-cell-info">
+                        <input type="text" class='fui-input' value="{{ last_data.realname }}" max="25" bindinput="inputChange" data-type="realname" placeholder="请输入姓名" />
+                    </view>
+                </view>
+                <view class="fui-cell">
+                    <view class="fui-cell-label">支付宝帐号</view>
+                    <view class="fui-cell-info">
+                        <input class='fui-input' value="{{ last_data.alipay }}" max="25" bindinput="inputChange" data-type="alipay" placeholder="请输入支付宝账号" />
+                    </view>
+                </view>
+                <view class="fui-cell alipay-group">
+                    <view class="fui-cell-label">确认帐号</view>
+                    <view class="fui-cell-info">
+                        <input class='fui-input' value="{{ last_data.alipay1 }}" max="25" bindinput="inputChange" data-type="alipay1" placeholder="请确认支付宝账号" />
+                    </view>
+                </view>
+            </block>
+          <label  bindtap="typeChange" data-name="3" wx:if="{{item.type=='3'}}">
+            
+            <view class="fui-cell applyradio">
+                <view class="fui-cell-icon"><image src="/static/images/icon-white/yinhangka.png" alt="" /></view>
+                <view class="fui-cell-info">
+                    {{item.title}}
+                </view>
+                <view class="fui-cell-remark noremark"><radio color="#ff5555" value="1" class="fui-radio fui-radio-danger" data-type="3" checked="{{applytype==3?'checked':''}}" /></view>
+            </view> 
+          </label>
+        </radio-group>            
+        <view class="fui-cell" wx:if="{{applytype==3 }}">
+            <view class="fui-cell-label">姓名</view>
+            <view class="fui-cell-info">
+                <input type="text" class='fui-input' value="{{ last_data.realname }}" max="25" bindinput="inputChange" data-type="realname" placeholder="请输入姓名" />
+            </view>
+        </view>
+        <view class="fui-cell" wx:if="{{ applytype==3 }}">
+            <view class="fui-cell-label"><span class="re-g">选择银行</span></view>
+            <picker class="fui-cell-info" value="{{bankIndex}}" range="{{banklist}}" range-key="bankname" bindchange="bankChange">{{ banklist[bankIndex]['bankname'] }}</picker>
+            <view class="fui-cell-remark"></view>
+        </view>
+        <block wx:if="{{ applytype==3 }}">
+            <view class="fui-cell alipay-group">
+                <view class="fui-cell-label">银行卡号</view>
+                <view class="fui-cell-info">
+                    <input class='fui-input' value="{{ last_data.bankcard }}" max="25" bindinput="inputChange" data-type="bankcard" placeholder="请输入银行卡号" />
+                </view>
+            </view>
+            <view class="fui-cell alipay-group">
+                <view class="fui-cell-label">确认卡号</view>
+                <view class="fui-cell-info">
+                    <input class='fui-input' value="{{ last_data.bankcard1 }}" max="25" bindinput="inputChange" data-type="bankcard1" placeholder="请确认银行卡号" />
+                </view>
+            </view>
+        </block>
+    </view>
+
+    <view class='fui-cell-group' wx:if="{{ set_array['charge']>0 }}">
+        <view class='fui-cell'>
+            <view class='fui-cell-info'> 佣金提现{{ set['texts']['commission_charge'] }} {{ set_array['charge'] }}%</view>
+        </view>
+
+        <view class='fui-cell' wx:if="{{ set_array['end']>0 }}">
+            <view class='fui-cell-info'> {{ set['texts']['commission_charge'] }}金额在¥{{ set_array['begin'] }}到￥{{ set_array['end'] }}间免收</view>
+        </view>
+
+        <view class='fui-cell'  wx:if="{{ deductionmoney>0 }}">
+            <view class='fui-cell-info'> 本次提现将{{ set['texts']['commission_charge'] }}金额 ¥ {{ deductionmoney }}</view>
+        </view>
+
+        <view class='fui-cell'>
+            <view class='fui-cell-info'>本次提现实际到账金额 ¥ {{realmoney}}</view>
+        </view>
+    </view>
+    <view class="btn btn-warning mtop block {{ (!cansettle || isSubmit)?'disabled':'' }}" bindtap="submit">下一步</view>
+    <view class="fui-toast {{FoxUIToast.show?'in':'out'}}"><view class="text">{{FoxUIToast.text}}</view></view>
+</view>

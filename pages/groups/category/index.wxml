@@ -1,0 +1,63 @@
+<!--pages/groups/category/index.wxml-->
+ <view class='page groups' style='{{isIpx?"padding-bottom:168rpx":""}}'>
+  <view class='fui-header flex'>
+    <view class="searchbar flex1">
+        <text class='icox icox-search'></text>
+        <input name="search" bindconfirm="bindSearch" bindinput="bindInput" bindfocus="bindFocus" placeholder="输入关键字进行搜索" value="{{params.keywords}}" focus="{{ focusin }}" />
+    </view>
+    <view wx:if="{{fromsearch}}" class="cancel" bindtap="bindback">取消</view>
+  </view>
+  <!--热卖  -->
+ <view class='fui-list-group'  wx:if='!{{empty}}'>
+  <navigator url='/pages/groups/goods/index?id={{item.id}}' class='fui-list' wx:for='{{list}}'>
+    <view class='fui-list-media'>
+       <image class='radius' 
+        src='{{item.thumb}}'>
+      </image>
+    </view>
+    <view class='fui-list-inner'>
+      <view class='des'>
+      <text class='person'>{{item.groupnum}}人团</text>{{item.title}}
+      </view>
+      <text class='line'>原价￥{{item.price}}</text>
+      <view class='price'>
+        <text>￥{{item.groupsprice}}</text>
+        <view class='groupbtn'>去拼团</view>
+      </view>
+    </view>
+  </navigator>
+</view> 
+
+<!--数据为空  -->
+ <view class='empty' wx:if='{{empty}}'>
+  <image src='/static/images/search_empty.png'></image>
+  <view class='text'>未找到任何活动</view>
+  <view hover-class='none' class='btn btn-danger-o' bindtap='back'>返回上一页</view>
+  <navigator url='/pages/groups/index/index' hover-class='none' class='btn btn-danger'>去首页</navigator>
+</view> 
+
+<!--底部导航  -->
+<view class='fui-navbar footer-nav {{iphonexnavbar}}'>
+    <navigator  url='/pages/index/index' class='nav-item' hover-class="none" open-type='switchTab'>
+      <span class="icox icox-back"></span>
+      <span class="label">返回商城</span>
+    </navigator>
+    <navigator class='nav-item' hover-class="none" url='/pages/groups/index/index' open-type='reLaunch'>
+      <span class="icox icox-shouye1"></span>
+      <span class="label">拼团首页</span>
+    </navigator> 
+    <navigator url='/pages/groups/category/index' class='nav-item active' hover-class="none" open-type='reLaunch'>
+      <span class="icox icox-quanbukanjia"></span>
+      <span class="label">活动列表</span>
+    </navigator>
+    <navigator class='nav-item' hover-class="none" url='/pages/groups/order/index' open-type='reLaunch'>  
+      <span class="icox icox-kanjiazhong"></span>
+      <span class="label">我的订单</span>
+    </navigator>
+    <navigator url='/pages/groups/mygroups/index'  class='nav-item' hover-class="none" open-type='reLaunch'>
+      <span class="icox icox-yigoumai"></span>
+      <span class="label">我的团</span>
+    </navigator>
+  </view>
+  <view class='{{isIpx?"fui-iphonex-button":""}}'></view>
+ </view>

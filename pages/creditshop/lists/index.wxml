@@ -1,0 +1,56 @@
+<!--搜索start-->
+<view class="category-search">
+  <view class="weui-flex">
+    <view class="weui-flex__item category-search-form">
+      <view class="flex-head-search" id="searchBar">
+        <navigator class="weui-search-bar__form" open-type="navigate" hover-class="none" url="">
+          <view class="weui-search-bar__box category-search-box">
+            <view class="flex-icon-search">
+              <i class="icox icox-search" style="color: #b4b4b4;"></i>
+            </view>
+            <input class="weui-search-bar__input flex-input" type="text" bindfocus="focus" bindinput='doinput' placeholder="输入关键字进行搜索" value="{{keywords}}" />
+            <view class="searchbar-cancel searchbtn {{showbtn}}" style="top: 0; right: 0" bindtap="search">搜索</view>
+            <navigator url="javascript:" class="weui-icon-clear" id="searchClear"></navigator>
+          </view>
+        </navigator>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!--list  -->
+<view class='fui-goods-group block' style='margin-top:100rpx; '>
+
+  <view class='fui-goods-item' wx:for="{{datas}}">
+    <navigator hover-class='none' open-type='navigate' url="/pages/creditshop/detail/index?id={{item.id}}">
+      <view class='image' style='background-image:url({{item.thumb}})'></view>
+    </navigator>
+    <view class='detail goods_list_detail'>
+      <navigator hover-class='none' open-type='navigate' url="/pages/creditshop/detail/index?id={{item.id}}">
+        <view class='name'>
+          <span class="title-tip">
+            <block wx:if="{{item.type==0}}">商品</block>
+            <block wx:if="{{item.type==1}}">优惠券</block>
+            <block wx:if="{{item.type==2}}">余额</block>
+            <block wx:if="{{item.type==4}}">红包</block>
+          </span>{{item.title}}</view>
+      </navigator>
+      <view class='price'>
+        <view class='text'>{{item.credit}}积分<span wx:if="{{item.money>0}}">+￥{{item.money}}</span></view>
+      </view>
+    </view>
+  </view>
+
+</view>
+
+<!--数据显示-->
+<view class="fui-loading" hidden='{{load}}'>
+  <view class="icon"></view>
+  <view class="text">正在加载</view>
+</view>
+<view class="fui-loading empty" hidden='{{more}}'>
+  <view class="text">没有更多了</view>
+</view>
+<view class="fui-loading empty" hidden='{{notgoods}}'>
+  <view class="text">暂时没有任何商品</view>
+</view>

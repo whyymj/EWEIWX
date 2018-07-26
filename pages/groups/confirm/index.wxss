@@ -1,0 +1,257 @@
+/* pages/groups/confirm/index.wxss */
+@import '/static/css/order.wxss';
+@import "/pages/common/city-picker.wxss";
+@import "/pages/date/date.wxss";
+
+page {
+  background: #f7f7f7;
+}
+
+.nav {
+  width: 100%;
+  height: 90rpx;
+  display: flex;
+  flex-direction: row;
+  background: #fff;
+}
+
+.default {
+  line-height: 90rpx;
+  text-align: center;
+  flex: 1;
+  color: #666;
+  font-size: 32rpx;
+}
+
+.red {
+  line-height: 90rpx;
+  text-align: center;
+  color: #ef4f4f;
+  flex: 1;
+  font-size: 32rpx;
+  border-bottom: 2px solid #ef4f4f;
+}
+
+.switch {
+  float: right;
+  zoom: 90%;
+  overflow: hidden;
+}
+
+.btn {
+  padding: 0 60rpx;
+  border-radius: 0;
+  height: 100rpx;
+  line-height: 100rpx;
+  margin: 0;
+}
+
+.fui-list-angle {
+  margin-right: 0;
+  text-align: right;
+  height: 140rpx;
+}
+
+.fui-list-angle .price {
+  font-size: 26rpx;
+}
+
+.fui-list-angle .text-right {
+  color: #999;
+  font-size: 28rpx;
+}
+
+.fui-cell-text .shop_name {
+  font-size: 28rpx;
+  line-height: 48rpx;
+  height: 48rpx;
+}
+
+.fui-list-inner {
+  height: 140rpx;
+  align-self: center;
+}
+
+.gift-list .fui-list-inner {
+  height: auto;
+  align-self: flex-start;
+}
+
+.no-border .fui-list-inner {
+  height: auto;
+}
+
+.fui-cell-group .fui-cell.fui-cell-textarea {
+  height: 120rpx;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+.diyform-container .picker-group {
+  display: flex;
+}
+
+.diyform-container .diyform-pulldown2 {
+  flex: 1;
+}
+
+.diyform-container .diyform-pulldown2  view {
+  width: 100%;
+  float: left;
+  background: #f3f3f3;
+  text-indent: 0.5rem;
+  border-radius: 0.1rem;
+  position: relative;
+}
+
+.diyform-container .diyform-pulldown2 view:after {
+  content: " ";
+  display: inline-block;
+  -webkit-transform: rotate(135deg);
+  -ms-transform: rotate(135deg);
+  transform: rotate(135deg);
+  height: 12rpx;
+  width: 12rpx;
+  border-width: 1px 1px 0 0;
+  border-color: #000;
+  border-style: solid;
+  position: absolute;
+  top: 8rpx;
+  right: 30rpx;
+  margin-left: 0;
+}
+
+.has-address {
+  font-size: 28rpx;
+  line-height: 48rpx;
+  height: 48rpx;
+  display: flex;
+}
+
+.name {
+  display: inline-block;
+  max-width: 300rpx;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  padding-right: 20rpx;
+}
+
+.mobile {
+  display: inline-block;
+  overflow: hidden;
+}
+
+.adress {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  font-size: 26rpx;
+  color: #666;
+}
+
+.fui-cell-group .fui-cell .fui-cell-icon {
+  color: #000;
+}
+
+.no-border .fui-list-inner .subtitle {
+  line-height: 1.5;
+}
+
+.row-remark {
+  text-align: right;
+  position: relative;
+  flex-shrink: 0;
+  padding-left: 20rpx;
+  color: #aaa;
+  font-size: 26rpx;
+  line-height: 1.5;
+}
+
+/*.fui-list-group {
+   padding-bottom:20rpx
+}*/
+
+.fui-list.no-border {
+  overflow: visible;
+  background: #f9f9f9;
+  padding-top: 20rpx;
+}
+
+.fui-list.no-border::after {
+  content: " ";
+  display: block;
+  height: 4rpx;
+  background: #fff;
+  position: absolute;
+  top: 0px;
+  right: 20rpx;
+  left: 20rpx;
+}
+
+.picker-modal {
+  height: auto;
+}
+
+.fui-cell-group.bordertop:after {
+  content: " ";
+  position: absolute;
+  left: 20rpx;
+  right: 20rpx;
+  top: 0;
+  height: 1px;
+  border-top: 1px solid #ebebeb;
+  color: #d9d9d9;
+  transform-origin: 0 0;
+  transform: scaleY(0.5);
+}
+
+.fui-cell-group.clearform {
+  position: relative;
+}
+
+.fui-cell-group.clearform:after {
+  content: " ";
+  position: absolute;
+  left: 20rpx;
+  right: 20rpx;
+  bottom: 0;
+  height: 1px;
+  border-top: 1px solid #ebebeb;
+  color: #d9d9d9;
+  transform-origin: 0 0;
+  transform: scaleY(0.5);
+}
+.fui-cell-group .fui-cell .fui-cell-remark::after{
+    -webkit-transform:rotate(135deg);
+    -ms-transform:rotate(135deg);
+    transform:rotate(135deg);
+}
+.fui-cell-group.toggleSend-group .send-code{display: block;font-size: 26rpx}
+.fui-cell-group.toggleSend-group .fui-cell.title .fui-cell-remark::after{
+    -webkit-transform:rotate(-45deg);
+    -ms-transform:rotate(-45deg);
+    transform:rotate(-45deg);
+}
+.fui-cell-group .fui-cell .num{
+  min-width:22rpx;
+  height:30rpx;
+  border-radius:50%;
+  background:#ff5555;
+  text-align:center;
+  color:#fff;
+  font-size:22rpx;
+  line-height: 30rpx;
+  padding: 0 5rpx
+}
+.fui-cell-group.toggleSend-group .fui-cell .fui-cell-remark::after{
+    -webkit-transform:rotate(45deg);
+    -ms-transform:rotate(45deg);
+    transform:rotate(45deg);
+}
+

@@ -1,0 +1,74 @@
+{
+	"description": "项目配置文件。",
+	"setting": {
+		"urlCheck": true,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "1.9.94",
+	"appid": "wx88e4a8da72ca46fb",
+	"projectname": "%E5%94%AE%E5%90%8E%E7%8E%AF%E7%8E%AF%E7%AB%99",
+	"isGameTourist": false,
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 3,
+			"list": [
+				{
+					"id": -1,
+					"name": "秒杀",
+					"pathName": "seckill/pages/index/index",
+					"query": ""
+				},
+				{
+					"id": 1,
+					"name": "秒杀商品详情",
+					"pathName": "pages/goods/detail/index",
+					"query": "id=4"
+				},
+				{
+					"id": -1,
+					"name": "333",
+					"pathName": "raffle/pages/index/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "分红",
+					"pathName": "dividend/pages/index/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "分红订单",
+					"pathName": "dividend/pages/order/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "分红订单提现",
+					"pathName": "dividend/pages/apply/index",
+					"query": ""
+				}
+			]
+		}
+	}
+}

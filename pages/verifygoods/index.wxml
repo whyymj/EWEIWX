@@ -1,0 +1,47 @@
+<loading wx:if="{{ !show }}">加载中...</loading>
+<view class='page' wx:if="{{ show }}">
+  <view class="fui-tab fixed fui-tab-danger">
+      <view class="item {{ cate==''?'active':'' }}" bindtap="selected" data-cate="">未完成</view>
+      <view class="item {{ cate=='used'?'active':'' }}" bindtap="selected" data-cate="used">已完成</view>
+      <view class="item {{ cate=='past'?'active':'' }}" bindtap="selected" data-cate="past">已过期</view>
+  </view>
+   <view class="coupon-list-group">
+      <block wx:for="{{list}}" wx:for-item="item">
+        <navigator class="coupon-list {{item.classstr}}" url="/pages/verifygoods/detail/index?id={{item.id}}">
+          <view class="coupon-left">
+            <view class="coupon-title">
+              <view class="coupon-list-media">
+                <image src="{{item.thumb}}"/>
+              </view>
+              <view class="coupon-inner">
+                <view>
+                  {{item.title}}
+                </view>
+              </view>
+            </view>
+            <view class="coupon-time">
+              有效日期：{{item.termofvalidity}}
+            </view>
+          </view>
+          <view class="coupon-right">
+              <view wx:if="{{item.numlimit>0}}" class="text">可用次数</view>
+              <view wx:else class="text">剩余天数</view>
+              <view class="num"><span style="font-size:40rpx;font-weight:bold;">{{item.surplusnum}}</span></view>
+          </view>
+        </navigator>
+      </block>
+    <!--数据显示-->
+    <view class="fui-loading" wx:if="{{loading}}">
+        <view class="icon"></view>
+        <view class="text">正在加载</view>
+    </view>
+    <view class="fui-loading empty" wx:if="{{loaded && list.length>0}}">
+        <view class="text">没有更多了</view>
+    </view>
+    <view class="fui-loading empty" wx:if="{{total<=0 && !loading}}">
+        <view class="text">没有数据</view>
+    </view>
+		</view>
+    <!--公用底部菜单-->
+    <include src="/pages/common/menu.wxml"/>
+</view>

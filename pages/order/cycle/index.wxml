@@ -1,0 +1,64 @@
+<view class="{{isIpx?'fui-iphonex-button':''}}"></view>
+<view class="page navbar">
+  <scroll-view scroll-x="true" class='cycle-periods'>
+    <view class="cycle-card {{ index == status ? 'active' : ''}}" data-status="{{index}}" bindtap='cycle' data-id="{{ item.id }}" wx:for="{{ list }}">
+      <view class='num'>{{ index+1 }}</view>
+      <view class='date'>{{ index+1 }}/{{ list.length }}</view>
+      <view class='status'>
+        <text wx:if="{{ item.status == 0 }}">未开始</text>
+        <text wx:if="{{ item.status == 1 }}" style="color:#fd9727;">进行中</text>
+        <text wx:if="{{ item.status == 2 }}" style="color:#f55">已完成</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 每期详情  -->
+  <view class='cycle-cell-group' wx:for="{{ list }}" wx:if="{{ index == status }}">
+    <view class='cycle-cell'>
+      <view class='cycle-cell-label'>服务次数</view>
+      <view class='cycle-cell-info'>第{{ index+1 }}次/共{{ list.length }}次</view>
+    </view>
+    <view class='cycle-cell'>
+      <view class='cycle-cell-label'>收货日期</view>
+      <view class='cycle-cell-info'>{{ item.receipttime }}/{{ item.week }}</view>
+    </view>
+    <view class='cycle-cell'>
+      <view class='cycle-cell-label'>收货地址</view>
+      <view class='cycle-cell-info'>{{ item.addressInfo }}</view>
+    </view>
+    <navigator open-type='navigate' class='cycle-cell' url="/pages/order/express/index?cycelid={{ item.id }}&id={{ orderid }}">
+      <view class='cycle-cell-label'>物流信息</view>
+      <view class='cycle-cell-info' wx:if="{{ item.expresssn }}">
+        <text>{{ item.expresscom }}</text>
+        <text>{{ item.expresssn }}</text>
+      </view>
+      <view class='cycle-cell-info' wx:else>
+        <text>暂无物流信息</text>
+      </view>
+      <view class='cycle-cell-remark'></view>
+    </navigator>
+
+    <view class="fui-footer {{iphonexnavbar}}" wx:if="{{ item.status == 0 && refundstate == '0'}}">
+      <view class="btn btn-default btn-default-o btn-sm" data-id="{{item.id}}" data-type="0" data-isdelay="0" bindtap="editdate">修改收货日期</view>
+      <view class="btn btn-default btn-default-o btn-sm" data-id="{{item.id}}" data-type="0" data-isdelay="1" bindtap="editdate">顺延收货</view>
+      <navigator wx:if="{{ applyforid > 0 }}" open-type='navigate' url="/pages/order/cycle/address?orderid={{ orderid }}&cycelid={{ item.id }}&applyid={{ applyforid }}" data-id="{{item.id}}" class="btn btn-default btn-default-o btn-sm" hover-class='none'>修改地址</navigator>
+       <navigator wx:if="{{ applyforid <= 0 || applyforid == undefined}}" open-type='navigate' url="/pages/order/cycle/address?orderid={{ orderid }}&cycelid={{ item.id }}" data-id="{{item.id}}" class="btn btn-default btn-default-o btn-sm" hover-class='none'>修改地址</navigator>
+    </view>
+    <view class="fui-footer {{iphonexnavbar}}" wx:else>
+      <!-- <view class="btn btn-default btn-default-o btn-sm" data-id="{{item.id}}" data-type="0" data-isdelay="0" bindtap="editdate">修改收货日期</view> -->
+      <view wx:if="{{ item.status == 1 }}" class="btn btn-default btn-default-o btn-sm" data-id="{{item.id}}" bindtap="confirm_receipt">确认收货</view>
+    </view>
+  </view>
+
+</view>
+<!--周期购  -->
+<view wx:if="{{cycledate}}" class='date-model'>
+  <view class='inner' style='height: 764rpx;width: 690rpx;background: #fff;overflow: hidden;border-radius: 10rpx;'>
+    <include src="/pages/date/date.wxml" />
+    <view class="datebtns">
+      <view class="date-btn date-btn-cancel" bindtap="syclecancle" style="margin-right: 0.75rem">取消</view>
+      <view class="date-btn date-btn-confirm" bindtap="sycleconfirm">确定</view>
+    </view>
+  </view>
+</view>
+<view class="fui-toast {{FoxUIToast.show?'in':'out'}}"><view class="text">{{FoxUIToast.text}}</view></view>
