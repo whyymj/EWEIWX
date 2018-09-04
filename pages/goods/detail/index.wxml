@@ -523,7 +523,7 @@
               <view class="fui-cell-text comment ">
                 <view class="info head">
                   <view class="img">
-                    <image src="{{item.headimgurl}}"></image>
+                    <image style="height:50rpx;width:50rpx" src="{{item.headimgurl}}"></image>
                   </view>
                   <view class="nickname">{{item.nickname}}</view>
                   <view class="date">{{item.createtime}}</view>
@@ -601,7 +601,7 @@
                 <view class="fui-cell-text comment ">
                   <view class="info head">
                     <view class="img">
-                      <image src="{{item.headimgurl}}"></image>
+                      <image style="height:50rpx;width:50rpx" src="{{item.headimgurl}}"></image>
                     </view>
                     <view class="nickname">{{item.nickname}}</view>
                     <view class="date">{{item.createtime}}</view>
