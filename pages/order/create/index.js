@@ -303,8 +303,10 @@ Page({
             list.isdiscountprice = data.isdiscountprice;
             list.seckill_price=data.seckill_price;
             list.deductcredit2 = data.deductcredit2;
+            list.deductmoney = data.deductmoney;
+            list.deductcredit = data.deductcredit;
             if ($this.data.data.deduct){
-                data.realprice -= data.deductcredit
+              data.realprice -= data.deductmoney  //减去积分抵扣的金额
             }
             if ($this.data.data.deduct2){
                 data.realprice -= data.deductcredit2
@@ -343,7 +345,7 @@ Page({
         //  if (this.data.goods.gifts) {
         //   console.log(this.data.goods.gifts);
         // }
-        console.log(data.fromquick);
+        //console.log(data.fromquick);
         if (data.submit){
             return;
         }
@@ -390,11 +392,11 @@ Page({
           subdata.carrierid = data.list.storeInfo.id;
         }
         if (data.data.dispatchtype == 1 || data.list.isvirtual || data.list.isverify){
-            if ($.trim(data.list.member.realname) == ''){
+          if ($.trim(data.list.member.realname) == '' && data.list.set_realname=='0'){
                 core.alert('请填写联系人!');
                 return;
             }
-            if ($.trim(data.list.member.mobile) == ''){
+          if ($.trim(data.list.member.mobile) == '' && data.list.set_mobile == '0'){
                 core.alert('请填写联系方式!');
                 return;
             }
@@ -421,24 +423,30 @@ Page({
             if (ret.error != 0 ) {
                 core.alert(ret.message);
                 return;
-            } 
+            }
             wx.navigateTo({
                 url:'/pages/order/pay/index?id='+ret.orderid
             });
         }, true)
     },
     dataChange:function (e) {
-        var data = this.data.data,list = this.data.list,id = e.target.id;
+      var data = this.data.data,list = this.data.list,id = e.target.id;
         switch (id){
             case 'remark':data.remark=e.detail.value;break;
             case 'deduct':
                 data.deduct=e.detail.value;
+                if (data.deduct2){
+                  return;
+                }
                 var realprice = parseFloat(list.realprice);
                 realprice += data.deduct ? - parseFloat(list.deductmoney) : parseFloat(list.deductmoney);
                 list.realprice = realprice;
                 break;
             case 'deduct2':
                 data.deduct2=e.detail.value;
+                if (data.deduct) {
+                  return;
+                }
                 var realprice = parseFloat(list.realprice);
                 realprice += data.deduct2 ? - parseFloat(list.deductcredit2) : parseFloat(list.deductcredit2);
                 list.realprice = realprice;

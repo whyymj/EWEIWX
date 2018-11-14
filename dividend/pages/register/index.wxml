@@ -1,3 +1,4 @@
+<import src="/utils/wxParse/wxParse.wxml" />
 <view class="fui-toast {{FoxUIToast.show?'in':'out'}}">
     <view class="text">{{FoxUIToast.text}}</view>
   </view>
@@ -97,16 +98,41 @@
   <view wx:if="{{message.set.open_protocol == 0}}" class="agreebtn" data-open_protocol = "{{message.set.open_protocol}}" bindtap='submit'>申请{{message.set.texts.become}}</view>
 
   <view class='specialadvan'>
-    <view class='specialitem'>
-      <icon class='icox icox-tequan' style='margin-right: 12rpx;color: #cfa943;'></icon>
-      <text>队长特权</text>
+    <view wx:if="{{ message.set.register_bottom == 0 }}">
+      <view class='specialitem'>
+        <icon class='icox icox-tequan' style='margin-right: 12rpx;color: #cfa943;'></icon>
+        <text>队长特权</text>
+      </view>
+      <view class='flex'>
+        <icon class='icox icox-yishenqingyongjin' style='margin-right: 12rpx;color: #cfa943;'></icon>
+        <view>
+          <view>销售拿{{message.set.texts.dividend}}</view>
+          <view class='smallfont'>{{message.set.texts.become}}后下线卖出商品，您可以获得{{message.set.texts.dividend}}</view>
+        </view>
+      </view>
     </view>
-    <view class='flex'>
-      <icon class='icox icox-yishenqingyongjin' style='margin-right: 12rpx;color: #cfa943;'></icon>
+
+    <view wx:if="{{ message.set.register_bottom == 1 }}">
+      <view class='flex'>
+        <icon class='icox icox-tequan' style='margin-right: 12rpx;color: #cfa943;'></icon>
+        <view>
+          <view>{{ message.set.register_bottom_title1 }}</view>
+          <view class='smallfont'>{{message.set.register_bottom_content1}}</view>
+        </view>
+      </view>
+      <view class='flex'>
+        <icon class='icox icox-yishenqingyongjin' style='margin-right: 12rpx;color: #cfa943;'></icon>
+        <view>
+          <view>{{ message.set.register_bottom_title2 }}</view>
+          <view class='smallfont'>{{message.set.register_bottom_content2}}</view>
+        </view>
+      </view>
+    </view>
+     <view wx:if="{{ message.set.register_bottom == 2 }}">
       <view>
-        <view>销售拿分红</view>
-        <view class='smallfont'>成为队长后下线卖出商品，您可以获得分红</view>
+        <rich-text nodes="{{message.set.register_bottom_content}}"></rich-text>
       </view>
     </view>
   </view>
-</block> 
+</block>
+<include src="/pages/common/city-picker.wxml"/>

@@ -13,7 +13,7 @@
         </view>
         <view class="fui-list seckill-list1">
             <view class="fui-list-inner">
-                <view class="text " wx:if="{{ goods['seckillinfo']['status']==0 }}">
+                <view class="text ">
                     已出售 {{ goods['seckillinfo']['percent'] }}%
                 </view>
                 <view class="text ">

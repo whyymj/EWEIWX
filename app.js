@@ -53,6 +53,37 @@ App({
             }); 
        }
     },
+    /**
+     * 小程序如果没有授权或者没有数据缓存重新跳转到会员中心请求缓存
+     * @date 2018-10-22
+     * @author Vencenty
+     */
+    checkAuth: function () {
+      var url = '/pages/message/auth/index'
+      wx.getSetting({
+        success: function (settings) {
+          if (!settings.authSetting['scope.userInfo']) {
+            wx.redirectTo({
+              url: url
+            })
+          }
+        }
+      })
+      var userinfo = this.getCache('userinfo')
+      if(!userinfo) {
+        wx.redirectTo({
+          url: url
+        })
+      }
+      
+      core.get('member', {}, function (ret) {
+        if (ret.error) {
+          wx.redirectTo({
+            url: url,
+          })
+        }
+      })
+    },
     requirejs: function (jsname) {
         return require('utils/' + jsname + '.js');
     },
@@ -115,8 +146,10 @@ App({
     },
     getUserInfo: function (success, cancel){
         var that = this;
+       
         var userinfo = {};
         var userinfo = that.getCache('userinfo');
+     
         if (userinfo && !userinfo.needauth) {
             if (success && typeof success == 'function') {
                 success(userinfo);
@@ -125,18 +158,16 @@ App({
         }
 
         //调用登录接口
-        wx.login({  
+        wx.login({
             success: function (ret) {
-            //  console.log("wx.login=" + JSON.stringify(ret));
-              
                 if (!ret.code) {
                     core.alert('获取用户登录态失败:' + ret.errMsg);
                     return;
                 } 
-                
                 core.post('wxapp/login', {code: ret.code}, function (login_res) {
-                   // core.alert("wxapp/login" + JSON.stringify(login_res));
-                  
+                 
+                  //  core.alert("wxapp/login" + JSON.stringify(login_res));
+                 
                     if (login_res.error) {
                         core.alert('获取用户登录态失败:' + login_res.message);
                         return;
@@ -149,7 +180,6 @@ App({
                     
                     wx.getUserInfo({
                         success: function (res) {
-                         // core.alert("wx.getUserInfo" + JSON.stringify(res));
                             userinfo = res.userInfo;
                              core.get('wxapp/auth', {
                                 data: res.encryptedData,
@@ -183,12 +213,10 @@ App({
                                 }
                             });
                         },
-                        fail: function () {
-                          console.log(login_res)
+                        fail: function (err) {
                             core.get('wxapp/check', {
                                 openid: login_res.openid
                             }, function (check_res) {
-                              console.log(check_res)
                               if (check_res.isblack == 1) {
                                   wx.showModal({
                                     title: '无法访问',
@@ -216,7 +244,7 @@ App({
                     });
                 });
             },
-            fail: function () {
+            fail: function (error) {
                 core.alert('获取用户信息失败!');
             }
         });
@@ -230,7 +258,7 @@ App({
     getSet: function () {
         var $this = this;
         var cacheset = $this.getCache("cacheset");
-        if (cacheset == '') {
+        // if (cacheset == '') {
         // var sysset = $this.getCache("sysset");
         // if (sysset == '') {
             setTimeout(function () {
@@ -242,7 +270,7 @@ App({
                     // $this.setCache("sysset", result.sysset, 7200);
                 });
             }, 10);
-        }
+        // }
     },
 
     url: function (options) {
@@ -251,11 +279,14 @@ App({
         mid = options.mid || '';
         merchid = options.merchid || '';
         if (user != '') {
+            // console.log('---')
             if (user.mid == '' || typeof user.mid == 'undefined') {
                 arg.mid = mid;
+                arg.merchid = user.merchid;
             }
             if (user.merchid == '' || typeof user.merchid == 'undefined') {
                 arg.merchid = merchid;
+                arg.mid = user.mid;
             }
         } else {
             arg.mid = mid;
@@ -267,7 +298,6 @@ App({
     impower: function(limit, msg, route) {
     	wx.getSetting({
     		success: function(res) {
-    			console.log(res)
     			var limits = res.authSetting['scope.' + limit];
     			if(!limits) {
     				wx.showModal({
@@ -330,22 +360,24 @@ App({
     // globalData: {
     //   appid:'wx3d3b2fd41970f6db',
     //   api: "https://api.clubmall.cn/app/ewei_shopv2_api.php?i=16",
-    //   approot: "https://meilian.weiyunjia.cn/addons/ewei_shopv2/",
+    //   approot: "https://api.clubmall.cn/addons/ewei_shopv2/",
     //     userInfo: null
     // }
 
     // 售后
     // globalData: {
-    //   appid: "wx88e4a8da72ca46fb",
-    //   api: "https://shn2mgo.ifkvip.com/ewei_shopv2_api.php?i=3",
+    //   appid: "wx3502a0f358ee367f",
+    //   api: "https://shn2mgo.ifkvip.com/app/ewei_shopv2_api.php?i=2",
     //   approot: "https://shn2mgo.ifkvip.com/addons/ewei_shopv2/",
     //   userInfo: null
     // }
 
      globalData: {
-      appid: null,
-      api: null,
-      approot: null,
-      userInfo: null
-    }
-});
+       appid: null,
+       api: null,
+       approot: null,
+       userInfo: null
+     }
+
+})
+  

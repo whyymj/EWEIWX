@@ -38,7 +38,7 @@
 
 
 
-        <view wx:if="{{diyitem.params.hidecartbtn != 1}}" class="nav-item btn cartbtn" bindtap="selectPicker" data-tap="{{active}}" data-id="{{goods.id}}" data-buytype="cart" style="background:{{diyitem.style.cartcolor}}">加入购物车</view>
+        <view wx:if="{{diyitem.params.hidecartbtn != 1 && goods.canAddCart && goods.type != 9}}" class="nav-item btn cartbtn" bindtap="selectPicker" data-tap="{{active}}" data-id="{{goods.id}}" data-buytype="cart" style="background:{{diyitem.style.cartcolor}}">加入购物车</view>
         
         
         <view wx:if="{{ !goods.access_time && !goods.timeout}}" class="nav-item btn buybtn" bindtap="selectPicker" data-tap="{{active}}" data-buytype="buy"  data-id="{{goods.id}}" style="background:{{diyitem.style.buycolor}}">{{diyitem.params.textbuy}}</view>

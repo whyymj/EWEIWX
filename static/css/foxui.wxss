@@ -1261,6 +1261,7 @@
     align-items: center;
     font-size: 28rpx;
     margin-top: 12rpx;
+    min-height:20px;
 }
 .fui-goods-item .detail .price .text {
     -webkit-box-flex: 1;
@@ -1662,7 +1663,7 @@
 	z-index: 1000;
 	display: none;
 }
-/* 分割线 */
+/* ??? */
 .fui-line {height: auto; display: block; position: relative; background: inherit;text-align: center}
 .fui-line:before {content: " "; position: absolute; top: 50%; left: 0; width: 100%; height: 1px; background: #d5d5d5;}
 .fui-line .text {height: 100%; width: 150rpx; margin: auto; background: inherit; font-size: 28rpx; display: inline-block; position: relative; }
@@ -1948,7 +1949,7 @@
 .fui-list.no-border::after{
   display: none
 }
-/*视频  */
+/*??  */
 .voice{
   width:60rpx;
   height:60rpx;
@@ -2028,7 +2029,7 @@ cover-image{
 }
 
 
-/*分销佣金  */
+/*????  */
 .goods-Commission{
    position: absolute;
     height:36rpx;

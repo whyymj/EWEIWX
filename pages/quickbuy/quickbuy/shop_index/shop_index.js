@@ -216,6 +216,7 @@ Page({
 
   // 购买picker
   selectPicker: function (e) {
+    app.checkAuth();
     var $this = this;
     wx.getSetting({
       success: function (res) {
@@ -228,7 +229,7 @@ Page({
             showvideo: false
           });
         } else {
-          $this.setData({ modelShow: true })
+          // $this.setData({ modelShow: true })
           return
         }
       }

@@ -91,16 +91,16 @@ overflow:hidden;
 	background:#f8f8f8;
 }
 .content-left-item {
-	overflow:hidden;
+	/* overflow:hidden; */
 	position:relative;
 	text-align:center;
-	text-overflow:ellipsis;
-	white-space:nowrap;
-  line-height: 100rpx;
+	/* text-overflow:ellipsis; */
+	/* white-space:nowrap; */
+  line-height: 46rpx;
     font-size: 26rpx;
     color: #000;
-    padding: 0 4rpx;
-    height: 100rpx;
+    padding: 24rpx 4rpx;
+    /* height: 100rpx; */
 }
 .content-left-item.active {
 	background:#fff;
@@ -186,5 +186,5 @@ padding:0 10rpx 0 60rpx;
   width: 145rpx
 }
 .fui-icon-group .fui-icon-col .text{
-  width: 144rpx;
+  width: auto;
 }

@@ -1,10 +1,11 @@
 <!--pages/groups/goods/index.wxml-->
+<import src="/utils/wxParse/wxParse.wxml"/> 
 <view class='page'  style='{{isIpx?"padding-bottom:168rpx":""}}'>
 <!--轮播图  -->
-  <swiper class="index-adcs-sqiper" indicator-dots="true" circular="{{circular}}" style="width:750rpx;height:750rpx;">
-      <block wx:for='{{data.thumb_url}}'>
+  <swiper class="index-adcs-sqiper" indicator-dots="true" circular="{{circular}}" style="width:100%;height:{{advHeight}}rpx;">
+      <block wx:for='{{data.thumb_url}}'  wx:for-item="item" wx:for-index="idx">
           <swiper-item>
-              <image src="{{item}}" class="goodsadvimg" mode='aspectFit'></image>          
+              <image bindload="{{idx == 0 ? 'imageLoad' : ''}}"  src="{{item}}" class="goodsadvimg" ></image>          
           </swiper-item>
       </block>
   </swiper>
@@ -15,7 +16,7 @@
        <text>{{data.title}}</text>
     </view>
     <view class='subtitle'>{{data.description}}</view>
-    <view class='subtitle'>已有{{data.sales}}人参团，销量{{data.sales}}件</view>
+    <view class='subtitle'>已有{{data.fightnum}}人参团，销量{{data.sales}}件</view>
     <view class='price'>
         <text class='large'>￥{{data.groupsprice}}</text><text class='line'>原价￥{{data.price}}</text>
         <view class='fr'>邮费：{{data.freight}}</view>
@@ -33,9 +34,12 @@
     </navigator>
 
     <!--图文详情  -->
-    <view class='detail-info' wx:if='{{content}}'>
+    <view class='detail-info' wx:if='{{wxParseData}}'>
       <view class='title'>图文详情</view>
-      <rich-text nodes="{{content}}"></rich-text>
+       <view class="wxParse">
+            <template is="wxParse" data="{{wxParseData:wxParseData.nodes}}"/>
+        </view>
+      <!-- <rich-text style='width:750rpx' nodes="{{content}}"></rich-text> -->
     </view>
 
     <!--底部  -->

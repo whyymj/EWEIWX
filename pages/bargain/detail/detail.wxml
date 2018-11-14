@@ -2,10 +2,10 @@
 <view class='page navbar'>
   <view class='goods-detail-goods'>
   <!--轮播图  -->
-    <swiper class="index-adcs-sqiper" indicator-dots="true" autoplay='true' interval="3000" duration="500" circular="true" style="width:{{advWidth}}px;height:{{advHeight}}rpx;">
-          <block>
-              <swiper-item wx:for="{{ goods.thumbs }}" wx:for-item="thumb" wx:for-index="idx">
-                  <image bindload="{{idx == 0 ? 'imageLoad' : ''}}" src="{{ thumb }}" class="goodsadvimg"></image>        
+    <swiper class="index-adcs-sqiper" indicator-dots="true" circular="true" style="width:100%;height:{{advHeight}}rpx;">
+          <block wx:for="{{ goods.thumbs }}" wx:for-item="item" wx:for-index="idx">
+              <swiper-item  >
+                  <image data-url = '{{item}}' bindload="{{idx == 0 ? 'imageLoad' : ''}}" src="{{ item }}" class="goodsadvimg"></image> 
               </swiper-item>
           </block>
       </swiper>

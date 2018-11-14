@@ -1,4 +1,4 @@
-/* pages/commission/register/index.wxss */
+@import "/pages/common/city-picker.wxss"; 
 .register .fui-list-group .fui-list .image-32{
     width: 32rpx;
     height: 32rpx

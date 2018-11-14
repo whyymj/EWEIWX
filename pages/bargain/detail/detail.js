@@ -12,31 +12,25 @@ Page({
     act_swi:'',
     error_hint:false,
     error_hint_title:'',
-    advHeight: 0,
+    advHeight: 1
   },
 
   //商品详情轮播图按照第一张图片显示
   imageLoad: function(e){
     let h = e.detail.height,
         w = e.detail.width,
-        height = (750*h) / w;
-        console.error(h +'    '+w +'   '+ height)
+        height = Math.floor((750*h) / w);
+         
     if(h == w){
-      this.setData({ advHeight: 750 })
+      this.setData({ advHeight: 750})
     }else{
       this.setData({ advHeight: height})
     }
   },
   onLoad:function(options){
     var $this = this;
-    console.log(options)
-    wx.getSystemInfo({
-      success: function (result) {
-        $this.setData({
-          advWidth: result.windowWidth
-        });
-      }
-    });
+    console.log(123)
+  
     var isIpx = app.getCache('isIpx');
     if (isIpx) {
       $this.setData({
@@ -50,7 +44,6 @@ Page({
       })
     }
     core.get('bargain/get_detail',options,function(ret){
-      console.log(ret.list.thumbs[0].height);
       $this.setData({goods:ret.list});
       $this.setData({ id: ret.list.id,act_swi: ret.list.act_swi });
       parser.wxParse('wxParseData', 'html', ret.list.content, $this, '0');
@@ -119,6 +112,7 @@ Page({
   },
 
   goJoin: function (){
+    app.checkAuth();
     var $this = this;
     var id = $this.data.id;
     core.get('bargain/join', {id:id}, function (result) {
@@ -138,6 +132,7 @@ Page({
     });
   },
   alreadyHave:function(){
+    app.checkAuth();
     var $this = this;
     $this.setData({ upper_limit:true,upper_limitTitle:'您已经发起过一次本商品的砍价活动,是否立即查看？'});
   },

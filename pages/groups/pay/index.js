@@ -20,6 +20,7 @@ Page({
         coupon: false
     },
     onLoad: function (options) {
+        app.checkAuth();
         var $this = this, goodslist = {};
         this.setData({
             options: options

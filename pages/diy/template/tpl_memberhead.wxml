@@ -2,7 +2,7 @@
 <view style="overflow: hidden;height: 360rpx;position: relative;background: #fff" wx:if="{{diyitem.params.style=='default1'}}">
     <view class="member-head" style="z-index:100;border: none;"> 
         <view class="child">
-            <view class="title" style="color:{{diyitem.style.textcolor|| ''}}">余额</view>
+            <view class="title" style="color:{{diyitem.style.textcolor|| ''}}">{{member.moneytext}}</view>
             <view class="number" style="color:{{diyitem.style.textlight|| ''}}">{{member.credit2}}</view>
             <navigator url="{{diyitem.params.leftnavlink}}" class="btn" hover-class="btn-hover" wx:if="{{ member.open_recharge }}" open-type="navigate" style="color:{{diyitem.style.textcolor|| ''}};border-color:{{diyitem.style.textcolor|| ''}}">{{diyitem.params.leftnav}}</navigator>
         </view>
@@ -31,7 +31,7 @@
 </view>
 <!--样式二  -->
 <view class="headinfo style-2" style='background:{{diyitem.style.background}};' wx:else>
-  <navigator class="icon-style2" hover-class='none' open-type='navigate' url='/pages/member/membercard/index?hasmembercard={{member.hasmembercard}}'>
+  <navigator class="icon-style2" hover-class='none' open-type='navigate' url='/pages/member/membercard/index?hasmembercard={{member.hasmembercard}}' wx:if='{{member.usemembercard}}'>
     <image src="/static/images/header-style2.png"></image>
   </navigator>
 
@@ -44,10 +44,10 @@
   <view class='inner'>
     <view class='name' style="color:{{diyitem.style.textcolor|| ''}}">{{member.nickname}}</view>
     <view class="level" style="color:{{diyitem.style.textcolor|| ''}}">{{member.levelname}}</view>
-    <view class="credit" style="color:{{diyitem.style.textcolor|| ''}}">余额：
+    <view class="credit" style="color:{{diyitem.style.textcolor|| ''}}">{{member.moneytext}} :
       <text style="color:{{diyitem.style.textlight|| ''}}">{{member.credit2}}</text>
     </view>
-    <view class="credit" style="color:{{diyitem.style.textcolor|| ''}}">积分
+    <view class="credit" style="color:{{diyitem.style.textcolor|| ''}}">{{member.credittext}} :
       <text style="color:{{diyitem.style.textlight|| ''}}">{{member.credit1}}</text>
     </view>
   </view>
