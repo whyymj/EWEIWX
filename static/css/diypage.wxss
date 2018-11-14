@@ -5,10 +5,15 @@
     background: white;
     position: relative;
     overflow: hidden;
+    display: flex;
 }
 .fui-tabbar.style1{
   height: 80rpx;
   white-space: nowrap;
+  overflow-x: scroll;
+}
+.fui-tabbar.style2{
+  flex-wrap: wrap;
 }
 .fui-tabbar .item{
   display: inline-block;
@@ -301,6 +306,7 @@ image.radius{
 }
 .fui-icon-group.col-4 .fui-icon-col{
    width: 25%;
+   height: 146rpx;
 }
 .fui-icon-group.col-3 .fui-icon-col{
    width: 33.33%;

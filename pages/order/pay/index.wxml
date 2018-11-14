@@ -189,7 +189,7 @@
      <view class='fui-cell-group' wx:if="{{ order.isvirtualsend>0 && order.virtualsend_info!=null }}">
         <view class='fui-cell-title'>发货信息</view>
         <view class="fui-cell">
-             <view class='fui-cell-info'><text class='fui-cell-label' selectable='true'>{{ order.virtualsend_info }}</text></view>
+             <view class='fui-cell-info' style='white-space:normal'><text class='fui-cell-text' selectable='true'>{{ order.virtualsend_info }}</text></view>
         </view>
     </view>
 

@@ -86,6 +86,7 @@ Page({
     })
   },
   cutPrice: function (){
+    app.checkAuth();
     var $this = this;
     var userinfo = app.getCache('userinfo');
     if (userinfo == '') {

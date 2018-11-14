@@ -11,9 +11,14 @@
 var app = getApp(), core = app.requirejs('core');
 var diyform = app.requirejs('biz/diyform');
 Page({
-    data: {},
+    data: {
+        areas: [],
+    },
     onLoad: function (options) {
-        //页面初始化 options为页面跳转所带来的参数
+        var $this = this
+        setTimeout(function () {
+            $this.setData({ areas: app.getCache("cacheset").areas });
+        }, 300)
     },
     onShow: function () {
         this.getData();
@@ -71,6 +76,7 @@ Page({
         var verify = diyform.verify(this, memberdata);
         if (!verify) {
           core.alert('请检查必填项是否填写');
+          return;
         }
 
         var data = {
@@ -84,7 +90,12 @@ Page({
         core.post('commission/register', data, function (json) {
             if (json.error == 0){
                 wx.redirectTo({
-                    url:json.check==1?'/pages/commission/index':'/pages/commission/register/index'
+                    url:json.check==1?'/pages/commission/index':'/pages/commission/register/index',
+                    fail: function () {
+                      wx.switchTab({
+                        url: json.check == 1 ? '/pages/commission/index' : '/pages/commission/register/index'
+                      })
+                    }
                 });
                 return;
             }else{
@@ -94,5 +105,20 @@ Page({
     },
     DiyFormHandler: function (e) {
       return diyform.DiyFormHandler(this, e)
+    },
+    selectArea: function (e) {
+        return diyform.selectArea(this, e)
+    },
+    bindChange: function (e) {
+        return diyform.bindChange(this, e)
+    },
+    onCancel: function (e) {
+        return diyform.onCancel(this, e)
+    },
+    onConfirm: function (e) {
+        return diyform.onConfirm(this, e)
+    },
+    getIndex: function (str, areas) {
+        return diyform.getIndex(str, areas)
     },
 });

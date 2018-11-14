@@ -51,7 +51,10 @@ Page({
           var orderlist = $this.data.list.concat(res.list);
           args.page = args.page + 1;
         }
-        $this.setData({ member: res.member, list: orderlist, loading: false, total: res.total, page: args.page, stop: false, ordercount: res.ordercount })
+        wx.setNavigationBarTitle({
+          title: res.textdividend+'订单' || '分红订单'
+        });
+        $this.setData({ member: res.member, list: orderlist, loading: false, total: res.total, page: args.page, stop: false, ordercount: res.ordercount, textyuan: res.textyuan, textdividend: res.textdividend })
       }
     })
   }

@@ -1,6 +1,6 @@
 <view class='topmsg'>
   <view class='money'>{{msg.member.dividend_total}}</view>
-  <view>累积分红（元）</view>
+  <view>{{msg.set.texts.dividend_total}}（{{msg.set.texts.yuan}}）</view>
 </view>
 <view class='overflow mar-top'>
   <icon class='fl icox icox-ketixianyongjin'></icon>
@@ -42,8 +42,8 @@
   <icon class='iconfont'></icon>
 </view>
 <view class='tipsitem'>
-  <view>卖家确认收货后，立即获得团队分红</view>
-  <view><text></text>注意：可用分红满<text>1元</text>后才能申请提现</view>
+  <view>卖家确认收货后，立即获得{{msg.set.texts.dividend1}}</view>
+  <view><text></text>注意：可用{{msg.set.texts.dividend}}满<text>1{{msg.set.texts.yuan}}</text>后才能申请{{msg.set.texts.withdraw}}</view>
 </view>
  
-<view data-price="{{msg.member.dividend_ok}}" class="{{msg.member.dividend_total == 0 ? 'gray' : ''}} withdrawbtn {{isIpx? 'iphoneX':''}}" bindtap="submit">我要提现</view>
+<view data-price="{{msg.member.dividend_ok}}" class="{{msg.member.dividend_total == 0 ? 'gray' : ''}} withdrawbtn {{isIpx? 'iphoneX':''}}" bindtap="submit">我要{{msg.set.texts.withdraw}}</view>

@@ -69,7 +69,13 @@ circular='true' interval="{{interval}}" duration="{{duration}}" current='{{diyit
                 {{childitems.title}}
             </navigator>
             <!--原价销量  -->
-          <view class='productprice' wx:if='{{diyitem.params.showprice=="1" && (diyitem.params.showproductprice=="1"|| diyitem.params.showsales=="1")}}'></view>
+
+          <view class='productprice' wx:if='{{diyitem.params.showprice=="1" && (diyitem.params.showproductprice=="1"|| diyitem.params.showsales=="1")}}'>
+         
+                 <text style='color:{{diyitem.style.productpricecolor}};margin-right:16rpx' wx:if='{{childitems.productprice>0 && diyitem.params.showproductprice=="1"}}'>{{diyitem.params.productpricetext}}：<text class='{{diyitem.params.productpriceline=="1"?"line":""}}'>￥{{childitems.productprice}}</text>
+                 </text>
+                 <text wx:if="{{diyitem.params.showsales=='1'}}" style='color:{{diyitem.style.salescolor}}'>{{diyitem.params.salestext}}:  {{childitems.sales}}</text>
+            </view>
             <!--价格购买按钮  -->
             <view class='price' wx-if='{{diyitem.params.showprice=="1"}}'>
                 <text class='text' style='color:{{diyitem.style.pricecolor}}'>￥{{childitems.price}}</text>

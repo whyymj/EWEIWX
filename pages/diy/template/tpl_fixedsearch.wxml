@@ -7,7 +7,7 @@
                 <text class='icox {{diyitem.params.leftnavicon}}' style='color:{{diyitem.style.leftnavcolor}}' wx:if='{{diyitem.params.leftnav==1}}'></text>
                 <image src='{{diyitem.params.leftnavimg}}' wx:if='{{diyitem.params.leftnav==2}}'></image>
             </view>
-            <navigator class='center {{diyitem.params.searchstyle}}' url="/pages/goods/index/index?fromsearch=1">
+            <navigator class='center {{diyitem.params.searchstyle}}' data-url='/pages/goods/index/index?fromsearch=1' bindtap='navigate'>
               <view style='background:{{diyitem.style.searchbackground}};color:{{diyitem.style.searchtextcolor}}'>
                 {{diyitem.params.placeholder}}
               </view>

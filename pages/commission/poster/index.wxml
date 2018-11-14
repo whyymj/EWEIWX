@@ -35,7 +35,7 @@
 <view class='tips' wx:if='{{!full}}'>
     <view class='savepic' bindtap='savePicture'>保存图片</view>
     <text class='icox icox-zhuyi' style='color:#ffd800'></text>
-    保存至相册可以分享至朋友圈
+    保存至相册
 </view>
 <view class='pos_bot' wx:if='{{full}}'>
     <text class='icox icox-zhuyi' style='color:#ffd800'></text>

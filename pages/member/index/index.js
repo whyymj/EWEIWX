@@ -33,6 +33,7 @@ Page({
         bargain:false,
     },
     onLoad: function (options) {
+      app.checkAuth();
       var $this = this;
         app.url(options);
         wx.getSystemInfo({
@@ -47,20 +48,11 @@ Page({
         });
 
         // 店铺装修 会员中心
-        diypage.get(this, 'member', function (res) {});
-        var userinfo = app.getCache('userinfo');
-        if(userinfo == ''){
-          // $this.setData({ modelShow:true});
-            wx.redirectTo({
-                url: '/pages/message/auth/index'
-            })
-        }
-        
+        diypage.get(this, 'member', function (res) {});        
     },
     getInfo: function(){
         var $this = this;
         core.get('member', {}, function(result){
-          console.log(result);
           if (result.isblack == 1){
             wx.showModal({
               title: '无法访问',
@@ -75,23 +67,23 @@ Page({
               }
             })
           }
-            if(result.error!=0){
-              // $this.setData({ modelShow: true });
-                wx.redirectTo({
-                  url: '/pages/message/auth/index'
-                })
-            }else{
-              $this.setData({
-                member: result, show: true, customer: result.customer, customercolor: result.customercolor, phone: result.phone, phonecolor: result.phonecolor, phonenumber: result.phonenumber, iscycelbuy: result.iscycelbuy,bargain:result.bargain
+          if(result.error!=0){
+            // $this.setData({ modelShow: true });
+              wx.redirectTo({
+                url: '/pages/message/auth/index'
+              })
+          }else{
+            $this.setData({
+              member: result, show: true, customer: result.customer, customercolor: result.customercolor, phone: result.phone, phonecolor: result.phonecolor, phonenumber: result.phonenumber, iscycelbuy: result.iscycelbuy,bargain:result.bargain
 });
-            }
-            parser.wxParse('wxParseData','html', result.copyright,$this,'5');
+          }
+          parser.wxParse('wxParseData','html', result.copyright,$this,'5');
         });
     },
     onShow: function(){
-        this.getInfo();
-        var $this = this;
-        wx.getSetting({
+      this.getInfo();
+      var $this = this;
+      wx.getSetting({
     		success: function(res) {
     			var limits = res.authSetting['scope.userInfo'];
     			$this.setData({limits: limits})
@@ -234,7 +226,12 @@ Page({
       var appurl = e.currentTarget.dataset.appurl
       if (url) {
         wx.navigateTo({
-          url: url
+          url: url,
+          fail: function () {
+            wx.switchTab({
+              url: url,
+            })
+          }
         })
       }
       if (phone) {

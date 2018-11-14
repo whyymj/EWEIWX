@@ -1,4 +1,6 @@
 /* pages/ppt/ppt.wxss */
+
+@import "/pages/common/city-picker.wxss";
 radio{
   transform: scale(0.8)
 }

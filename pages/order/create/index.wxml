@@ -93,18 +93,18 @@
     </block>
 
 
-
-    <view class="fui-cell-group" wx:if="{{ !list.showAddress||data.dispatchtype==1 }}">
-      <view class="fui-cell">
-        <view class="fui-cell-label">姓名</view>
+  <!--填写联系人信息-->
+    <view class="fui-cell-group" wx:if="{{ (list.set_mobile == 0||list.set_realname==0) && (!list.showAddress||data.dispatchtype==1) }}">
+      <view class="fui-cell" wx:if="{{list.set_realname==0}}">
+        <view class="fui-cell-label">联系人</view>
         <view class="fui-cell-info">
-          <input type="text" placeholder="请输入姓名" class="fui-input textl" value="{{ list.member.realname }}" bindinput="listChange" id="realname" />
+          <input type="text" placeholder="请输入联系人" class="fui-input textl" value="{{ list.member.realname }}" bindinput="listChange" id="realname" />
         </view>
       </view>
-      <view class="fui-cell">
-        <view class="fui-cell-label">电话</view>
+      <view class="fui-cell" wx:if="{{list.set_mobile==0}}">
+        <view class="fui-cell-label">联系方式</view>
         <view class="fui-cell-info">
-          <input type="text" placeholder="请输入电话" class="fui-input textl" value="{{ list.member.mobile }}" bindinput="listChange" id="mobile" />
+          <input type="text" placeholder="请输入联系方式" class="fui-input textl" value="{{ list.member.mobile }}" bindinput="listChange" id="mobile" />
         </view>
       </view>
     </view>
@@ -163,12 +163,12 @@
         <view class="fui-list-angle">
           <view class="fui-cell text-danger" wx:if="{{ list.isdiscountprice>0 }}">￥{{ val.promotionprice }}</view>
           <text class="price" style="text-decoration:{{ list.isdiscountprice > 0 ? 'line-through': '' }}">¥{{ val.price }}</text>
-          <view wx:if="{{ list.changenum && list.iscycelbuy != true && bargainid <= 0}}" class="fui-number small" bindtap='number' data-min="{{ val.minbuy }}" data-value="{{ val.total }}" data-max="{{ val.totalmaxbuy }}" data-id="{{ val.id }}" data-index="{{index}}" data-key="{{key}}">
+          <view wx:if="{{ list.changenum && list.iscycelbuy == true && bargainid <= 0}}" class="fui-number small" bindtap='number' data-min="{{ val.minbuy }}" data-value="{{ val.total }}" data-max="{{ val.totalmaxbuy }}" data-id="{{ val.id }}" data-index="{{index}}" data-key="{{key}}">
             <view class="minus {{ val.total<=1?'disabled':'' }}" data-action="minus">-</view>
             <input class="num shownum" type="tel" name="" value="{{val.total }}" bindblur="inputNumber" />
             <view class="plus {{ val.total>=val.totalmaxbuy?'disabled':'' }}" data-action="plus">+</view>
           </view>
-          <view wx:elif="{{ !list.changenum || list.iscycelbuy == true || bargainid > 0}}" class="text-right">
+          <view class="text-right">
             x{{ val.total }}
           </view>
         </view>
@@ -180,6 +180,7 @@
           <block wx:for="{{list.gift}}" wx:for-item="val">
             <view class="fui-list-media" wx:if="{{index<5}}">
               <image src="{{val.thumb}}" style="width:100rpx;height:100rpx;" />
+              <text style='font-size:28rpx;margin-left:20rpx;max-width:480rpx;white-space:nowrap;overflow:hidden;text-overflow:ellipsis'>{{val.title}}</text>
             </view>
           </block>
           <view class="fui-list-inner"></view>
@@ -192,7 +193,7 @@
       </block>
     </view>
 
-    <block wx:if="{{list.giftid==0 && gifts}}">
+    <block wx:if="{{list.giftid==0 && list.gifts.length>0}}">
       <view class="fui-cell-group fui-sale-group" bindtap='giftPicker'>
         <view class="fui-cell">
           <view class="fui-cell-label">赠品</view>
@@ -283,7 +284,7 @@
           买家留言
         </view>
         <view class="fui-cell-info">
-          <textarea wx:if="{{!cycledate&&!invoicepicker}}" rows="2" placeholder="50字以内（选填）" id="remark" bindinput="dataChange"></textarea>
+          <textarea wx:if="{{!cycledate&&!invoicepicker&&!selectcard}}" rows="2" placeholder="50字以内（选填）" id="remark" bindinput="dataChange"></textarea>
         </view>
       </view>
     </view>

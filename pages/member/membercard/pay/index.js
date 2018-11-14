@@ -45,7 +45,7 @@ Page({
     pay: function (e) {
         var type = core.pdata(e).type,$this=this,wechat = this.data.wechat;
         if (type == 'wechat') {
-          core.pay(membercard.order.complete,function (res) {
+          core.pay(wechat.payinfo,function (res) {
                 if (res.errMsg == "requestPayment:ok"){
                     $this.complete(type)
                 }

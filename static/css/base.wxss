@@ -520,6 +520,10 @@ position:relative;
   width: 40rpx;
   height: 40rpx
 }
+/*解决 悬浮电话那里button圆角50多条线 */
+.suspended-service,.suspended-service:after,.suspended-service:before{
+  border: none;
+}
 .suspended-service,.phone {
   width: 90rpx;
   height: 90rpx;

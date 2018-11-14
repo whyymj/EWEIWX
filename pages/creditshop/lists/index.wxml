@@ -29,10 +29,10 @@
       <navigator hover-class='none' open-type='navigate' url="/pages/creditshop/detail/index?id={{item.id}}">
         <view class='name'>
           <span class="title-tip">
-            <block wx:if="{{item.type==0}}">商品</block>
-            <block wx:if="{{item.type==1}}">优惠券</block>
-            <block wx:if="{{item.type==2}}">余额</block>
-            <block wx:if="{{item.type==4}}">红包</block>
+            <block wx:if="{{item.goodstype==0}}">商品</block>
+            <block wx:if="{{item.goodstype==1}}">优惠券</block>
+            <block wx:if="{{item.goodstype==2}}">余额</block>
+            <block wx:if="{{item.goodstype==3}}">红包</block>
           </span>{{item.title}}</view>
       </navigator>
       <view class='price'>

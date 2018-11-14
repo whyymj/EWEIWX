@@ -17,7 +17,7 @@
     <view class='member-cell'>
       <view class='member-cell-inner column'>
         <text>请先点击创建团队。</text>
-        <text>团队创建后才能获得分红收益。</text>
+        <text>团队创建后才能获得{{message.set.texts.dividend}}收益。</text>
       </view>
     </view>
   </view>
@@ -26,25 +26,25 @@
   <block wx:else>
   <navigator open-type='navigate' hover-class='none' url='/dividend/pages/order/index' class='member-group'>
     <view class='member-cell'>
-      <view class='member-cell-inner column'>分红订单</view>
+      <view class='member-cell-inner column'>{{message.set.texts.dividend}}订单</view>
       <view class='member-cell-remark column'></view>
     </view>
   </navigator>
 
   <navigator open-type='navigate' hover-class='none' url='/dividend/pages/withdraw/index' class='member-group'>
     <view class='member-cell'>
-      <view class='member-cell-inner column'>分红佣金</view>
+      <view class='member-cell-inner column'>{{message.set.texts.dividend}}佣金</view>
       <view class='member-cell-remark column'></view>
     </view>
   </navigator>
 
   <view class='member-group'>
     <view class='member-cell'>
-      <view class='member-cell-inner column'>成功提现分红(元)</view>
+      <view class='member-cell-inner column'>{{message.set.texts.dividend_ok}}({{message.set.texts.yuan}})</view>
       <view class='member-cell-remark noremark column'>￥{{message.member.dividend_pay}}</view>
     </view>
     <view class='member-cell'>
-      <view class='member-cell-inner column'>可提现分红(元)</view>
+      <view class='member-cell-inner column'>可{{message.set.texts.withdraw}}{{message.set.texts.dividend}}({{message.set.texts.yuan}})</view>
       <view class='member-cell-remark noremark column'>￥{{message.member.dividend_ok}}</view>
     </view>
   </view>
@@ -56,7 +56,7 @@
         <text class="icox icox-tixianmingxi"></text>
       </view>
       <view class='item-inner column'>
-        <view class='title'>提现明细</view>
+        <view class='title'>{{message.set.texts.withdraw}}明细</view>
         <view class='subtitle'>{{ message.member.applycount }}单</view>
       </view>
     </navigator>

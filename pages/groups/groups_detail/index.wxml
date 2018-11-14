@@ -1,4 +1,5 @@
 <!--pages/groups/groups_detail/index.wxml-->
+<import src="/utils/wxParse/wxParse.wxml"/> 
 <view class='page'  style='{{isIpx?"padding-bottom:168rpx":""}}'>
   <view class='groupstime' wx:if="{{count_down && data.tuan_first_order.success == 0}}">剩余 {{time[0]}}天{{time[1]}}小时{{time[2]}}分{{time[3]}}秒</view>
   <view class='groupstime' wx:if="{{!count_down || data.tuan_first_order.success == -1}}">拼团已结束</view>
@@ -54,7 +55,10 @@
         </view>
         <!--商品详情  -->
         <view wx:if='{{showtab=="info"}}'>
-           <rich-text nodes="{{content}}"></rich-text>
+          <view class="wxParse">
+            <template is="wxParse" data="{{wxParseData:wxParseData.nodes}}"/>
+          </view>
+           <!-- <rich-text nodes="{{content}}"></rich-text> -->
         </view>
     </view>
   </view>

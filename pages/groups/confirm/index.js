@@ -1,5 +1,6 @@
 // pages/groups/confirm/index.js
-var app = getApp(), core = app.requirejs('core'), $ = app.requirejs('jquery'), foxui = app.requirejs('foxui');
+var app = getApp(), core = app.requirejs('core'), $ = app.requirejs('jquery');
+var foxui = app.requirejs('foxui');
 var diyform = app.requirejs('biz/diyform');
 Page({
 
@@ -20,6 +21,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    app.checkAuth();
     var $this = this;
     this.setData({ options: options});
     console.log(options)
@@ -126,8 +128,23 @@ Page({
   },
   //提交
   submit:function(){
+    app.checkAuth();
     var $this = this;
+    var diyformdata = this.data.diyform;
+    if ($this.data.diyform == undefined){
+      var diydata ='';
+    }else{
+      var diydata = $this.data.diyform.f_data;
+    }
     
+    if (diyformdata!=undefined){
+      var verify = diyform.verify(this, diyformdata);
+      if (!verify) {
+        core.alert('请查看是否有未填写的内容');
+        return;
+      }
+    }
+
     core.post('groups/order/create_order', {
       id: $this.data.options.id,
       group_option_id: $this.data.options.option_id,
@@ -140,7 +157,7 @@ Page({
       realname:$this.data.real_name,
       mobile: $this.data.mobile,
       deduct: $this.data.deduct,
-      diydata: $this.data.diyform.f_data
+      diydata: diydata
       } , function(msg){
         if(msg.error == 1){
           core.alert( msg.message );

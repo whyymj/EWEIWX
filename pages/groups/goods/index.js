@@ -1,6 +1,7 @@
 // pages/groups/goods/index.js
 
 var app = getApp(), core = app.requirejs('core'), $ = app.requirejs('jquery'), foxui = app.requirejs('foxui');
+var parser = app.requirejs('wxParse/wxParse');
 var times= 0
 Page({
 
@@ -8,7 +9,20 @@ Page({
    * 页面的初始数据
    */
   data: {
-      goods_id:0
+      goods_id:0,
+      advHeight: 1
+  },
+  //商品详情轮播图按照第一张图片显示
+  imageLoad: function (e) {
+    let h = e.detail.height,
+      w = e.detail.width,
+      height = Math.floor((750 * h) / w);
+    
+    if (h == w) {
+      this.setData({ advHeight: 750 })
+    } else {
+      this.setData({ advHeight: height })
+    }
   },
   /**
    * 生命周期函数--监听页面加载
@@ -33,8 +47,10 @@ Page({
     core.post('groups.goods', {id:id}, function (result) {
       $this.setData({
         data: result.data,
-        content: result.data.content.replace(/\<img/gi, '<img style="max-width:100%;height:auto;vertical-align: middle" ')
+        
+        // content: result.data.content.replace(/\<img/gi, '<img style="max-width:100%;height:auto;" ')
       })
+      parser.wxParse('wxParseData', 'html', result.data.content, $this, '0')
     })
   },
   singlebuy:function(e){

@@ -20,18 +20,18 @@
                     <view class="fui-list-media">
                         <navigator url="/pages/goods/detail/index?id={{goods_item.goodsid}}"><image src="{{goods_item.thumb}}"></image></navigator >
                     </view>
-                    <view class="fui-list-inner">
-                        <navigator url="/pages/goods/detail/index?id={{goods_item.goodsid}}">{{ goods_item.title }}</navigator >
+                    <view class="fui-list-inner" style='height:190rpx'>
+                        <navigator url="/pages/goods/detail/index?id={{goods_item.goodsid}}" class='text-overflow1'>{{ goods_item.title }}</navigator >
                         <view class="info-container1">
                             <view class="info">
                                 <view wx:if="{{ time.status == 1 }}">
-                                    <navigator url="/pages/goods/detail/index?id={{goods_item.goodsid}}" hover-class='none' class="btn btn-success btn-sm "> 等待抢购</navigator >
+                                    <navigator url="/pages/goods/detail/index?id={{goods_item.goodsid}}" hover-class='none' class="btn btn-success btn-sm skill-btn"> 等待抢购</navigator >
                                 </view>
                                 <view wx:elif="{{ goods_item.percent >=100 }}">
-                                    <navigator url="/pages/goods/detail/index?id={{goods_item.goodsid}}" hover-class='none' class="btn btn-default btn-sm "> 已抢空</navigator >
+                                    <navigator url="/pages/goods/detail/index?id={{goods_item.goodsid}}" hover-class='none' class="btn btn-default btn-sm skill-btn"> 已抢空</navigator >
                                 </view>
                                 <view wx:else>
-                                    <navigator url="/pages/goods/detail/index?id={{goods_item.goodsid}}" hover-class='none' class="btn btn-danger btn-sm "> 去抢购</navigator >
+                                    <navigator url="/pages/goods/detail/index?id={{goods_item.goodsid}}" hover-class='none' class="btn btn-danger btn-sm skill-btn"> 去抢购</navigator >
                                 </view>
                                 <view class="price" wx:if="{{goods_item.price}}" >¥{{ goods_item.price }}</view>
                             </view>

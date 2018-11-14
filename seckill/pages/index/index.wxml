@@ -54,8 +54,8 @@
                             <view class="fui-list-media">
                                 <navigator url="/pages/goods/detail/index?id={{goods_item.goodsid}}"><image src="{{goods_item.thumb}}"></image></navigator >
                             </view>
-                            <view class="fui-list-inner">
-                                <navigator url="/pages/goods/detail/index?id={{goods_item.goodsid}}"class="text " >{{ goods_item.title }}</navigator >
+                            <view class="fui-list-inner text-overflow2">
+                                <navigator url="/pages/goods/detail/index?id={{goods_item.goodsid}}"class="text" >{{ goods_item.title }}</navigator >
                                 <view class="info-container1">
                                     <view class="info">
                                         <view wx:if="{{ time.status == 1 }}">

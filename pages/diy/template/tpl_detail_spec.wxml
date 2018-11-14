@@ -1,13 +1,13 @@
 <block wx:if="{{goods.canbuy}}">
-            <view class="fui-cell-group fui-cell-click" bindtap="selectPicker" data-id="{{goods.id}}" data-class="select-picker" data-tap="{{active}}" data-buytype="select">
+            <view class="fui-cell-group fui-cell-click" bindtap="selectPicker" data-id="{{goods.id}}" data-class="select-picker" data-tap="{{active}}" data-buytype="select" style='background:{{diyitem.style.background}};margin-top:{{diyitem.style.margintop==0?0:diyitem.style.margintop + "rpx"}};margin-bottom:{{diyitem.style.marginbottom==0?0:diyitem.style.marginbottom + "rpx"}};'>
                 <view class="fui-cell" wx:if="{{!isSelected}}">
-                    <view class="fui-cell-text option-selector">请选择
+                    <view class="fui-cell-text option-selector" style='color:{{ diyitem.style.textcolor }};'>请选择
                     <block wx:if="{{goods.spec_titles}}">{{goods.spec_titles}}等</block>
                     <block wx:else>数量</block></view>
                     <view class="fui-cell-remark"></view>
                 </view>
                 <view class="fui-cell" wx:else>
-                   <view class="fui-cell-info">已选：数量x{{total}} {{specsTitle}}</view>
+                   <view class="fui-cell-info" style='color:{{ diyitem.style.textcolor }};'>已选：数量x{{total}} {{specsTitle}}</view>
                 </view>
             </view>
         </block>
