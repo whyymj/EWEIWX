@@ -130,7 +130,7 @@
   </view>
 
   <!--每月领取  开卡前样式 start  -->
-  <view class='card-group' style='padding-bottom: 34rpx;' wx:if="{{list[current].is_month_coupon == 1 || list[current].is_month_points}}">
+  <view class='card-group' style='padding-bottom: 34rpx;' wx:if="{{list[current].is_month_coupon == 1 || list[current].is_month_points==1}}">
     <view class='card-title'>每月领取</view>
     <view class='card-subtitle'>会员可每月领取优惠券、积分</view>
     <view class='coupon-list left' wx:if="{{list[current].startbuy != 0}}">

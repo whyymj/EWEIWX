@@ -5,7 +5,7 @@
     <view class='inner flex1'>
       <view class='title'>{{data.title}}</view>
       <view> <text class='person'>{{data.is_ladder==1?"阶梯团":data.groupnum + "人团"}}</text></view>
-      <view class='price'>￥{{data.groupsprice}}/{{data.goodsnum}}{{data.units}} <text class='fr'>已有{{data.teamnum}}人参团</text></view>
+      <view class='price'>￥{{data.groupsprice}}/{{data.goodsnum}}{{data.units}} <text class='fr'>已有{{data.fightnum}}人参团</text></view>
     </view>
   </view>
   <!--流程  -->

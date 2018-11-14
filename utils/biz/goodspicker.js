@@ -207,6 +207,7 @@ module.exports = {
     
   },
   selectpicker: function (e, $this, page, modeltakeout) {
+    app.checkAuth();
     $this.setData({ optionid: '', specsData:''});
     var active = $this.data.active
     var id = e.currentTarget.dataset.id
@@ -215,12 +216,11 @@ module.exports = {
     }
    
     core.get('goods/get_picker', {id:id }, function (result) {
-      console.log(result)
-      if (!result.goods.presellstartstatus && result.goods.ispresell == '1'){
+      if (!result.goods.presellstartstatus && result.goods.presellstartstatus != undefined && result.goods.ispresell == '1'){
         foxui.toast($this, result.goods.presellstatustitle);
         return;
       }
-      if (!result.goods.presellendstatus && result.goods.ispresell == '1') {
+      if (!result.goods.presellendstatus && result.goods.presellstartstatus != undefined && result.goods.ispresell == '1') {
         foxui.toast($this, result.goods.presellstatustitle);
         return;
       }
@@ -320,7 +320,8 @@ module.exports = {
           'goods.presellprice': $this.data.goods.ispresell > 0 ? e.presellprice : $this.data.goods.presellprice,
           optionCommission:true
         });
-        if (e.stock < $this.data.total) {
+      
+        if (parseInt(e.stock) < parseInt($this.data.total)) {
           $this.setData({
             canBuy: '库存不足',
             stock: e.stock

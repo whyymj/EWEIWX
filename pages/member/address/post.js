@@ -41,6 +41,8 @@ Page({
         if(!options.id){
             wx.setNavigationBarTitle({title: '添加收货地址'})
         }
+        //处理一个客户切换新版地址库之后 无法清除地址库缓存的问题
+        app.getSet("cacheset");
         this.setData({areas: app.getCache("cacheset").areas,type:options.type});
     },
     getDetail: function () {
@@ -92,7 +94,8 @@ Page({
             fui.toast($this, "地址数据出错，请重新选择");
             return;
         }
-        if (!$.isMobile(detail.mobile)){
+        // 手机号验证更换为大陆港澳台地区都适用
+        if (!/^[1][3-9]\d{9}$|^([6|9])\d{7}$|^[0][9]\d{8}$|^[6]([8|6])\d{5}$/.test(detail.mobile)){
           fui.toast($this, "请填写正确联系电话");
           return;
         }

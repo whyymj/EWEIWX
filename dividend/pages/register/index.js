@@ -6,12 +6,24 @@ var diyform = app.requirejs('biz/diyform');
 Page({
   data: {
     checked: false,
-    msg: {}
+    diyform: {},
+    msg: {},
+
+    showPicker: false,
+    pvalOld: [0, 0, 0],
+    pval: [0, 0, 0],
+    areas: [],
+    street: [],
+    streetIndex: 0,
+    noArea: false,
   },
 
   onLoad: function (options) {
     var $this = this;
-    $this.getlist()
+    $this.getlist();
+    setTimeout(function () {
+      $this.setData({ areas: app.getCache("cacheset").areas });
+    }, 1000)
   },
 
   onShow: function () {
@@ -110,5 +122,23 @@ Page({
   },
   DiyFormHandler: function (e) {
     return diyform.DiyFormHandler(this, e)
+  },
+  selectArea: function (e) {
+    return diyform.selectArea(this, e)
+  },
+  
+  getIndex: function (str, areas) {
+    return diyform.getIndex(str, areas)
+  },
+  
+  onCancel: function (e) {
+    return diyform.onCancel(this, e)
+  },
+  
+  bindChange: function (e) {
+    return diyform.bindChange(this, e)
+  },
+  onConfirm: function (e) {
+    return diyform.onConfirm(this, e)
   },
 })

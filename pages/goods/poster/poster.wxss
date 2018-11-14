@@ -30,7 +30,7 @@
 	background: #ff5555;
 	border-radius: 43rpx;
 	position: fixed;
-	bottom:155rpx;
+	top:960rpx;
 	left: 50%;
 	margin-left: -153rpx;
 	font-size: 30rpx;

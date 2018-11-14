@@ -22,6 +22,7 @@ Page({
         cancelindex:0
     },
     onLoad: function (options) {
+        app.checkAuth();
         // 页面初始化 options为页面跳转所带来的参数
         this.setData({
             options: options,

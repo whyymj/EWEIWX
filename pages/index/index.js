@@ -181,6 +181,7 @@ Page({
           options.id = sceneObj.id;
           if(sceneObj.mid){
             options.mid = sceneObj.mid;
+             app.setCache('usermid', sceneObj)
           }
         }
         setTimeout(function () {
@@ -263,7 +264,6 @@ Page({
     },
     
     onShow: function () {
-      console.log(1235)
     	var $this = this;
       	var res = wx.getSystemInfoSync()
         var sysset = app.getCache('sysset');
@@ -274,7 +274,6 @@ Page({
         wx.getSetting({
             success: function(res) {
               var limits = res.authSetting['scope.userInfo'];
-              console.log(limits)
               $this.setData({ limits: limits })	
             }
           })
@@ -331,7 +330,13 @@ Page({
       });
     },
     onShareAppMessage: function () {
-        return core.onShareAppMessage();
+        var url = null;
+        var title = null;
+        if (this.data.diytitle) {
+          url = '/pages/index/index'
+          title = this.data.diytitle
+        }
+      return core.onShareAppMessage(url, title);
     },
     imagesHeight: function(e){
         var width = e.detail.width,height = e.detail.height,type=e.target.dataset.type,$this=this;
@@ -422,8 +427,13 @@ Page({
     indexChangebtn: function(e){
     	var urls = e.currentTarget.dataset.type;
     	wx.navigateTo({
-		  url: urls
-		})
+        url: urls,
+        fail: function () {
+          wx.switchTab({
+            url: urls
+          })
+        }
+      })
     }, 
     /* 隐藏未付订单 */
     unpaidcolse: function (e) {
@@ -446,6 +456,7 @@ Page({
     },
     // 购买picker
     selectPicker: function (e) {
+      app.checkAuth();
       var $this = this;
       wx.getSetting({
     		success: function(res) {
@@ -458,8 +469,8 @@ Page({
 				        showvideo: false
 				      });
     			}else{			
-				    $this.setData({modelShow: true})
-					return				  
+				    // $this.setData({modelShow: true})
+					return
     			}
     		}
     	})  
@@ -556,7 +567,12 @@ Page({
         var appurl = e.currentTarget.dataset.appurl
         if(url){
           wx.navigateTo({
-            url: url
+            url: url,
+            fail: function () {
+              wx.switchTab({
+                url: url,
+              })
+            }
           })
         }
         if (phone) {
@@ -716,7 +732,7 @@ Page({
             }
             var dataurl = item.data[item.status].linkurl;
             var num = item.data[item.status].data.length;
-            core.get('diypage/getInfo', { dataurl: dataurl, num: num }, function (ret) {
+            core.get('diypage/getInfo', { dataurl: dataurl, num: num, paramsType: paramsType  }, function (ret) {
               item.data[item.status].data = ret.goods.list;
               console.error(ret.goods.count)
               if (item.data[item.status].data.length == ret.goods.count) {

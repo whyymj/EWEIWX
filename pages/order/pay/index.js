@@ -48,30 +48,37 @@ Page({
         });
     },
     pay: function (e) {
+        var $this = this;
         var type = core.pdata(e).type,$this=this,wechat = this.data.list.wechat;
+        core.post('order/pay/checkstock', { id: $this.data.options.id }, function (check_json) {
+        if (check_json.error != 0) {
+          foxui.toast($this, check_json.message);
+          return;
+        }
         if (type == 'wechat') {
-            core.pay(wechat.payinfo,function (res) {
-                if (res.errMsg == "requestPayment:ok"){
-                    $this.complete(type)
-                    // $this.setData({coupon: true})
-                }
-            });
+          core.pay(wechat.payinfo, function (res) {
+            if (res.errMsg == "requestPayment:ok") {
+              $this.complete(type)
+              // $this.setData({coupon: true})
+            }
+          });
         } else if (type == 'credit') {
-            core.confirm('确认要支付吗?', function () {
-                $this.complete(type)
-                // $this.setData({ coupon: true })
-            }, function () {
-            })
-        } else if (type == 'cash') {
-            core.confirm('确认要使用货到付款吗?', function () {
-                $this.complete(type)
-                // $this.setData({ coupon: true })
-            }, function () {
-            })
-        } else {
+          core.confirm('确认要支付吗?', function () {
             $this.complete(type)
             // $this.setData({ coupon: true })
+          }, function () {
+          })
+        } else if (type == 'cash') {
+          core.confirm('确认要使用货到付款吗?', function () {
+            $this.complete(type)
+            // $this.setData({ coupon: true })
+          }, function () {
+          })
+        } else {
+          $this.complete(type)
+          // $this.setData({ coupon: true })
         }
+      }, true, true) 
     },
     complete: function (type) {
         var $this = this;

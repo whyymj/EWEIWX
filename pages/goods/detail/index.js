@@ -79,6 +79,7 @@ Page({
     loading: false,
     commentEmpty: false,
     commentPage: 1,
+      commentTotal: 1,
     commentLevel: 'all',
     commentList: [],
     closeBtn: false,
@@ -112,7 +113,21 @@ Page({
     scope: '',
     goods_hint_show:false,
     presellisstart:0,
+    advHeight: 1
   },
+
+  //商品详情轮播图按照第一张图片显示
+  imageLoad: function (e) {
+    let h = e.detail.height,
+      w = e.detail.width,
+      height = Math.floor((750 * h) / w);
+    if (h == w) {
+      this.setData({ advHeight: 750 })
+    } else {
+      this.setData({ advHeight: height })
+    }
+  },
+
   favorite: function (event) {
     var $this = this;
     var limits = $this.data.limits;
@@ -127,7 +142,7 @@ Page({
       })
 
     } else {
-      this.setData({ modelShow: true })
+      // this.setData({ modelShow: true })
     }
   },
   /*购物车*/
@@ -163,17 +178,23 @@ Page({
         'page': $this.data.commentPage
       }, function (retlist) {
         if (retlist.list.length > 0) {
-          $this.setData({ loading: false, commentList: retlist.list, commentPage: retlist.page });
+         // $this.setData({ loading: false, commentList: retlist.list, commentPage: retlist.page });
+            $this.setData({ loading: false, commentList: retlist.list, commentTotal: retlist.total,commentPage: retlist.page  });
         } else {
           $this.setData({ loading: false, commentEmpty: true });
         }
       })
     }
   },
-  //评价列表事件
-  comentTap: function (e) {
+
+  //上拉加载下一页评论
+  onReachBottom: function () {
     var $this = this;
-    var commentType = e.currentTarget.dataset.type;
+    if($this.data.commentTotal<=10)
+    {
+        return  false;
+    }
+    var commentType = $this.data.commentObjTab;
     var objType = '';
     if (commentType == 1) {
       objType = 'all';
@@ -184,6 +205,49 @@ Page({
     } else if (commentType == 4) {
       objType = 'bad';
     } else if (commentType == 5) {
+      objType = 'pic';
+    }
+    $this.setData({ loading: true });
+    // var commentPage = $this.data.commentPage;
+    // if (commentPage == 1) {
+    //   commentPage = 2;
+    // }
+    core.get('goods/get_comment_list', {
+      'id': $this.data.options.id,
+      'level': objType,
+      'page': $this.data.commentPage
+    }, function (list) {
+      if (list.error == 0) {
+        $this.setData({ loading: false });
+        if (list.list.length > 0) {
+          $this.setData({
+            commentPage: $this.data.commentPage + 1,
+              commentTotal: list.total,
+            commentList: $this.data.commentList.concat(list.list)
+          });
+        }
+      }
+    });
+  },
+  //评价列表事件
+  comentTap: function (e) {
+    var $this = this;
+    var commentType = e.currentTarget.dataset.type;
+    var objType = '';
+    if (commentType == 1) {
+      objType = 'all';
+        $this.data.commentPage=1;
+    } else if (commentType == 2) {
+        $this.data.commentPage=1;
+      objType = 'good';
+    } else if (commentType == 3) {
+        $this.data.commentPage=1;
+      objType = 'normal';
+    } else if (commentType == 4) {
+        $this.data.commentPage=1;
+      objType = 'bad';
+    } else if (commentType == 5) {
+        $this.data.commentPage=1;
       objType = 'pic';
     }
     if (commentType != $this.data.commentObjTab) {
@@ -197,19 +261,21 @@ Page({
           $this.setData({
             loading: false,
             commentList: retlist.list,
+              commentTotal: retlist.total,
             commentPage: retlist.page,
             commentObjTab: commentType,
             commentEmpty: false
           });
-        } else {
-          $this.setData({
-            loading: false,
-            commentList: retlist.list,
-            commentPage: retlist.page,
-            commentObjTab: commentType,
-            commentEmpty: true
-          });
         }
+        // else {
+        //   $this.setData({
+        //     loading: false,
+        //     commentList: retlist.list,
+        //     commentPage: 1,
+        //     commentObjTab: commentType,
+        //     commentEmpty: true
+        //   });
+        // }
       })
     } else {
       return;
@@ -244,15 +310,15 @@ Page({
       var ratio = MaxWidth / MaxHeight;
 
       //轮播适配高度
-      wx.getSystemInfo({
-        success: function (result) {
-          var advHeight = result.windowWidth / ratio;
-          $this.setData({
-            advWidth: result.windowWidth,
-            advHeight: advHeight
-          });
-        }
-      });
+      // wx.getSystemInfo({
+      //   success: function (result) {
+      //     var advHeight = result.windowWidth / ratio;
+      //     $this.setData({
+      //       advWidth: result.windowWidth,
+      //       advHeight: advHeight
+      //     });
+      //   }
+      // });
 
       $this.setData({
         coupon: coupon,
@@ -515,12 +581,13 @@ Page({
   },
   // 购买picker
   selectPicker: function (e) {
+    app.checkAuth();
     var $this = this;
     var timeType = e.currentTarget.dataset.time;
     var timeOut = e.currentTarget.dataset.timeout;
     var limits = $this.data.limits;
     if (!limits) {
-      $this.setData({ modelShow: true })
+      // $this.setData({ modelShow: true })
       return
     }
     console.log(timeOut);
@@ -1007,7 +1074,12 @@ Page({
     var appurl = e.currentTarget.dataset.appurl
     if (url) {
       wx.navigateTo({
-        url: url
+        url: url,
+        fail: function () {
+          wx.switchTab({
+            url: url,
+          })
+        }
       })
     }
     if (phone) {

@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<view class='moneytop'>累计分红：+{{member.dividend_total}}元</view>
+<view class='moneytop'>累计{{textdividend}}：+{{member.dividend_total}}{{textyuan}}</view>
 <view class='flex topnav'>
   <view class="{{status == 'all' ? 'active' : ''}}" data-status="all" bindtap='tab'>所有</view>
   <view class="{{status == '0' ? 'active' : ''}}" data-status="0" bindtap='tab'>待付款</view>

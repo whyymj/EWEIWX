@@ -225,6 +225,11 @@ module.exports = {
                         foxui.toast($this, "请填写"+field.tp_name2)
                         return false;
                     }
+                } else if (field.data_type == 11){
+                  if (!diyform.f_data[type]) {
+                    foxui.toast($this, "请填写" + field.tp_name);
+                    return false;
+                  }
                 }
                 else{
                     if(!diyform.f_data[type]){

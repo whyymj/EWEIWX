@@ -124,16 +124,21 @@
 </view> 
 
 <!-- 底部footer购物车 -->
-  <view wx:if="{{main.template == 0}}" class='shopCar2 footercart'>
-    <view class='carIcon' bindtap="shopCarList">
-    <icon class='shopCarImg icox icox-cartfill'></icon>
+  <view wx:if="{{main.template == 0}}" class='shopCar2 footercart' style="background:{{main.style.footerbg}}">
+    <view 
+      class='carIcon' 
+      style="border-color:{{main.style.footerbg}};box-shadow:0 0 4px rgba(0,0,0,0.3);-webkit-box-shadow:0 0 4px rgba(0,0,0,0.3)" 
+      bindtap="shopCarList"
+      >
+    <icon class='shopCarImg icox icox-cartfill' 
+    style="border-radius:50%;color: {{main.style.footercarticon}};background:{{main.style.footercart}};color:{{main.style.footercarticon}}"></icon>
       <i wx:if="{{main.cartList.total}}">{{main.cartList.total}}</i>
     </view>
     <view class='total'>
-      <view>￥{{main.cartList.totalprice}}</view>
-      <view>优惠信息请至结算页面查看</view>
+      <view style="color:{{main.style.footertext}}">￥{{main.cartList.totalprice}}</view>
+      <view style="color:{{main.style.footertext}}">优惠信息请至结算页面查看</view>
     </view>
-    <view bindtap="gopay">去结算</view>
+    <view style="background: {{main.style.footerbtn}};color:{{main.style.footerbtntext}}" bindtap="gopay">去结算</view>
   </view>
 
 <!-- 黑色半透view大, clickCar值为false时隐藏 -->

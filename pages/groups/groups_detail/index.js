@@ -1,6 +1,7 @@
 // pages/groups/groups_detail/index.js
 var app = getApp(), core = app.requirejs('core'), $ = app.requirejs('jquery'), foxui = app.requirejs('foxui');
 var times = 0
+var parser = app.requirejs('wxParse/wxParse');
 Page({
 
   /**
@@ -19,6 +20,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    app.checkAuth();
     var $this = this;
     var isIpx = app.getCache('isIpx');
     if (isIpx) {
@@ -42,10 +44,11 @@ Page({
     core.get('groups/team/details', { teamid: teamid }, function (result) {
       if (result.error == 0) {
         result.data.goods.content = result.data.goods.content.replace(/data-lazy/g, "src")
+
         $this.setData({
           data: result.data,
-          content:result.data.goods.content.replace(/\<img/gi, '<img style="max-width:100%;height:auto;vertical-align: middle" ')
         })
+        parser.wxParse('wxParseData', 'html', result.data.goods.content, $this, '0')
       }
       if (result.data.tuan_first_order.success == 0) {
         if (result.data.lasttime2 <= 0) {
@@ -88,6 +91,7 @@ Page({
     });
   },
   tuxedobuy: function (e) {
+    app.checkAuth();
     var $this = this;
       
       var id = $this.data.data.goods.id

@@ -268,7 +268,7 @@
   justify-content: center;
 }
 .card-fiche .fiche-btn{
-  width: 227rpx;
+  width: 260rpx;
 }
 .card-fiche.gary .fiche-inner{
   font-size: 32rpx;

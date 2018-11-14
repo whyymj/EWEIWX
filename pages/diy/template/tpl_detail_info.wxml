@@ -6,8 +6,8 @@
                     <text selectable="true" style="color:{{ diyitem.style.titlecolor }}">{{goods.title}}</text>
                 </view>
                 <view wx:if="{{ diyitem.params.hideshare != 1}}" class="fui-cell-remark showshade" bindtap="showshade" style="margin-left: 60rpx;">
-                  <i style="font-size:42rpx;color: #fd5555;" class="icox icox-send"></i>
-                  <view style="font-size: 20rpx;color: #666;margin-top:-6rpx;">分享</view>
+                  <i style="font-size:42rpx;color: #fd5555;" class="icon {{diyitem.params.share_icon}}"></i>
+                  <view style="font-size: 20rpx;color: #666;margin-top:-6rpx;">{{diyitem.params.share==''?'分享': diyitem.params.share}}</view>
                 </view>
             </view>
             <block wx:if="{{goods.subtitle}}" style="color:{{ diyitem.style.subtitlecolor }}">
@@ -20,7 +20,12 @@
                     <view class="fui-cell-text price">
                         <view class="text-danger" style="color:{{ diyitem.style.pricecolor }}">
                             ¥<block wx:if="{{goods.ispresell> 0 && (preselltimeend==0) || preselltimeend>now}}">
-                              <text wx:if="{{ goods.hasoption == 1 }}">{{ goods.minpresellprice }}~{{ goods.maxpresellprice }}</text>
+                              <text wx:if="{{ goods.hasoption == 1 }}">
+                              <text wx:if="{{ goods.minpresellprice != goods.maxpresellprice}}">
+                                {{ goods.minpresellprice }}~{{ goods.maxpresellprice }}
+                              </text>
+                              <text wx:else>{{ goods.minpresellprice }}</text>
+                              </text>
                               <text wx:else>{{goods.presellprice}}</text>
                             </block>
                             <block wx:else>
@@ -35,7 +40,7 @@
                                 <text class="original">¥{{goods.productprice}}</text>
                             </block>
                             <block wx:else>
-                                <text wx:if="{{goods.productprice > minprice}}" class="original">¥{{goods.productprice}}</text>
+                                <text wx:if="{{goods.productprice > goods.marketprice}}" class="original">¥{{goods.productprice}}</text>
                             </block>
                         </view>
                     </view>
@@ -45,7 +50,7 @@
                    </view> 
                 </view>
             </block>
-            <block wx:if="{{goods.ispresell==1 && goods.preselltimeend != 0}}">
+            <block wx:if="{{goods.ispresell==1 && goods.preselltimeend != 0 && goods.ispresellshow == 1}}">
               <view class="row row-time">
                 <view id='time-container'>
                   <text class='label'>{{goods.preselltitle ? goods.preselltitle:'距离预售开始'}}</text>

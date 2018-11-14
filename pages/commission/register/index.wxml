@@ -16,7 +16,8 @@
                 <view class='fui-cell-label'>{{set.texts.icode}}</view>
                 <view class='fui-cell-info'><input type="text" class="fui-input" id="icode" placeholder="请填写{{set['texts']['icode']}}" value="{{ mid > 0?mid:'' }}" bindinput="inputChange"/></view>
             </view>
-             <include src="/pages/common/diyform.wxml"/> 
+             <include src="/pages/common/diyform.wxml"/>
+
             <view class='fui-cell must'  wx:if ="{{ template_flag == 0 }}">
                 <view class='fui-cell-label'>姓名</view>
                 <view class='fui-cell-info'><input type="text" class="fui-input" id="realname" placeholder="请填写真实姓名,用于结算" value="{{ member.realname }}" bindinput="inputChange"/></view>
@@ -115,6 +116,22 @@
         </view>
     </block>
 
+   <!--显示申请协议-->
+    <view class='fui-list-group' wx:if="{{set['open_protocol'] =='1' && set['applytitle'] !='' }}">  
+      <view class='fui-list'>
+          <view class='fui-list-media'>
+                  <text class="icox icox-vip" style="color: #feb312;"></text>
+          </view>
+          <view class='fui-list-inner'>
+              <view class='subtitle'>{{ set['applytitle'] }}</view>
+          </view>   
+      </view>
+      <view class='fui-list'>
+          <view class='fui-list-inner'>
+          <rich-text nodes="{{set['applycontent'] }}"></rich-text>
+          </view>    
+      </view>        
+    </view>
 <!--消费次数-->
     <block wx:if="{{ set['become']==2 && status==0 }}">
     <view class='fui-list-group'>
@@ -189,3 +206,5 @@
 <navigator class="commission-shouye" url='/pages/index/index' open-type='switchTab'>
   <text class="icox icox-shouye"></text>
 </navigator>
+<include src="/pages/common/city-picker.wxml"/>
+<view class="fui-mask {{ showPicker?'show':'' }}"></view>

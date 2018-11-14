@@ -36,7 +36,7 @@
     <!-- 店铺装修end -->
     <view wx:if="{{ usediypage == false }}">
       <!--轮播start-->
-      <view style='height:{{advWidth}}px;position:relative;display:{{showvideo?"block":"none"}}' wx:if='{{goods.video}}'>
+      <view style='height:{{advHeight}}rpx;position:relative;display:{{showvideo?"block":"none"}}' wx:if='{{goods.video}}'>
         <view wx:if='{{cover}}'>
           <image class='bg' src='{{goods.thumb}}' style='height:100%;width:100%' mode='aspectFit'></image>
           <image class='play' src='{{play}}' style='width:150rpx;height:140rpx' bindtap='startplay'></image>
@@ -45,7 +45,7 @@
             <view class='pic_btn' bindtap='showpic'>图片</view>
           </view>
         </view>
-        <video id="myVideo" src="{{goods.video}}" bindpause='bindpause' controls style="width:{{advWidth}}px;height:{{advWidth}}px;" class="video {{showpic||cover?'none':'block'}}" muted='{{soundpic}}' bindfullscreenchange='bindfullscreenchange'>
+        <video id="myVideo" src="{{goods.video}}" bindpause='bindpause' controls style="width:100%;height:{{advHeight}}rpx;" class="video {{showpic||cover?'none':'block'}}" muted='{{soundpic}}' bindfullscreenchange='bindfullscreenchange'>
           <cover-image src='{{sound?voice:mute}}' class='voice' bindtap='changevoice'></cover-image>
           <cover-view class='mc' wx:if='{{success}}'>
             <cover-view class='video_btn active'>视频</cover-view>
@@ -53,11 +53,11 @@
           </cover-view>
         </video>
       </view>
-      <view class="goods-advs {{showpic || goods.video == ''?'block':'none'}}" style="width:{{advWidth}}px;height:auto;position:relative">
-        <swiper class="index-adcs-sqiper" indicator-dots="{{indicatorDots}}" interval="{{interval}}" duration="{{duration}}" circular="{{circular}}" style="width:{{advWidth}}px;height:{{advHeight}}px;">
+      <view class="goods-advs {{showpic || goods.video == ''?'block':'none'}}" style="width:100%;height:auto;position:relative">
+        <swiper class="index-adcs-sqiper" indicator-dots="{{indicatorDots}}" interval="{{interval}}" duration="{{duration}}" circular="{{circular}}" style="width:100%;height:{{advHeight}}rpx;">
           <block wx:for="{{goods.thumbs}}" wx:for-index="idx" wx:for-item="item">
-            <swiper-item style="background-image:url('{{item}}')">
-              <image src="{{item}}" class="goodsadvimg" mode='aspectFit'></image>
+            <swiper-item>
+              <image bindload="{{idx == 0 ? 'imageLoad' : ''}}" src="{{item}}" class="goodsadvimg" ></image>
             </swiper-item>
           </block>
         </swiper>
@@ -136,7 +136,10 @@
               <view class="text-danger">
                 ¥
                 <block wx:if="{{goods.ispresell> 0 && (preselltimeend==0) || preselltimeend>now}}">
-                  <text wx:if="{{ goods.hasoption == 1 }}">{{ minpresellprice }}~{{ maxpresellprice }}</text>
+                  <text wx:if="{{ goods.hasoption == 1 }}">
+                    <text wx:if="{{ goods.minpresellprice != goods.maxpresellprice}}">{{ goods.minpresellprice }}~{{ goods.maxpresellprice }}</text>
+                    <text wx:else>{{ goods.minpresellprice }}</text>
+                  </text>
                   <text wx:else>{{goods.presellprice}}</text>
                 </block>
                 <block wx:else>
@@ -151,7 +154,7 @@
                   <text class="original">¥{{goods.productprice}}</text>
                 </block>
                 <block wx:else>
-                  <text wx:if="{{goods.productprice > minprice}}" class="original">¥{{goods.productprice}}</text>
+                  <text wx:if="{{goods.productprice > goods.marketprice}}" class="original">¥{{goods.productprice}}</text>
                 </block>
               </view>
             </view>
@@ -161,7 +164,7 @@
             </view>
           </view>
         </block>
-        <block wx:if="{{goods.ispresell==1 && goods.preselltimeend != 0}}">
+        <block wx:if="{{goods.ispresell==1 && goods.preselltimeend != 0 && goods.ispresellshow == 1}}">
           <view class="row row-time">
             <view id='time-container'>
               <text class='label'>{{goods.preselltitle ? goods.preselltitle:'距离预售开始'}}</text>
@@ -523,7 +526,7 @@
               <view class="fui-cell-text comment ">
                 <view class="info head">
                   <view class="img">
-                    <image src="{{item.headimgurl}}"></image>
+                    <image style="width:50rpx;height:50rpx" src="{{item.headimgurl}}"></image>
                   </view>
                   <view class="nickname">{{item.nickname}}</view>
                   <view class="date">{{item.createtime}}</view>
@@ -580,81 +583,6 @@
     <!--版权  店铺装修 -->
     <include wx:if="{{copyright}}" src="/pages/diy/template/tpl_copyright.wxml" />
 
-    <view wx:if="{{ usediypage == false }}">
-      <!--评价start-->
-      <view class="goods-detail-comment {{comment}}">
-        <view class="fui-icon-group col-5 ">
-          <view wx:for="{{stararr}}" class="fui-icon-col" data-level="item" bindtap="comentTap" data-type="{{index+1}}">
-            <view class="{{commentObjTab==index+1?'text-danger':''}}">{{index==0?'全部':''}}{{index==1?'好评':''}}{{index==2?'中评':''}}{{index==3?'差评':''}}{{index==4?'晒图':''}}
-              <view class="count {{commentObjTab==index+1?'text-danger':''}}">{{commentObj.count[item]}}</view>
-            </view>
-          </view>
-        </view>
-        <view class="fui-loading" wx:if="{{loading}}">
-          <view class="icon"></view>
-          <view class="text">正在加载</view>
-        </view>
-        <view class="container" id="comments-all">
-          <view class="fui-cell-group fui-comment-group">
-            <block wx:for="{{commentList}}" wx:for-index="idx" wx:for-item="item">
-              <view class="fui-cell">
-                <view class="fui-cell-text comment ">
-                  <view class="info head">
-                    <view class="img">
-                      <image src="{{item.headimgurl}}"></image>
-                    </view>
-                    <view class="nickname">{{item.nickname}}</view>
-                    <view class="date">{{item.createtime}}</view>
-                    <view class="star star1">
-                      <text wx:for="{{stararr}}" wx:for-index="idx2" wx:for-item="item2" class="{{item.level>=idx2+1?'shine':''}}">★</text>
-                    </view>
-                  </view>
-                  <view class="remark">{{item.content}}</view>
-                  <view class="remark img">
-                    <block wx:for="{{item.images}}" wx:for-index="idx" wx:for-item="image">
-                      <view class="img">
-                        <image src="{{image}}" bindtap="preview" data-src="{{image}}" data-urls="{{item.images}}"></image>
-                      </view>
-                    </block>
-                  </view>
-                  <block wx:if="{{item.reply_content}}">
-                    <view class="reply-content" style="background:#EDEDED;">
-                      掌柜回复：{{item.reply_content}}
-                      <view class="remark img">
-                        <block wx:for="{{item.reply_images}}" wx:for-index="idx" wx:for-item="replyImage">
-                          <view class="img">
-                            <image src="{{replyImage}}"></image>
-                          </view>
-                        </block>
-                      </view>
-                    </view>
-                  </block>
-                  <block wx:if="{{item.append_content && item.replychecked==0}}">
-                    <view class="remark reply-title">用户追加评价</view>
-                    <view class="remark">{{item.append_content}}</view>
-                  </block>
-                  <block wx:if="{{item.append_reply_content}}">
-                    <view class="reply-content" style="background:#EDEDED;">
-                      掌柜回复：{{item.append_reply_content}}
-                      <view class="remark img">
-                        <block wx:for="{{item.append_reply_images}}" wx:for-index="idx" wx:for-item="appendReplyImage">
-                          <view class="img">
-                            <image src="{{appendReplyImage}}"></image>
-                          </view>
-                        </block>
-                      </view>
-                    </view>
-                  </block>
-                </view>
-              </view>
-            </block>
-          </view>
-          <view class="fui-cell-group fui-comment-group"></view>
-        </view>
-        <view class="content-empty" style="{{commentEmpty?'display:block':'display:none'}}">暂时没有任何评价</view>
-      </view>
-      <!--评价end-->
-    </view>
     <!--参数start-->
     <view class="goods-detail-para {{para}}">
       <view class="fui-cell-group">
