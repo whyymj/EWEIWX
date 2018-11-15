@@ -23,7 +23,7 @@
   />
 </template>
 
-<template name="WxEmojiView">
+  <template name="WxEmojiView">
   <view class="WxEmojiView wxParse-inline" style="{{item.styleStr}}">
     <block wx:for="{{item.textArray}}" wx:key="">
       <block class="{{item.text == '\\n' ? 'wxParse-hide':''}}" wx:if="{{item.node == 'text'}}">{{item.text}}</block>
@@ -32,7 +32,7 @@
       </block>
     </block>
   </view>
-</template>
+</template>  
 
 <template name="WxParseBr">
   <text>\n</text>

@@ -24,7 +24,10 @@ Page({
   onShow: function (options) {
     var $this = this;
     core.get('dividend/withdraw', '', function (res) {
-      $this.setData({ msg: res })
+      $this.setData({ msg: res });
+      wx.setNavigationBarTitle({
+        title: res.set.texts.dividend + '佣金' || '分红佣金'
+      });
     })
   },
   // 提现

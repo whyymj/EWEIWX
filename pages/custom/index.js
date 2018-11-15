@@ -338,6 +338,7 @@ Page({
   },
   // 购买picker
   selectPicker: function (e) {
+    app.checkAuth();
     var $this = this;
     wx.getSetting({
       success: function (res) {
@@ -350,7 +351,7 @@ Page({
             showvideo: false
           });
         } else {
-          $this.setData({ modelShow: true })
+          // $this.setData({ modelShow: true })
           return
         }
       }
@@ -749,7 +750,7 @@ Page({
           }
           var dataurl = item.data[item.status].linkurl;
           var num = item.data[item.status].data.length;
-          core.get('diypage/getInfo', { dataurl: dataurl, num: num }, function (ret) {
+          core.get('diypage/getInfo', { dataurl: dataurl, num: num, paramsType: paramsType }, function (ret) {
             item.data[item.status].data = ret.goods.list;
             console.error(ret.goods.count)
             if (item.data[item.status].data.length == ret.goods.count) {

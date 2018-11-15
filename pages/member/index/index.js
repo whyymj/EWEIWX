@@ -33,6 +33,7 @@ Page({
         bargain:false,
     },
     onLoad: function (options) {
+      app.checkAuth();
       var $this = this;
         app.url(options);
         wx.getSystemInfo({
@@ -48,19 +49,10 @@ Page({
 
         // 店铺装修 会员中心
         diypage.get(this, 'member', function (res) {});
-        var userinfo = app.getCache('userinfo');
-        if(userinfo == ''){
-          // $this.setData({ modelShow:true});
-            wx.redirectTo({
-                url: '/pages/message/auth/index'
-            })
-        }
-        
     },
     getInfo: function(){
         var $this = this;
         core.get('member', {}, function(result){
-          console.log(result);
           if (result.isblack == 1){
             wx.showModal({
               title: '无法访问',
@@ -237,7 +229,12 @@ Page({
       var appurl = e.currentTarget.dataset.appurl
       if (url) {
         wx.navigateTo({
-          url: url
+          url: url,
+          fail: function () {
+            wx.switchTab({
+              url: url,
+        })
+      }
         })
       }
       if (phone) {

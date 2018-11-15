@@ -5,9 +5,8 @@
         <view class="text1" wx:if="{{ close!=1 }}">您可以在小程序列表删除并重新进入</view>
         <button open-type='{{shouquan}}' bindtap='haha'>重新授权</button> -->
         <view class='image'><image src="{{imgUrl + 'plugin/app/static/images/wxapp/accredit.png'}}" /></view>
-        <view class='text' wx:if="{{!close}}">您的授权已失效，请重新授权</view>
-        <button class='btn' wx:if="{{!close}}" open-type='getUserInfo' bindtap='bind'>点击授权</button>
+        <view class='text' wx:if="{{!close}}">小程序需要获取您的授权<text>\n</text>才能为您提供后续服务哦</view>
+         <button class='btn' wx:if="{{!close}}" open-type='getUserInfo' bindgetuserinfo="bindGetUserInfo">点击授权</button>
         <view class='text' wx:if="{{close}}">{{text}}</view>
-
     </view>
 </view>

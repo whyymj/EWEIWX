@@ -73,6 +73,9 @@
     "pages/member/membercard/index",
     "pages/member/membercard/detail/index",
     "pages/member/membercard/pay/index",
+	"pages/transfer/groups/index",
+    "pages/transfer/bargain/index",
+    "pages/transfer/seckill/index",
     "pages/quickbuy/index"
   ],
   "subPackages": [
@@ -105,12 +108,6 @@
         "pages/log/detail/index",
         "pages/apply/index",
         "pages/register/index"
-      ]
-    },
-    {
-      "root": "raffle",
-      "pages": [
-        "pages/index/index"
       ]
     },
     {
@@ -170,5 +167,6 @@
       }
     ]
   },
-  "debug": false
+  "debug": false,
+  "navigateToMiniProgramAppIdList": []
 }

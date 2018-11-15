@@ -41,7 +41,8 @@ Page({
             'purple':'#a839fa',
             'orange':'#ff8c1e',
             'pink':'#ff7e95'
-        }
+        },
+      swiperheight:''
     },
     onLoad: function () {
         var $this = this;
@@ -55,6 +56,11 @@ Page({
               })
             } else {
             }
+            var swiperheight = res.windowWidth / 1.7
+            console.log(swiperheight);
+            $this.setData({
+              swiperheight: swiperheight
+            })
           }
         }) 
         core.get('seckill/get_list', {}, function (ret) {

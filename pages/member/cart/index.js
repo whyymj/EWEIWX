@@ -25,6 +25,7 @@ Page({
         modelShow: false
     },
     onLoad: function (options) {
+      app.checkAuth();      
       var $this = this;
       core.get('black', {}, function (res) {
         if (res.isblack) {
@@ -42,7 +43,6 @@ Page({
           })
         }
       });
-      console.log(options)
         app.url(options);
     },
     onShow:function () {
@@ -55,9 +55,8 @@ Page({
     		success: function(res) {
     			var limits = res.authSetting['scope.userInfo'];
     			$this.setData({limits: limits})
-    			console.log(limits)
     			if(!limits) {
-    				$this.setData({modelShow: true})
+    				// $this.setData({modelShow: true})
     			}
     		}
     	})
@@ -65,7 +64,6 @@ Page({
     get_cart:function () {
         var $this = this,setData;
         core.get('member/cart/get_cart',{},function (data) {
-          console.log(data)
             setData = {
                 show:true,
                 ismerch:false,
@@ -88,7 +86,7 @@ Page({
     edit: function (e) {
         var $this = this;
         if (!$this.data.limits) {
-          $this.setData({ modelShow: true })
+          // $this.setData({ modelShow: true })
           return;
         }
         var dataset = core.data(e),$this=this,ids;

@@ -105,7 +105,7 @@
 
     <!--砍价-->
     <view class="fui-cell-group fui-cell-click" open-type="navigate">
-    <navigator class="fui-cell" hover-class="none" url="/pages/member/membercard/index" wx:if="{{ member.bargain }}">
+    <navigator class="fui-cell" hover-class="none" url="/pages/member/membercard/index" wx:if="{{member.usemembercard}}">
         <view class="fui-cell-icon">
           <text class="icox icox-bargain"></text>
         </view>
@@ -280,7 +280,7 @@
       </navigator>
     </view>
 
-    <include src="/pages/common/copyright.wxml" />
+    <!-- <include src="/pages/common/copyright.wxml" /> -->
 
     <include src="/pages/common/menu.wxml" />
   </view>

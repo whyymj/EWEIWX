@@ -55,16 +55,18 @@ Page({
     // var specs = [];
     // var options = [];
     var isIpx = app.getCache('isIpx');
-    var address = app.getCache("orderAddress"), shop = app.getCache("orderShop");
+    var address = app.getCache("orderAddress"), 
+    shop = app.getCache("orderShop");
     if (shop) {
       $this.setData({
         carrierInfo: shop
       });
     }
     var addressid = $this.data.addressid;
-    if(addressid!=address.id && address.id>0 ){
+    if (address.id>0 ){
+      $this.addressid = address.id;
       $this.setData({addressid:address.id});
-      $this.dispatch();
+      $this.getDetail();
     }
 
     if (isIpx) {
@@ -120,6 +122,12 @@ Page({
         });
         var allprice = 0;
         if (result.goods.isverify == 0 && result.goods.type==0 && result.address.id>0) {
+          
+          core.get('creditshop/create/getaddress', { addressid: $this.addressid}, function (rest) {
+            if(rest.error ==0){
+              $this.setData({ address: rest.address});
+            }
+          })
           $this.dispatch();
         }else{
           $this.setData({ allprice: result.goods.money });
@@ -130,11 +138,12 @@ Page({
     });
   },
   dispatch:function(){
-    core.get('creditshop/create/dispatch', { goodsid: result.goods.id, optionid: options.id }, function (res) {
-      allprice = res.dispatch;
-      allprice = parseFloat(allprice) + parseFloat(result.goods.money);
+    var $this = this;
+    core.get('creditshop/create/dispatch', { goodsid: $this.data.goods.id, optionid: $this.data.options.optionid }, function (res) {
+      var allprice = res.dispatch;
+      allprice = parseFloat(allprice) + parseFloat($this.data.goods.money);
       $this.setData({ dispatchprice: res.dispatch, allprice: allprice });
-    });    
+    });     
   },
   number: function (e) {
     var $this = this,
@@ -213,10 +222,11 @@ Page({
         return;
       }
     }
+     
     /*选择地址*/
     if (goods.isverify == 0 && goods.goodstype == 0 && goods.type==0){
       var addressid = $this.data.addressid;
-      if(addressid==0){
+      if (addressid == 0 || addressid == undefined){
         foxui.toast($this, "请选择收货地址");
         return;
       }

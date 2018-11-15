@@ -1,6 +1,6 @@
 <view class="{{isIpx?'fui-iphonex-button':''}}"></view>
 <loading wx:if="{{ !show }}">加载中...</loading>
-<view class="page {{paddingb}}" wx:if="{{ show }}">
+<view class="page {{paddingb}}" style="padding-bottom:4rem" wx:if="{{ show }}" >
 
     <block wx:if="{{ list.length>0 }}">
         <view class="fui-list-group" wx:for="{{list}}" wx:key="">

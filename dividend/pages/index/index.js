@@ -32,6 +32,10 @@ Page({
         wx.redirectTo({
           url: '/dividend/pages/register/index'
         })
+      }else{
+        wx.setNavigationBarTitle({
+          title: res.set.texts.center || '分红中心'
+        });
       }
     })
   },

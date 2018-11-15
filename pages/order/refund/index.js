@@ -31,14 +31,19 @@ Page({
     get_list: function () {
         var $this = this;
         core.get('order/refund', $this.data.options, function (list) {
+          $this.setData({ show: true })
             if (list.error == 0) {
                 if (list.order.status<2){
                     list.rtypeArr=['退款(仅退款不退货)'];
                 }
-                list.show = true;
+                // list.show = true;
                 $this.setData(list);
+                console.log($this.data)
             } else {
-                core.toast(list.message, 'loading')
+                core.toast(list.message, 'loading');
+                setTimeout(function() {
+                  wx.navigateBack()
+                },1500)
             }
         });
     },
@@ -52,6 +57,7 @@ Page({
             images:this.data.images
         };
         core.post('order/refund/submit', data, function (list) {
+         
             if (list.error == 0) {
                 wx.navigateBack()
             } else {

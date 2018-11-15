@@ -382,13 +382,13 @@ Page({
     },
     // 购买picker
     selectPicker:function(e){
+      app.checkAuth();
       var $this = this;
       
-      console.log($this.data.limits)
-      if(!$this.data.limits){
-      	$this.setData({modelShow: true})
-      	return
-      }
+      // if(!$this.data.limits){
+      // 	$this.setData({modelShow: true})
+      // 	return
+      // }
       
       var goodslist = 'goodslist';
       goodspicker.selectpicker(e,$this,goodslist)
