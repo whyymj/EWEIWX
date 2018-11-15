@@ -1,3 +1,4 @@
+var app = getApp();
 Page({
 
   
@@ -6,7 +7,7 @@ Page({
   },
 
   onLoad: function (options) {
-  
+    this.setData({ imgUrl: app.globalData.approot })
   },
 
   transmit: function(){

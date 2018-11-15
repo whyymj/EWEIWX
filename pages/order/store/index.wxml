@@ -17,6 +17,7 @@
                 <view class='subtitle'>{{ item.storename }}</view>
                  <view class='text'>{{ item.realname }} {{ item.mobile }}</view> 
                 <view class='text'>地址：{{ item.address }}</view>
+                <view class='text' style='color: #999;'>距离{{item.dast}}</view>                
             </view>
             <view class='fui-list-angle'>
                 <navigator bindtap="phone" data-phone="{{ item.mobile }}">

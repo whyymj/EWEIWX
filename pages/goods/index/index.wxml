@@ -3,7 +3,7 @@
 <view class="model" wx:if="{{modelShow}}">
 	<view class="inner1">
 		<view class="title">用户未授权</view>
-		<view class="image"><image src="/static/images/shouquan.png"></image></view>
+		<view class="image"><image src="{{imgUrl + 'plugin/app/static/images/wxapp/shouquan.png'}}"></image></view>
 		<view class="subtitle">您需要先开启【用户信息】，才能使用此功能哦~</view>
 		<view class="model-btns">
 			<view class="cancel" bindtap="cancelclick">取消</view>

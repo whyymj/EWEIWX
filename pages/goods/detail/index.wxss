@@ -1422,3 +1422,8 @@ video{
     line-height: 3rem;
     font-weight: bold;
 }
+
+/* 底部固定图 */
+.bottom-image image{
+  width: 100%;
+}

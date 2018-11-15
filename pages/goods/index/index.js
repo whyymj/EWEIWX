@@ -65,7 +65,8 @@ Page({
         modelShow: false
     },
     onLoad:function(options){
-      var $this = this
+      var $this = this;
+      $this.setData({ imgUrl: app.globalData.approot });
       setTimeout(function () {
         $this.setData({ areas: app.getCache("cacheset").areas });
       }, 3000)

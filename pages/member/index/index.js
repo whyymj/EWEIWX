@@ -91,6 +91,9 @@ Page({
     onShow: function(){
         this.getInfo();
         var $this = this;
+        $this.setData({
+          imgUrl: app.globalData.approot
+        });
         wx.getSetting({
     		success: function(res) {
     			var limits = res.authSetting['scope.userInfo'];

@@ -261,6 +261,7 @@ Page({
         packagegoodsid: result.goods.packagegoods.goodsid,
         credittext: result.goods.credittext,
         activity: result.goods.activity,
+        bottomFixedImageUrls: result.goods.bottomFixedImageUrls, //底部固定信息
         phonenumber: result.goods.phonenumber,
         showDate: result.goods.showDate,
         scope: result.goods.scope,
@@ -588,6 +589,9 @@ Page({
   },
   onLoad: function (options) {
     var $this = this;
+    $this.setData({
+      imgUrl: app.globalData.approot
+    });
     core.get('black', {}, function (res) {
       if (res.isblack) {
         wx.showModal({

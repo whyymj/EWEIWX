@@ -11,12 +11,12 @@
   <view class="share-choose">
     <button style="border: none;background:none;padding-left: 0;line-height: 1;margin: 0;" open-type="share">
       <view class="share-wechat">
-        <image src="/static/images/share/wechat.png" />
+        <image src="{{imgUrl + 'plugin/app/static/images/wxapp/share/wechat.png'}}" />
         <view class="text-explain">分享给朋友</view>
       </view>
     </button>
     <view class="share-poster" bindtap="sharePoster">
-      <image src="/static/images/share/post.png" />
+      <image src="{{imgUrl + 'plugin/app/static/images/wxapp/share/post.png'}}" />
       <view class="text-explain">生成商品图片</view>
     </view>
   </view>
@@ -502,6 +502,9 @@
       <view class="wxParse" style='overflow: hidden;'>
         <template is="wxParse" data="{{wxParseData:wxParseData.nodes}}" />
       </view>
+      <view class='bottom-image'>
+        <image wx:for="{{bottomFixedImageUrls}}" mode='widthFix' src='{{item}}'/>
+      </view>
     </view>
     <!--商品详情end-->
     <view class="goods-detail-comment {{comment}}">
@@ -788,7 +791,7 @@
     <view class="inner1">
       <view class="title">用户未授权</view>
       <view class="image">
-        <image src="/static/images/shouquan.png"></image>
+        <image src="{{imgUrl + 'plugin/app/static/images/wxapp/shouquan.png'}}"></image>
       </view>
       <view class="subtitle">您需要先开启【用户信息】，才能使用此功能哦~</view>
       <!-- <view class="subtitle">您需要先允许【用户授权】，才能进行后续操作哦~</view> -->

@@ -1,0 +1,206 @@
+<!--pages/mall_index/mall_index.wxml-->
+<!-- 变换的三种样式class：无 changeCss2 changeCss3 -->
+
+<!-- 头像的三种样式：无,circle,round -->
+<view class="fui-toast {{FoxUIToast.show?'in':'out'}}"><view class="text">{{FoxUIToast.text}}</view></view>
+<view class="marb20 {{style}}" wx:if="{{main.template==1}}">
+
+
+  <view class='banner'>
+    <image src='{{main.style.shopbg}}'></image>
+    <view class='shopMsg'>
+      <image src='{{main.style.shoplogo}}'></image>
+      <view>
+        <view style="color: {{main.style.namecolor}}">{{main.sysset.shopname?main.sysset.shopname:'店铺名称'}}</view>
+          <view wx:if="{{main.style.notice}}" style="color: {{main.style.noticecolor}}" class='flex'>
+          
+            <!-- <view>店铺公告：</view> -->
+            
+            <swiper indicator-dots="false" vertical="true"
+              autoplay="true" circular="true">
+              <block wx:for="{{main.notices}}" wx:key="unique">
+                <swiper-item>
+                  <view>店铺公告：{{item.title}}</view>
+                </swiper-item>
+              </block>
+            </swiper>
+          </view>
+      </view>
+    </view>
+  </view>
+
+  <view class='navTop flex' style="background-color: {{main.style.menubg}}">
+    <view wx:for="{{main.shopmenu}}" wx:key='unique' data-url="{{item.linkurl}}" bindtap="menunavigage">
+      <icon class='icox {{item.icon}}' style="color: {{main.style.menuicon}}"></icon>
+      <view style="color: {{main.style.menutext}}">{{item.text}}</view>
+    </view>
+  </view>
+
+
+</view>
+
+<include src="/pages/common/goods-picker.wxml"/>
+
+
+
+
+
+ <view class="fui-mask {{ showPicker?'show':''}}" bindtap='closemulti'></view> 
+<!-- <view class="nav-mask" style="{{active?'display:block':''}}" bindtap='emptyActive'></view> -->
+
+<view class="{{main.template != 0 ? 'flex main':'flex main padbot'}}">
+
+
+  <scroll-view scroll-y class='left' style="background-color:{{main.style.catebg}}">
+  
+    <view wx:for="{{group}}" style="color: {{arrLab[index]?main.style.cateactivecolor:main.style.catecolor}}" wx:key="unique" class="{{arrLab[index]?'active leftItem':'leftItem'}}" bindtap="clickLab" data-id="{{index}}">
+
+      
+      <view style="color: {{arrLab[index]?main.style.cateactivecolor:main.style.catecolor}}">{{item.title}}</view>  
+      
+    </view>
+  </scroll-view>
+  <scroll-view bindscroll="scrollfn" scroll-y class='right2' scroll-with-animation='true' scroll-into-view="{{'num'+id}}" style="background-color: {{main.style.goodsbg}}">
+
+  <!-- banner幻灯片 -->
+  <swiper class='bigimg' indicator-dots="true"
+    autoplay="true" wx:if="{{main.advs}}" circular="true">
+    <block wx:for="{{main.advs}}" wx:key="unique">
+      <swiper-item>
+        <image src='{{item.thumb}}' mode='aspectFit' class="slide-image" bindtap="gobigimg" data-link="{{item.link}}"/>
+      </swiper-item>
+    </block>
+  </swiper>
+
+    <view id='num{{index}}' wx:for="{{group}}" wx:key="unique">
+      <view class='tit' style="color: {{main.style.righttitle}}">{{item.title}}</view>
+
+      <view class='subtit'>{{item.desc}}</view>
+
+       <!-- <view class='bigImg' wx:for="main.advs" wx:key="unique">
+        <image src='../../../../img/bg.jpg' mode='center'></image>
+      </view> -->
+
+
+      
+
+      <view wx:if="{{goodsArr[item.type].length==0||!goodsArr[item.type]}}" class='nogoods'><icon class='icox icox-footprint'></icon>  该分组暂时没有商品哦</view>
+
+      <view class='goodsList flex' wx:for="{{goodsArr[item.type]}}" wx:key="unique" wx:for-index="goodsidx" wx:for-item="goods">
+        <navigator open-type='navigate' hover-class='none' url="/pages/goods/detail/index?id={{goods.id}}"><image src='{{goods.thumb}}'></image></navigator>
+        <view>
+          <navigator open-type='navigate' hover-class='none' url="/pages/goods/detail/index?id={{goods.id}}" class='height'>
+            <view style="color:{{main.style.goodstitile}}">{{goods.title}}</view>
+             <view style="color:{{main.style.goodssubtitile}}">{{goods.subtitle}}</view> 
+          </navigator>
+          <view style="color:{{main.style.goodsprice}}">￥{{goods.marketprice}}<i style="color:{{main.style.goodssales}}">月销{{goods.sales}}</i></view>
+        </view>
+        <!-- 加减购物车，与购物车弹出层公用变量控制 -->
+        <view class="addShopCar flex">
+        <!-- 减号 -->
+          <icon class='icox icox-offline' wx:if="{{numtotal[goods.id]&&numtotal[goods.id]!=-1}}" bindtap="addGoodToCartFn" data-id="{{goods.id}}" data-more="{{goods.hasoption}}" data-buytype="cart" style="color: {{main.style.goodscart}}" data-add='reduce' data-min = "{{goods.minbuy}}" data-num="{{(numtotal[goods.id]>0||numtotal[goods.id]==0)&&(numtotal[goods.id]!=null)?numtotal[goods.id]:goods.cartTotal}}"></icon>
+          
+          <text wx:if="{{numtotal[goods.id]&&numtotal[goods.id]!=-1}}">{{numtotal[goods.id]}}</text>
+          
+          <!-- 加号 -->
+          <icon data-maxnum = "{{goods.maxbuy}}" data-store="{{goods.totalmaxbuy}}" class='icox icox-addition_fill' bindtap="addGoodToCartFn" data-more="{{goods.hasoption}}" data-id="{{goods.id}}" data-buytype="cart" style="color: {{(numtotal[goods.id]==(goods.maxbuy==0?goods.total:goods.maxbuy)?'#ccc':main.style.goodscart)}}" data-add='value' data-color="{{!goods.canAddCart?'#ccc':(numtotal[goods.id]==(goods.maxbuy==0?goods.total:goods.maxbuy)?'#ccc':main.style.goodscart)}}" data-diyformtype="{{goods.diyformtype}}" data-canadd='{{goods.canAddCart}}'></icon>
+
+          
+
+        </view>
+      </view>
+
+
+
+
+    </view>
+  </scroll-view>
+</view>
+
+<!-- 购物车 -->
+<view wx:if="{{main.template == 1}}" class='shopCar' bindtap="gotocart" style="color: {{main.style.footercart?main.style.footercart:'#fa4040'}};background-color: {{main.style.footercart}}">
+  <icon class='shopCarImg icox icox-cartfill' style="color: {{main.style.footercarticon}}"></icon>
+  <i wx:if='{{main.cartList.total}}'></i>
+</view> 
+
+<!-- 底部footer购物车 -->
+  <view wx:if="{{main.template == 0}}" class='shopCar2 footercart'>
+    <view class='carIcon' bindtap="shopCarList">
+    <icon class='shopCarImg icox icox-cartfill'></icon>
+      <i wx:if="{{main.cartList.total}}">{{main.cartList.total}}</i>
+    </view>
+    <view class='total'>
+      <view>￥{{main.cartList.totalprice}}</view>
+      <view>优惠信息请至结算页面查看</view>
+    </view>
+    <view bindtap="gopay">去结算</view>
+  </view>
+
+<!-- 黑色半透view大, clickCar值为false时隐藏 -->
+<view class="{{clickCar?'shopCarList':'shopCarList displayNo'}}">
+<view style='flex:1' bindtap="shopCarHid"></view>
+<!-- 靠下部分购物车列表 -->
+<view>
+  <view class='flex scListTit'>
+    <text>购物车</text>
+    <text bindtap="clearShopCartFn">清空</text>
+  </view>
+
+  <!-- for循环购物车商品列表 -->
+  <scroll-view scroll-y class='footerList'>
+    <view wx:for="{{main.cartList.list}}" wx:for-item="goods" wx:key='unique' class='carList' wx:if="{{cartcartArr[goods.optionid=='0'?goods.goodsid:goods.optionid]!=0}}">
+      <view class='goodsMsg'>
+        <view>{{goods.title}}</view>
+         <view>{{goods.optiontitle?goods.optiontitle:''}}</view> 
+      </view>
+      <!-- 加减购物车 -->
+      <view class='addShopCar flex'>
+        <!-- <icon class='icox icox-offline' bindtap="sub"></icon>
+        <text>{{item.total}}</text>
+        <icon class='icox icox-addition_fill' bindtap="getCart"></icon> -->
+
+
+
+
+
+<!-- 减号 -->
+          <icon class='icox icox-offline' data-min="{{goods.minbuy}}" bindtap="cartaddcart" data-id="{{goods.optionid}}" data-goodsid="{{goods.goodsid}}" data-add='reduce' data-num = "{{cartcartArr[goods.optionid=='0'?goods.goodsid:goods.optionid]>0?cartcartArr[goods.optionid=='0'?goods.goodsid:goods.optionid]:goods.total}}"></icon>
+          
+          <text>{{cartcartArr[goods.optionid=='0'?goods.goodsid:goods.optionid]>0?cartcartArr[goods.optionid=='0'?goods.goodsid:goods.optionid]:goods.total}}</text>
+          
+          <!-- 加号 -->
+          <icon data-maxnum = "{{goods.maxbuy}}" data-store="{{goods.stock}}" data-goodsid="{{goods.goodsid}}" class='icox icox-addition_fill' bindtap="cartaddcart" data-id="{{goods.optionid}}" data-add='add'></icon>
+
+
+
+
+
+
+
+
+      </view>
+      <view class='money'>￥{{goods.marketprice}}</view>
+    </view>
+    <text wx:if="{{!main.cartList.list.length}}" class='noGoods'>暂时没有商品喔~</text>
+  </scroll-view>
+  <!-- for循环结束 -->
+
+  <view class='tips' wx:if="{{main.cartList.list.length}}">Tips：加入购物车后请尽快下单哦~</view>
+
+  <!-- 底部footer -->
+  <view class='shopCar2'>
+    <view class='carIcon' bindtap="shopCarHid">
+    <icon class='shopCarImg icox icox-cartfill'></icon>
+      <i wx:if="{{main.cartList.list.length}}">{{main.cartList.total}}</i>
+    </view>
+    <view class='total'>
+      <view>￥{{main.cartList.totalprice}}</view>
+      <view>优惠信息请至结算页面查看</view>
+    </view>
+    <view bindtap="gopay">去结算</view>
+  </view>
+</view>
+</view>
+
+<!-- 加购物车小按钮动画 -->
+<view class="good_box" hidden="{{hide_good_box}}"  style="left: {{bus_x}}px; top: {{bus_y}}px;"></view>

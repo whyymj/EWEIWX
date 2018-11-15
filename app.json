@@ -59,7 +59,6 @@
     "pages/map/index",
     "pages/order/pay/share/share",
     "pages/order/pay/coupons/coupons",
-    "pages/order/pay/sharecoupon/index",
     "pages/creditshop/log/index",
     "pages/creditshop/log/detail/index",
     "pages/creditshop/lists/index",
@@ -73,7 +72,8 @@
     "pages/order/express/number",
     "pages/member/membercard/index",
     "pages/member/membercard/detail/index",
-    "pages/member/membercard/pay/index"
+    "pages/member/membercard/pay/index",
+    "pages/quickbuy/index"
   ],
   "subPackages": [
     {
@@ -87,12 +87,7 @@
         "purchase/purchase"
       ]
     },
-    {
-      "root": "pages/quickbuy/",
-      "pages": [
-        "quickbuy/shop_index/shop_index"
-      ]
-    },
+
     {
       "root": "seckill",
       "pages": [

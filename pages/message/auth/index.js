@@ -5,8 +5,10 @@ Page({
     text:''
    },
     onLoad: function (options) {
-        console.log(options);
-        this.setData({close: options.close, text: options.text});
+      this.setData({
+        imgUrl: app.globalData.approot
+      });
+      this.setData({close: options.close, text: options.text});
     },
     onShow: function () {
         var name = app.getCache('sysset').shopname;

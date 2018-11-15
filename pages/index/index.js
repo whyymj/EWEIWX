@@ -156,6 +156,7 @@ Page({
 
       options = options || {};
     	var $this = this;
+      $this.setData({ imgUrl: app.globalData.approot});
 
       core.get('black', {}, function (res) {
         if (res.isblack) {

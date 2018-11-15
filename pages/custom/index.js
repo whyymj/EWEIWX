@@ -98,7 +98,7 @@ Page({
     options = options || {};
     var $this = this;
     $this.pauseOther();
-    $this.setData({ pageid: options.pageid});
+    $this.setData({ pageid: options.pageid, imgUrl: app.globalData.approot});
     // diypage.get(this, 'home');
     var scene = decodeURIComponent(options.scene);
     if (!options.id && scene) {

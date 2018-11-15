@@ -4,7 +4,7 @@
         <view class="text">{{ close!=1?"您取消了授权 >_<|||":text }}</view>
         <view class="text1" wx:if="{{ close!=1 }}">您可以在小程序列表删除并重新进入</view>
         <button open-type='{{shouquan}}' bindtap='haha'>重新授权</button> -->
-        <view class='image'><image src='/static/images/accredit.png' /></view>
+        <view class='image'><image src="{{imgUrl + 'plugin/app/static/images/wxapp/accredit.png'}}" /></view>
         <view class='text' wx:if="{{!close}}">您的授权已失效，请重新授权</view>
         <button class='btn' wx:if="{{!close}}" open-type='getUserInfo' bindtap='bind'>点击授权</button>
         <view class='text' wx:if="{{close}}">{{text}}</view>

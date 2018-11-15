@@ -137,7 +137,7 @@
 <view class="model" wx:if="{{modelShow}}">
   	<view class="inner">
 		<view class="title">用户未授权</view>
-		<view class="image"><image src="/static/images/shouquan.png"></image></view>
+		<view class="image"><image src="{{imgUrl + 'plugin/app/static/images/wxapp/shouquan.png'}}"></image></view>
 		<view class="subtitle">您需要先开启【用户信息】，才能使用此功能哦~</view>
 		<view class="model-btns">
 			<view class="cancel" bindtap="cancelclick">取消</view>
@@ -148,7 +148,7 @@
 </view>
 <!--优惠券 新人礼包  -->
 <view class='shoucoupon' wx:if="{{showcoupon}}">
-  <image src='/static/images/coupon/bg1.png' style='position: absolute; width: 620rpx;height: 820rpx;top: 130rpx;left: 50%;margin-left: -310rpx;' />
+  <image src=" {{ imgUrl + '/coupon/bg1.png'}}" style='position: absolute; width: 620rpx;height: 820rpx;top: 130rpx;left: 50%;margin-left: -310rpx;' />
   <view class='inner' >
     <view class='title'>新人礼包</view>
     <view class='subtitle'>数量有限，先到先得哦</view>

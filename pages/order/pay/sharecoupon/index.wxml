@@ -1,12 +1,11 @@
 <view class='fui-content'>
-
-  <image class="coin" src="/static/images/coupon/bg7s.png" />
-  <image class="contentbj" mode="widthFix" src='/static/images/coupon/sbg2.png' />
+  <image class="coin" src="{{ imgUrl + 'plugin/app/static/images/wxapp/coupon/bg7s.png'}}" />
+  <image class="contentbj" mode="widthFix" src= "{{ imgUrl + 'plugin/app/static/images/wxapp/coupon/sbg2.png'}}" />
   <view class='content'>
     <view class='title'>恭喜您,获得了3张优惠券!</view>
     <scroll-view scroll-y="true" class='coupon-list'>
       <view class='item'>
-        <image class='itembj' src='/static/images/coupon/bg4.png' />
+        <image class='itembj' src="{{ imgUrl + '/coupon/bg4.png'}}" />
         <view class='item-con'>
           <view class='item-inner'>
             <span style="font-size:30rpx;">￥</span>500</view>
@@ -18,7 +17,7 @@
       </view>
 
       <view class='item'>
-        <image class='itembj' src='/static/images/coupon/bg4.png' />
+        <image class='itembj' src="{{ imgUrl + 'plugin/app/static/images/wxapp/coupon/bg4.png'}}" />
         <view class='item-con'>
           <view class='item-inner'>
             <span style="font-size:30rpx;">￥</span>500</view>
@@ -30,7 +29,7 @@
       </view>
 
       <view class='item'>
-        <image class='itembj' src='/static/images/coupon/bg4.png' />
+        <image class='itembj' src="{{ imgUrl + 'plugin/app/static/images/wxapp/coupon/bg4.png'}}" />
         <view class='item-con'>
           <view class='item-inner'>
             <span style="font-size:30rpx;">￥</span>500</view>
@@ -42,7 +41,7 @@
       </view>
 
       <view class='item'>
-        <image class='itembj' src='/static/images/coupon/bg4.png' />
+        <image class='itembj' src="{{ imgUrl + 'plugin/app/static/images/wxapp/coupon/bg4.png'}}" />
         <view class='item-con'>
           <view class='item-inner'>
             <span style="font-size:30rpx;">￥</span>500</view>
@@ -54,15 +53,15 @@
       </view>
     </scroll-view>
     <view class='btnlook'>
-      <image class='lookbj' src='/static/images/coupon/sbtn.png' />
+      <image class='lookbj' src="{{ imgUrl + 'plugin/app/static/images/wxapp/coupon/bg4.png'}}" />
       <view class='look-con'>立即查看</view>
     </view>
   </view>
 
   <view class='record'>
     <view class='title'>
-      <image src='/static/images/coupon/circle.png' /> 看朋友们手气如何
-      <image src='/static/images/coupon/circle.png' />
+      <image src="{{ imgUrl + 'plugin/app/static/images/wxapp/coupon/circle.png'}}" /> 看朋友们手气如何
+      <image src="{{ imgUrl + 'plugin/app/static/images/wxapp/coupon/circle.png'}}" />
     </view>
     <view class='record-list' style=''>
       <view class='item' >
@@ -87,7 +86,7 @@
         </view>
         <view class="firend_contents_info">
           <view style="width:100%;height:50%;line-height: 80rpx;">
-            <span style="float:left;max-width:45%;height:100%;font-size: 30rpx;;color:#ffeb43;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">AHa~</span>
+            <span style="float:left;max-width:45%;height:100%;font-size: 30rpx;;color:#ffeb43;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">123~</span>
             <span style="width:50%;height:100%;color:#FCE3E4;float:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-left: 24rpx;">01-19 13:40</span>
           </view>
           <view style="width:100%;height:50%;color:#FCE3E4;font-size: 26rpx;line-height: 64rpx;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" class="motto">不肯花大钱就买不来贵重东西!</view>
@@ -97,9 +96,6 @@
           50元
         </view>
       </view>
-
-
     </view>
   </view>
-
 </view>
