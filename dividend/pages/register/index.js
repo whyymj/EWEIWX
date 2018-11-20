@@ -20,11 +20,12 @@ Page({
 
   onLoad: function (options) {
     var $this = this;
-    $this.getlist();
-    setTimeout(function () {
+	$this.setData({
+      imgUrl: app.globalData.approot
+    });
+	setTimeout(function () {
       $this.setData({ areas: app.getCache("cacheset").areas });
-    }, 1000)
-  },
+    }, 1000)  },
 
   onShow: function () {
     var $this = this;

@@ -1427,3 +1427,7 @@ video{
 .goods-detail-goods{
   padding-bottom: 0;
 }
+/* 底部固定图 */
+.bottom-image image{
+  width: 100%;
+}

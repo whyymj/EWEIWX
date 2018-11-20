@@ -8,6 +8,9 @@ Page({
   },
   onLoad: function (options) {
     var $this = this;
+    $this.setData({
+      imgUrl: app.globalData.approot
+    });
     $this.getlist()
   },
 

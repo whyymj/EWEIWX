@@ -1,7 +1,7 @@
 {
 	"description": "项目配置文件。",
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -9,8 +9,8 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "1.9.94",
-	"appid": "wx88e4a8da72ca46fb",
-	"projectname": "%E5%94%AE%E5%90%8E%E7%8E%AF%E7%8E%AF%E7%AB%99",
+	"appid": "wx3d3b2fd41970f6db",
+	"projectname": "%E4%BA%BA%E4%BA%BA%E5%95%86%E5%9F%8Eapi",
 	"isGameTourist": false,
 	"condition": {
 		"search": {
@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 3,
+			"current": 10,
 			"list": [
 				{
 					"id": -1,
@@ -67,6 +67,35 @@
 					"name": "分红订单提现",
 					"pathName": "dividend/pages/apply/index",
 					"query": ""
+				},
+				{
+					"id": 6,
+					"name": "快速购买",
+					"pathName": "pages/quickbuy/index",
+					"query": "id=3"
+				},
+				{
+					"id": 7,
+					"name": "商品详情",
+					"pathName": "pages/goods/detail/index",
+					"query": "id=719"
+				},
+				{
+					"id": -1,
+					"name": "门店列表",
+					"pathName": "pages/order/store/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "门店列表",
+					"pathName": "dividend/pages/index/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "授权失效",
+					"pathName": "pages/message/auth/index"
 				}
 			]
 		}

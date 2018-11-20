@@ -204,7 +204,7 @@
 <!--购物送券弹窗  -->
 <!--<view class='coupon-shade' wx:if="{{coupon}}">-->
   <!--<view class='pop'>-->
-    <!--<image src="/static/images/coupon/close1.png" alt="" style="width:42rpx;height:42rpx;position:absolute;right:36rpx;top:32rpx" bindtap="closecoupon" />-->
+    <!--<image src="{{imgUrl + 'plugin/app/static/images/wxapp/coupon/close1.png'}}" alt="" style="width:42rpx;height:42rpx;position:absolute;right:36rpx;top:32rpx" bindtap="closecoupon" />-->
     <!--<view class="pop1">-->
       <!--<p class="icon_9">您有一份礼包待领取</p>-->
       <!--<view><image src="/static/images/coupon/gifts.png" style="width: 260rpx;height: 230rpx;margin-top: 32rpx" /></view>         -->

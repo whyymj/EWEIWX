@@ -98,7 +98,16 @@ Page({
     options = options || {};
     var $this = this;
     $this.pauseOther();
-    $this.setData({ pageid: options.pageid});
+
+    var pageid = options.pageid;
+
+    if (pageid==undefined){
+        var pages = getCurrentPages(); //获取页面栈
+        var url_arr = pages[pages.length - 1].route.split("/");//当前页面路径/分割后的数组
+        pageid = url_arr[url_arr.length - 1];
+    }
+
+    $this.setData({ pageid: pageid, imgUrl: app.globalData.approot});
     // diypage.get(this, 'home');
     var scene = decodeURIComponent(options.scene);
     if (!options.id && scene) {
@@ -113,7 +122,7 @@ Page({
     }, 3000)
     app.url(options);
     
-    diypage.get(this, options.pageid, function (res) {
+    diypage.get(this, pageid, function (res) {
       /*启动广告*/
       if ($this.data.startadv == undefined || $this.data.startadv == '') {
         return

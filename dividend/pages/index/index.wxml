@@ -1,8 +1,9 @@
 <loading wx:if="{{loading}}">加载中...</loading>
+<image src="{{imgUrl + '/demo/logo.jpg'}}" /> 
 <view class="page">
   <view class='member-header'>
     <view class='img'>
-      <image src="{{message.member.avatar || '/static/images/demo/logo.jpg'}}" />
+      <image src="{{message.member.avatar || (imgUrl + 'plugin/app/static/images/wxapp/demo/logo.jpg')}}" />  
     </view>
     <view class='inner'>
       <view class='title'>{{message.member.nickname || '未更新'}}</view>

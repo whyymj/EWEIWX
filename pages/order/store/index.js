@@ -32,9 +32,30 @@ Page({
     },
     get_list: function () {
       var $this = this;
-        core.get('store/selector', {ids:$this.data.options.ids,type:$this.data.options.type,merchid:$this.data.options.merchid}, function (result) {
-            $this.setData({list: result.list,show:true});
-        });
+      var obj = { 
+        ids: $this.data.options.ids, 
+        type: $this.data.options.type, 
+        merchid: $this.data.options.merchid 
+      };
+      wx.getLocation({
+        type: 'wgs84',
+        success: function (res) {
+          obj.lat = res.latitude;
+          obj.lng = res.longitude;
+         
+          core.get('store/selector', obj, function (result) {
+            $this.setData({ list: result.list, show: true });
+          });
+        },
+        fail: function (ret) {
+
+        }
+      })
+
+
+
+
+        
     },
     bindSearch: function (e) {
         this.setData({

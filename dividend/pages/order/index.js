@@ -18,7 +18,7 @@ Page({
   // 跳转到快速购买
   goIndex: function(){
     wx.navigateTo({
-      url: '/pages/quickbuy/quickbuy/shop_index/shop_index',
+      url: '/pages/quickbuy/index',
     })
   },
   

@@ -16,7 +16,7 @@
     </view>
     <view class="close" bindtap='close'><i class="icon icon-roundclose"></i></view>
 </view>
- <image src="{{message.set.regbg || '/static/images/banner.png'}}" mode='widthFix' class='applybanner'></image>
+ <image src="{{message.set.regbg || ( imgUrl + 'plugin/app/static/images/wxapp/banner.png')}}" mode='widthFix' class='applybanner'></image>
 
 <view class='content-info' wx:if="{{message.member.headsstatus == 1 && message.member.isheads == 1}}">
   <i class='icon icon-roundcheck text-success'></i>

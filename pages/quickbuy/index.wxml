@@ -87,12 +87,12 @@
       <view wx:if="{{goodsArr[item.type].length==0||!goodsArr[item.type]}}" class='nogoods'><icon class='icox icox-footprint'></icon>  该分组暂时没有商品哦</view>
 
       <view class='goodsList flex' wx:for="{{goodsArr[item.type]}}" wx:key="unique" wx:for-index="goodsidx" wx:for-item="goods">
-        <image src='{{goods.thumb}}'></image>
+        <navigator open-type='navigate' hover-class='none' url="/pages/goods/detail/index?id={{goods.id}}"><image src='{{goods.thumb}}'></image></navigator>
         <view>
-          <view class='height'>
+          <navigator open-type='navigate' hover-class='none' url="/pages/goods/detail/index?id={{goods.id}}" class='height'>
             <view style="color:{{main.style.goodstitile}}">{{goods.title}}</view>
              <view style="color:{{main.style.goodssubtitile}}">{{goods.subtitle}}</view> 
-          </view>
+          </navigator>
           <view style="color:{{main.style.goodsprice}}">￥{{goods.marketprice}}<i style="color:{{main.style.goodssales}}">月销{{goods.sales}}</i></view>
         </view>
         <!-- 加减购物车，与购物车弹出层公用变量控制 -->
@@ -124,21 +124,16 @@
 </view> 
 
 <!-- 底部footer购物车 -->
-  <view wx:if="{{main.template == 0}}" class='shopCar2 footercart' style="background:{{main.style.footerbg}}">
-    <view 
-      class='carIcon' 
-      style="border-color:{{main.style.footerbg}};box-shadow:0 0 4px rgba(0,0,0,0.3);-webkit-box-shadow:0 0 4px rgba(0,0,0,0.3)" 
-      bindtap="shopCarList"
-      >
-    <icon class='shopCarImg icox icox-cartfill' 
-    style="border-radius:50%;color: {{main.style.footercarticon}};background:{{main.style.footercart}};color:{{main.style.footercarticon}}"></icon>
+  <view wx:if="{{main.template == 0}}" class='shopCar2 footercart'>
+    <view class='carIcon' bindtap="shopCarList">
+    <icon class='shopCarImg icox icox-cartfill'></icon>
       <i wx:if="{{main.cartList.total}}">{{main.cartList.total}}</i>
     </view>
     <view class='total'>
-      <view style="color:{{main.style.footertext}}">￥{{main.cartList.totalprice}}</view>
-      <view style="color:{{main.style.footertext}}">优惠信息请至结算页面查看</view>
+      <view>￥{{main.cartList.totalprice}}</view>
+      <view>优惠信息请至结算页面查看</view>
     </view>
-    <view style="background: {{main.style.footerbtn}};color:{{main.style.footerbtntext}}" bindtap="gopay">去结算</view>
+    <view bindtap="gopay">去结算</view>
   </view>
 
 <!-- 黑色半透view大, clickCar值为false时隐藏 -->

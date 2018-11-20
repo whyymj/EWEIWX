@@ -35,7 +35,7 @@ Page({
     buyType: 'cart',
     quickbuy: true,
     formdataval: {},
-    showPicker:false
+    showPicker: false
   },
 
   /**
@@ -46,6 +46,15 @@ Page({
       title: '加载中...',
     })
     var pageid = options.id;
+
+    if (pageid==undefined){
+        var pages = getCurrentPages(); //获取页面栈
+        var url_arr = pages[pages.length - 1].route.split("/");//当前页面路径/分割后的数组
+        pageid = url_arr[url_arr.length - 1];
+    }
+
+
+
     var that = this;
     let systemInfo = wx.getStorageSync('systemInfo');
 
@@ -59,7 +68,7 @@ Page({
     });
     // 左边选项卡切换控制数组
     var arrLab = [1];
-    for(var i=1;i<that.data.arrLabel.length;i++) {
+    for (var i = 1; i < that.data.arrLabel.length; i++) {
       arrLab.push(0);
     }
     that.setData({
@@ -74,7 +83,7 @@ Page({
       var arr = []; // 商品在购物车中的数量
 
       var style = ''; // 样式
-      style = ret.style.shopstyle == 1 ? 'changeCss2' : (ret.style.shopstyle == 2 ? 'changeCss3' :'')
+      style = ret.style.shopstyle == 1 ? 'changeCss2' : (ret.style.shopstyle == 2 ? 'changeCss3' : '')
 
       style += ' ' + ret.style.logostyle
 
@@ -119,7 +128,7 @@ Page({
           that.setData({
             arrscroll: arr
           })
-          
+
         }
 
         // console.log(that.data.arrscroll)
@@ -131,7 +140,7 @@ Page({
       core.get('quick/index/getCart', { quickid: id }, function (ret) {
         // console.log("购物车",ret);
         var numtotal = [];
-        for (var i in ret.simple_list ) {
+        for (var i in ret.simple_list) {
           // console.log(i + "=" + ret.simple_list[i])
           numtotal[i] = ret.simple_list[i];
         }
@@ -139,7 +148,7 @@ Page({
           numtotal: numtotal
         })
       })
-      
+
       wx.hideLoading();
       wx.setNavigationBarTitle({
         title: ret.pagetitle
@@ -148,14 +157,19 @@ Page({
   },
 
   // 导航菜单跳转
-  menunavigage: function(e) {
-    wx.navigateTo({
-      url: e.currentTarget.dataset.url,
-    })
+  menunavigage: function (e) {
+      wx.navigateTo({
+          url:  e.currentTarget.dataset.url,
+          fail: function () {
+              wx.switchTab({
+                  url: url,
+              })
+          }
+      })
   },
 
   // 幻灯片跳转
-  gobigimg: function(e){
+  gobigimg: function (e) {
     wx.navigateTo({
       url: e.currentTarget.dataset.link,
     })
@@ -166,7 +180,7 @@ Page({
     var id = e.currentTarget.dataset.id; //左侧点击跳转id
     // console.log(id)
     var arr = this.data.arrLab;
-    for(var i=0;i<arr.length;i++) {
+    for (var i = 0; i < arr.length; i++) {
       arr[i] = 0;
     }
     arr[id] = 1;
@@ -177,14 +191,14 @@ Page({
     })
   },
   // 查看购物车列表
-  shopCarList: function(){
+  shopCarList: function () {
     var that = this;
     this.setData({
       clickCar: true,
       cartcartArr: [],
       showPicker: true
     })
-    var id = this.data.main.cartdata == 1 ? this.data.pageid:'';
+    var id = this.data.main.cartdata == 1 ? this.data.pageid : '';
     // console.log(id)
     core.get('quick/index/getCart', { quickid: id }, function (ret) {
       console.log(ret);
@@ -195,7 +209,7 @@ Page({
       })
 
       var tempcartid = [];
-      for(var i=0;i<ret.list.length;i++) {
+      for (var i = 0; i < ret.list.length; i++) {
         tempcartid[i] = ret.list[i].goodsid;
       }
       that.setData({
@@ -210,13 +224,12 @@ Page({
       showPicker: false
     })
   },
-  
+
 
 
 
   // 购买picker
   selectPicker: function (e) {
-    app.checkAuth();
     var $this = this;
     wx.getSetting({
       success: function (res) {
@@ -229,7 +242,7 @@ Page({
             showvideo: false
           });
         } else {
-          // $this.setData({ modelShow: true })
+          $this.setData({ modelShow: true })
           return
         }
       }
@@ -291,7 +304,7 @@ Page({
     return diyform.getIndex(str, areas)
   },
 
-  closespecs: function(){
+  closespecs: function () {
     this.setData({
       closespecs: false
     })
@@ -315,75 +328,75 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+
   },
 
   // 弹窗picker点击确定按钮或单规格商品加入购物车
-  addCartquick: function(a,b) {
-    console.log(a+";"+b);
+  addCartquick: function (a, b) {
+    console.log(a + ";" + b);
     var that = this;
-    
+
     var numbers = that.data.numtotal;
     var id = this.data.main.cartdata == 1 ? this.data.pageid : '';
 
 
-      // 加入购物车
-      core.get('quick/index/update', {
-        quickid: id,
-        goodsid: that.data.goodsid,
-        optionid: a ? a : '',
-        update: '',
-        total: '',
-        type: that.data.addtype,
-        typevalue: b?b:'',
-        diyformdata: that.data.formdataval ? that.data.formdataval:''
-      }, function (ret) {
-        console.log(ret);
+    // 加入购物车
+    core.get('quick/index/update', {
+      quickid: id,
+      goodsid: that.data.goodsid,
+      optionid: a ? a : '',
+      update: '',
+      total: '',
+      type: that.data.addtype,
+      typevalue: b ? b : '',
+      diyformdata: that.data.formdataval ? that.data.formdataval : ''
+    }, function (ret) {
+      console.log(ret);
 
 
-        // 如果达到最大购买数量或者超出库存，提示错误信息
-        if (ret.error!=0) {
-          that.setData({
-            cantclick: true
-          })
-          foxui.toast(that, ret.message);
-          that.setData({
-           active: '', slider: 'out', isSelected: true, tempname: '', showPicker: false
-          })
-        } else {
-          // 修改底部购物车的数据
-          var main = that.data.main;
-          main.cartList.total = ret.total;
-          main.cartList.totalprice = ret.totalprice;
-          main.cartList.list = [1];
+      // 如果达到最大购买数量或者超出库存，提示错误信息
+      if (ret.error != 0) {
+        that.setData({
+          cantclick: true
+        })
+        foxui.toast(that, ret.message);
+        that.setData({
+          active: '', slider: 'out', isSelected: true, tempname: '', showPicker: false
+        })
+      } else {
+        // 修改底部购物车的数据
+        var main = that.data.main;
+        main.cartList.total = ret.total;
+        main.cartList.totalprice = ret.totalprice;
+        main.cartList.list = [1];
 
-          numbers[that.data.goodsid] = ret.goodstotal;
-          // console.log(numbers[e.currentTarget.dataset.id])
-          // console.log(Boolean(numbers[e.currentTarget.dataset.id]))
-          that.setData({
-            numtotal: numbers,
-            main: main,
-            clearcart: true,
-            active: '', slider: 'out', isSelected: true, tempname: '', showPicker:false,
-            formdataval: {}
-          })
-          if (that.data.addtype == 'value') {
-            // that.animate(that.data.mouse)
-          }
+        numbers[that.data.goodsid] = ret.goodstotal;
+        // console.log(numbers[e.currentTarget.dataset.id])
+        // console.log(Boolean(numbers[e.currentTarget.dataset.id]))
+        that.setData({
+          numtotal: numbers,
+          main: main,
+          clearcart: true,
+          active: '', slider: 'out', isSelected: true, tempname: '', showPicker: false,
+          formdataval: {}
+        })
+        if (that.data.addtype == 'value') {
+          // that.animate(that.data.mouse)
         }
+      }
 
-        
-        // $this.setData({  });
 
-        
-      })
+      // $this.setData({  });
+
+
+    })
   },
 
   //添加商品到购物车
@@ -399,89 +412,89 @@ Page({
       morechose: e.currentTarget.dataset.more
     })
     // if(e.currentTarget.dataset.color!='#ccc') {
+    that.setData({
+      addtype: e.currentTarget.dataset.add,
+      goodsid: e.currentTarget.dataset.id,
+      mouse: e
+    })
+    if (that.data.addtype == 'reduce' && e.currentTarget.dataset.min == e.currentTarget.dataset.num) {
       that.setData({
-        addtype: e.currentTarget.dataset.add,
-        goodsid: e.currentTarget.dataset.id,
-        mouse: e
+        addtype: 'delete'
       })
-      if (that.data.addtype == 'reduce' && e.currentTarget.dataset.min == e.currentTarget.dataset.num) {
+    }
+    // 如果有多规格减号
+    if (e.currentTarget.dataset.more == '1' && that.data.addtype == 'reduce') {
+      //如果点击减号且为多规格，提示在购物车中修改数量
+      foxui.toast(that, "请在购物车中修改多规格商品");
+    }
+    else if (that.data.addtype == 'reduce' && e.currentTarget.dataset.min == e.currentTarget.dataset.num) {
+      foxui.toast(that, "不能少于" + e.currentTarget.dataset.min + "件商品");
+    }
+    // 如果是多规格或有自定义表单 加号
+    else if (e.currentTarget.dataset.more == '1' || e.currentTarget.dataset.diyformtype != '0' || !e.currentTarget.dataset.canadd) {
+      if (that.data.addtype != 'reduce' && that.data.addtype != 'delete') {
+        var goodslist = 'quickbuy';
         that.setData({
-          addtype: 'delete'
+          showPicker: true,
+          cycledate: false
         })
-      }
-      // 如果有多规格减号
-      if (e.currentTarget.dataset.more == '1' && that.data.addtype == 'reduce') {
-        //如果点击减号且为多规格，提示在购物车中修改数量
-        foxui.toast(that, "请在购物车中修改多规格商品");
-      }
-      else if (that.data.addtype == 'reduce' && e.currentTarget.dataset.min == e.currentTarget.dataset.num) {
-        foxui.toast(that, "不能少于" + e.currentTarget.dataset.min + "件商品");
-      }
-      // 如果是多规格或有自定义表单 加号
-      else if (e.currentTarget.dataset.more == '1' || e.currentTarget.dataset.diyformtype != '0' || !e.currentTarget.dataset.canadd) {
-        if (that.data.addtype != 'reduce' && that.data.addtype != 'delete') {
-          var goodslist = 'quickbuy';
-          that.setData({
-            showPicker: true,
-            cycledate: false
-          })
-          goodspicker.selectpicker(e, that, goodslist, modeltakeout);
-          console.log(123)
-        
-          // var tempname = 'select-picker';
-          console.log(123)
-          
-        } else {
-          that.setData({
-            storenum: e.currentTarget.dataset.store,
-            maxnum: e.currentTarget.dataset.maxnum
-          })
-          that.addCartquick('', 1);
-        }
-      } 
+        goodspicker.selectpicker(e, that, goodslist, modeltakeout);
+        console.log(123)
 
-      // 如果是单规格
-      if (e.currentTarget.dataset.more != '1' && e.currentTarget.dataset.diyformtype == '0' && e.currentTarget.dataset.canadd) {
+        // var tempname = 'select-picker';
+        console.log(123)
+
+      } else {
         that.setData({
           storenum: e.currentTarget.dataset.store,
           maxnum: e.currentTarget.dataset.maxnum
         })
-        // 减号且不能再少
-        if (that.data.addtype == 'reduce' && e.currentTarget.dataset.min == e.currentTarget.dataset.num) {
-          foxui.toast(that, "不能少于" + e.currentTarget.dataset.min +"件商品");
-        } else {
-          that.addCartquick('', 1);
-        }
-        
+        that.addCartquick('', 1);
       }
+    }
+
+    // 如果是单规格
+    if (e.currentTarget.dataset.more != '1' && e.currentTarget.dataset.diyformtype == '0' && e.currentTarget.dataset.canadd) {
+      that.setData({
+        storenum: e.currentTarget.dataset.store,
+        maxnum: e.currentTarget.dataset.maxnum
+      })
+      // 减号且不能再少
+      if (that.data.addtype == 'reduce' && e.currentTarget.dataset.min == e.currentTarget.dataset.num) {
+        foxui.toast(that, "不能少于" + e.currentTarget.dataset.min + "件商品");
+      } else {
+        that.addCartquick('', 1);
+      }
+
+    }
     // }
   },
 
   // 加购物车动画
   animate: function (e) {
     var that = this;
-    
-      that.finger = {}; var topPoint = {};
-      that.finger['x'] = e.touches["0"].clientX;//点击的位置
-      that.finger['y'] = e.touches["0"].clientY;
 
-      if(that.finger['y'] < that.busPos['y']) {
-        topPoint['y'] = that.finger['y'] - 150;
-      } else {
-        topPoint['y'] = that.busPos['y'] - 150;
-      }
+    that.finger = {}; var topPoint = {};
+    that.finger['x'] = e.touches["0"].clientX;//点击的位置
+    that.finger['y'] = e.touches["0"].clientY;
+
+    if (that.finger['y'] < that.busPos['y']) {
+      topPoint['y'] = that.finger['y'] - 150;
+    } else {
+      topPoint['y'] = that.busPos['y'] - 150;
+    }
     topPoint['x'] = Math.abs(that.finger['x'] - that.busPos['x']) / 2;
 
-      if(that.finger['x'] > that.busPos['x']) {
-        topPoint['x'] = (that.finger['x'] - that.busPos['x']) / 2 + that.busPos['x'];
-      } else {//
-        topPoint['x'] = (that.busPos['x'] - that.finger['x']) / 2 + that.finger['x'];
-      }
+    if (that.finger['x'] > that.busPos['x']) {
+      topPoint['x'] = (that.finger['x'] - that.busPos['x']) / 2 + that.busPos['x'];
+    } else {//
+      topPoint['x'] = (that.busPos['x'] - that.finger['x']) / 2 + that.finger['x'];
+    }
 
     //topPoint['x'] = that.busPos['x'] + 80
     //that.linePos = app.bezier([that.finger, topPoint, that.busPos], 30);
     that.linePos = that.bezier([that.busPos, topPoint, that.finger], 30);
-      that.startAnimation(e);
+    that.startAnimation(e);
   },
   bezier: function (pots, amount) {
     var pot;
@@ -550,7 +563,7 @@ Page({
       }
     }, 13);
   },
-  
+
   //清空购物车
   clearShopCartFn: function (e) {
     var that = this;
@@ -566,13 +579,13 @@ Page({
       var tempcartid = that.data.tempcartid
       var arr = [];
       // 这里有bug，清空购物车的时候遍历id数组，比当前有的id大的商品不在数组里所以要找到最大的id值将数组置为0
-      for (var i = 0; i < tempcartid.length;i++) {
+      for (var i = 0; i < tempcartid.length; i++) {
         console.log(tempcartid[i])
-        arr[Number(tempcartid[i])]=-1
+        arr[Number(tempcartid[i])] = -1
         console.log(arr)
       }
       that.setData({
-        main: main, 
+        main: main,
         clickCar: false,
         numtotal: arr,
         clearcart: false,
@@ -583,7 +596,7 @@ Page({
   },
 
   // 关闭多规格弹窗
-  closemulti: function(){
+  closemulti: function () {
     this.setData({
       showPicker: false,
       clickCar: false,
@@ -592,10 +605,10 @@ Page({
   },
 
   // 结算
-  gopay: function() {
+  gopay: function () {
     console.log(this.data.main.cartList)
     var fromquick = this.data.main.cartdata == 1 ? this.data.pageid : '';
-    if(!this.data.main.cartList.list.length) {
+    if (!this.data.main.cartList.list.length) {
       // 如果购物车中没有商品
       foxui.toast(this, "请先添加商品到购物车");
     } else {
@@ -605,22 +618,26 @@ Page({
     }
   },
   // 跳转到购物车
-  gotocart: function() {
-    console.log(11)
-    wx.switchTab({
-      url: '/pages/member/cart/index'
+  gotocart: function () {
+    wx.navigateTo({
+        url:'/pages/member/cart/index',
+        fail: function () {
+            wx.switchTab({
+                url: url,
+            })
+        }
     })
   },
 
   // 购物车弹层加减商品
-  cartaddcart: function(e) {
+  cartaddcart: function (e) {
     var that = this;
     var id = this.data.main.cartdata == 1 ? this.data.pageid : '';
     var opid = e.currentTarget.dataset.id == '0' ? e.currentTarget.dataset.goodsid : e.currentTarget.dataset.id;
 
     var carttype = e.currentTarget.dataset.add;
     var value = 1;
-    if (e.currentTarget.dataset.min == e.currentTarget.dataset.num && carttype =='reduce') {
+    if (e.currentTarget.dataset.min == e.currentTarget.dataset.num && carttype == 'reduce') {
       carttype = 'delete'
     }
 
@@ -636,9 +653,9 @@ Page({
       // diyformdata: ''
     }, function (ret) {
       console.log(ret);
-      if(ret.error==0) {
+      if (ret.error == 0) {
         var arr = that.data.cartcartArr;
-        arr[opid] = ret.goodsOptionTotal || ret.goodsOptionTotal==0 ? ret.goodsOptionTotal : ret.goodstotal;
+        arr[opid] = ret.goodsOptionTotal || ret.goodsOptionTotal == 0 ? ret.goodsOptionTotal : ret.goodstotal;
 
         var main = that.data.main;
         main.cartList.total = ret.total;
@@ -657,13 +674,13 @@ Page({
       }
     })
   },
-  
+
   // 右侧主体滚动事件
-  scrollfn: function(e) {
+  scrollfn: function (e) {
     // console.log(e.detail.scrollTop)
     var that = this;
     var arrtemp = this.data.arrLab;
-    for (var i = 0; i < that.data.arrscroll.length;i++) {
+    for (var i = 0; i < that.data.arrscroll.length; i++) {
       arrtemp[i] = 0;
       if (Math.abs(e.detail.scrollTop - that.data.arrscroll[i]) < 26) {
 
@@ -673,11 +690,11 @@ Page({
         })
         break;
       }
-      
+
       // console.log('goodslength：' + goodslength)
     }
   },
   onShareAppMessage: function (res) {
-    
+
   }
 })

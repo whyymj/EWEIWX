@@ -46,9 +46,12 @@ Page({
         app.url(options);
     },
     onShow:function () {
-      this.get_cart();
-      var $this = this;
-      wx.getSetting({
+        this.get_cart();
+        var $this = this;
+        $this.setData({
+          imgUrl: app.globalData.approot
+        });
+        wx.getSetting({
     		success: function(res) {
     			var limits = res.authSetting['scope.userInfo'];
     			$this.setData({limits: limits})

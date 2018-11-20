@@ -48,7 +48,7 @@ Page({
         });
 
         // 店铺装修 会员中心
-        diypage.get(this, 'member', function (res) {});        
+        diypage.get(this, 'member', function (res) {});
     },
     getInfo: function(){
         var $this = this;
@@ -67,23 +67,26 @@ Page({
               }
             })
           }
-          if(result.error!=0){
-            // $this.setData({ modelShow: true });
-              wx.redirectTo({
-                url: '/pages/message/auth/index'
-              })
-          }else{
-            $this.setData({
-              member: result, show: true, customer: result.customer, customercolor: result.customercolor, phone: result.phone, phonecolor: result.phonecolor, phonenumber: result.phonenumber, iscycelbuy: result.iscycelbuy,bargain:result.bargain
+            if(result.error!=0){
+              // $this.setData({ modelShow: true });
+                wx.redirectTo({
+                  url: '/pages/message/auth/index'
+                })
+            }else{
+              $this.setData({
+                member: result, show: true, customer: result.customer, customercolor: result.customercolor, phone: result.phone, phonecolor: result.phonecolor, phonenumber: result.phonenumber, iscycelbuy: result.iscycelbuy,bargain:result.bargain
 });
-          }
-          parser.wxParse('wxParseData','html', result.copyright,$this,'5');
+            }
+            parser.wxParse('wxParseData','html', result.copyright,$this,'5');
         });
     },
     onShow: function(){
-      this.getInfo();
-      var $this = this;
-      wx.getSetting({
+        this.getInfo();
+        var $this = this;
+        $this.setData({
+          imgUrl: app.globalData.approot
+        });
+        wx.getSetting({
     		success: function(res) {
     			var limits = res.authSetting['scope.userInfo'];
     			$this.setData({limits: limits})
@@ -230,8 +233,8 @@ Page({
           fail: function () {
             wx.switchTab({
               url: url,
-            })
-          }
+        })
+      }
         })
       }
       if (phone) {

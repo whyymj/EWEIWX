@@ -6,33 +6,36 @@ Page({
     close:0,
     text:''
    },
-  onLoad: function (options) {
+    onLoad: function (options) {
+      this.setData({
+        imgUrl: app.globalData.approot
+      });
       this.setData({close: options.close, text: options.text});
-  },
-  onShow: function () {
-      var name = app.getCache('sysset').shopname;
-      wx.setNavigationBarTitle({title: name||'提示'});
-  },
+    },
+    onShow: function () {
+        var name = app.getCache('sysset').shopname;
+        wx.setNavigationBarTitle({title: name||'提示'});
+    },
 
-  bind: function(){
-    var $this = this;
-    var timer =  setInterval(function () {
-      wx.getSetting({
-        success: function (res) {
-          var userInfo = res.authSetting['scope.userInfo'];
-          if (userInfo){
-            wx.reLaunch({
-              url: '/pages/index/index'
-            })
-            clearInterval(timer)
+    bind: function(){
+      var $this = this;
+      var timer =  setInterval(function () {
+        wx.getSetting({
+          success: function (res) {
+            var userInfo = res.authSetting['scope.userInfo'];
+            if (userInfo){
+              wx.reLaunch({
+                url: '/pages/index/index'
+              })
+              clearInterval(timer)
             console.log(userInfo)
-            $this.setData({ userInfo: userInfo})
-          }else{
+              $this.setData({ userInfo: userInfo})
+            }else{
 
+            }
           }
-        }
-      })
-    }, 1000);
+        })
+      }, 1000);
   },
 
   // 点击open-type="getUserInfo"时候的回调函数
@@ -44,7 +47,7 @@ Page({
           if (login_res.error) {
             core.alert('获取用户登录态失败:' + login_res.message);
             return;
-          }
+    }
           // console.log(res, login_res)
           core.get('wxapp/auth', {
             data: res.detail.encryptedData,

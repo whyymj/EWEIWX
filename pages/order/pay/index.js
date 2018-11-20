@@ -22,7 +22,8 @@ Page({
     onLoad: function (options) {
         var $this = this, goodslist = {};
         this.setData({
-            options: options
+          options: options,
+          imgUrl: app.globalData.approot
         });
         app.url(options);
     },
