@@ -1,4 +1,4 @@
- <view class="fui-cell-group fui-detail-group">
+ <view class="fui-cell-group fui-detail-group" style="background:{{diyitem.style.background}}">
             <view class="fui-cell">
                 <view class="fui-cell-text name">
                     <text wx:if="{{goods.ispresell==1 && goods.ispresellshow == 1}}" class="fui-tag fui-tag-danger">预</text>
