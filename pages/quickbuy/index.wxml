@@ -75,7 +75,7 @@
     <view id='num{{index}}' wx:for="{{group}}" wx:key="unique">
       <view class='tit' style="color: {{main.style.righttitle}}">{{item.title}}</view>
 
-      <view class='subtit'>{{item.desc}}</view>
+      <view wx:if="{{main.template == 0}}" class='subtit'>{{item.desc}}</view>
 
        <!-- <view class='bigImg' wx:for="main.advs" wx:key="unique">
         <image src='../../../../img/bg.jpg' mode='center'></image>
