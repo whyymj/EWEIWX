@@ -20,7 +20,7 @@ App({
       wx.getSystemInfo({
         success: function (res) {
           var model = res.model;
-          var iponeX = model.indexOf("iPhone X")
+          var iponeX = model.indexOf("iPhone X");
           if (iponeX == '0'){
             $this.setCache("isIpx", res.model);
           }else{
@@ -220,12 +220,12 @@ App({
       flag: false,
     },
     //晚秋
-    // globalData: {
-    //   appid:'wxe9154b3ec8bbd183',
-    //   api: "https://api.clubmall.cn/app/ewei_shopv2_api.php?i=4",
-    //   approot: "https://api.clubmall.cn/addons/ewei_shopv2/",
-    //   userInfo: null
-    // }
+    globalData: {
+      appid:'wx3d3b2fd41970f6db',
+      api: "https://api.clubmall.cn/app/ewei_shopv2_api.php?i=16",
+      approot: "https://api.clubmall.cn/addons/ewei_shopv2/",
+      userInfo: null
+    }
 
     //姜倩
     // globalData: {
@@ -259,12 +259,12 @@ App({
     //    userInfo: null
     //  }
 
-     globalData: {
-       appid: null,
-       api: null,
-       approot: null,
-       userInfo: null
-     }
+    //  globalData: {
+    //    appid: null,
+    //    api: null,
+    //    approot: null,
+    //    userInfo: null
+    //  }
 
 })
   

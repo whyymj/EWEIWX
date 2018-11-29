@@ -35,21 +35,42 @@ Page({
     onLoad: function (options) {
       app.checkAuth();
       var $this = this;
-        app.url(options);
-        wx.getSystemInfo({
-          success: function (result) {
-            var swiperheight = result.windowWidth / 1.7
-            $this.setData({
-              windowWidth: result.windowWidth,
-              windowHeight: result.windowHeight,
-              swiperheight: swiperheight
-            });
-          }
-        });
+      $this.setData({ options: options});
+        // app.url(options);
+        // wx.getSystemInfo({
+        //   success: function (result) {
+        //     var swiperheight = result.windowWidth / 1.7
+        //     $this.setData({
+        //       windowWidth: result.windowWidth,
+        //       windowHeight: result.windowHeight,
+        //       swiperheight: swiperheight
+        //     });
+        //   }
+        // });
 
-        // 店铺装修 会员中心
-        diypage.get(this, 'member', function (res) {});
+        // // 店铺装修 会员中心
+        // diypage.get(this, 'member', function (res) {});
     },
+  onShow: function (options) {
+    app.checkAuth();
+    var $this = this;
+    var options = $this.data.options;
+    app.url(options);
+    wx.getSystemInfo({
+      success: function (result) {
+        var swiperheight = result.windowWidth / 1.7
+        $this.setData({
+          windowWidth: result.windowWidth,
+          windowHeight: result.windowHeight,
+          swiperheight: swiperheight
+        });
+      }
+    });
+
+    // 店铺装修 会员中心
+    diypage.get(this, 'member', function (res) { });
+  },
+
     getInfo: function(){
         var $this = this;
         core.get('member', {}, function(result){
