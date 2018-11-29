@@ -746,11 +746,6 @@ Page({
       })
       
     },
-    userinfo: function(e){
-      var iv = e.detail.iv;
-      var encryptedData = e.detail.encryptedData;
-      app.getUserInfo(null, null, { iv: iv, encryptedData: encryptedData});
-    },
     close:function(){
       app.globalData.flag = true;
       wx.reLaunch({

@@ -21,7 +21,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    app.checkAuth();
     var $this = this;
     this.setData({ options: options});
     console.log(options)
@@ -128,7 +127,6 @@ Page({
   },
   //提交
   submit:function(){
-    app.checkAuth();
     var $this = this;
     var diyformdata = this.data.diyform;
     if ($this.data.diyform == undefined){

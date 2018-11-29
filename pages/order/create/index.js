@@ -225,7 +225,7 @@ Page({
                 goodslist.push(vv);
             });
         });
-        // console.log(goodslist);
+        console.log(goodslist);
         var originalprice = 0;
         for (var i = 0; i < goodslist.length; i++) {
           originalprice += goodslist[i].price;

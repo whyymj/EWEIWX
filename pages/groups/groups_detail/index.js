@@ -20,7 +20,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    app.checkAuth();
     var $this = this;
     var isIpx = app.getCache('isIpx');
     if (isIpx) {
@@ -94,65 +93,29 @@ Page({
     app.checkAuth();
     var $this = this;
       
-      var id = $this.data.data.goods.id
+    var id = $this.data.data.goods.id
 
 
-      if( $this.data.data.goods.more_spec == 0 ){
-        if ($this.data.data.goods.stock > 0) {
-          core.get('groups/order/create_order', {
-            id: id,
-            ladder_id: $this.data.data.tuan_first_order.ladder_id,
-            type: 'groups',
-            heads: 0,
-            teamid: $this.data.teamid,
-          }, function (msg) {
-            if (msg.error == 1) {
-              core.alert(msg.message);
-              return;
-            }
-
-            wx.navigateTo({
-              url: "/pages/groups/confirm/index?id=" + id + "&heads=0&type=groups&teamid="+$this.data.teamid+"&ladder_id="+$this.data.data.tuan_first_order.ladder_id,
-              success: function () {
-                $this.setData({
-                  layershow: false,
-                  chosenum: false,
-                  options: false
-                })
-              }
-            })
-            
-          });
-          
-
-        } else {
-          wx.showToast({
-            title: '库存不足',
-            icon: 'none',
-            duration: 2000
-          });
-        }
-      
-    
-      }else{
-    
-        core.get('groups.goods.get_spec', { id: id }, function (result) {
-          $this.setData({
-            spec: result.data
-          })
-        })
-    
-        $this.setData({
-          layershow: true,
-          options: true
-        })
-        $this.setData({
-          optionarr: [],
-          selectSpecsarr: []
-        })
-        if ($this.data.data.goods.stock > 0) {
+    if( $this.data.data.goods.more_spec == 0 ){
+      if ($this.data.data.goods.stock > 0) {
+        core.get('groups/order/create_order', {
+          id: id,
+          ladder_id: $this.data.data.tuan_first_order.ladder_id,
+          type: 'groups',
+          heads: 0,
+          teamid: $this.data.teamid,
+        }, function (msg) {
+          if (msg.error == 1) {
+            core.alert(msg.message);
+            return;
+          }
+          // 用户不存在则跳转
+          if (msg.error == -1) {
+            wx.redirectTo({url: '/pages/message/auth/index'});
+            return;
+          }
           wx.navigateTo({
-            url: "/pages/groups/confirm/index?id=" + goods_id + "&type=groups&teamid="+$this.data.teamid,
+            url: "/pages/groups/confirm/index?id=" + id + "&heads=0&type=groups&teamid="+$this.data.teamid+"&ladder_id="+$this.data.data.tuan_first_order.ladder_id,
             success: function () {
               $this.setData({
                 layershow: false,
@@ -161,20 +124,60 @@ Page({
               })
             }
           })
+            
+        });
+        
 
-        } else {
-          wx.showToast({
-            title: '库存不足',
-            icon: 'none',
-            duration: 2000
-          });
-        }
-
-        $this.setData({
-          layershow: true,
-          options: true
-        })
+      } else {
+        wx.showToast({
+          title: '库存不足',
+          icon: 'none',
+          duration: 2000
+        });
       }
+    
+  
+    }else{
+  
+      core.get('groups.goods.get_spec', { id: id }, function (result) {
+        $this.setData({
+          spec: result.data
+        })
+      })
+  
+      $this.setData({
+        layershow: true,
+        options: true
+      })
+      $this.setData({
+        optionarr: [],
+        selectSpecsarr: []
+      })
+      if ($this.data.data.goods.stock > 0) {
+        wx.navigateTo({
+          url: "/pages/groups/confirm/index?id=" + goods_id + "&type=groups&teamid="+$this.data.teamid,
+          success: function () {
+            $this.setData({
+              layershow: false,
+              chosenum: false,
+              options: false
+            })
+          }
+        })
+
+      } else {
+        wx.showToast({
+          title: '库存不足',
+          icon: 'none',
+          duration: 2000
+        });
+      }
+
+      $this.setData({
+        layershow: true,
+        options: true
+      })
+    }
       
 
   },
