@@ -46,6 +46,15 @@ Page({
       title: '加载中...',
     })
     var pageid = options.id;
+
+    if (pageid==undefined){
+        var pages = getCurrentPages(); //获取页面栈
+        var url_arr = pages[pages.length - 1].route.split("/");//当前页面路径/分割后的数组
+        pageid = url_arr[url_arr.length - 1];
+    }
+
+
+
     var that = this;
     let systemInfo = wx.getStorageSync('systemInfo');
 
@@ -149,9 +158,14 @@ Page({
 
   // 导航菜单跳转
   menunavigage: function (e) {
-    wx.navigateTo({
-      url: e.currentTarget.dataset.url,
-    })
+      wx.navigateTo({
+          url:  e.currentTarget.dataset.url,
+          fail: function () {
+              wx.switchTab({
+                  url: url,
+              })
+          }
+      })
   },
 
   // 幻灯片跳转
@@ -605,9 +619,13 @@ Page({
   },
   // 跳转到购物车
   gotocart: function () {
-    console.log(11)
-    wx.switchTab({
-      url: '/pages/member/cart/index'
+    wx.navigateTo({
+        url:'/pages/member/cart/index',
+        fail: function () {
+            wx.switchTab({
+                url: url,
+            })
+        }
     })
   },
 
