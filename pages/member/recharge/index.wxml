@@ -29,7 +29,7 @@
         <view class="fui-cell">
             <view class="fui-cell-label">充值金额</view>
             <view class="fui-cell-info">
-                <input type="number" class="fui-input" value="{{ money }}" bindinput ="money"/>
+                <input type="digit" class="fui-input" value="{{ money }}" bindinput ="money"/>
             </view>
         </view>
     </view>
