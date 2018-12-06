@@ -158,6 +158,7 @@ Page({
 
   // 导航菜单跳转
   menunavigage: function (e) {
+      console.log(url)
       wx.navigateTo({
           url:  e.currentTarget.dataset.url,
           fail: function () {
@@ -619,11 +620,12 @@ Page({
   },
   // 跳转到购物车
   gotocart: function () {
+    const url = '/pages/member/cart/index'
     wx.navigateTo({
-        url:'/pages/member/cart/index',
+        url: url,
         fail: function () {
             wx.switchTab({
-                url: url,
+              url: url,
             })
         }
     })

@@ -20,7 +20,7 @@ App({
       wx.getSystemInfo({
         success: function (res) {
           var model = res.model;
-          var iponeX = model.indexOf("iPhone X")
+          var iponeX = model.indexOf("iPhone X");
           if (iponeX == '0'){
             $this.setCache("isIpx", res.model);
           }else{
@@ -31,7 +31,6 @@ App({
       let that = this;
       wx.getSystemInfo({//  获取页面的有关信息
         success: function (res) {
-
           wx.setStorageSync('systemInfo', res)
           var ww = res.windowWidth;
           var hh = res.windowHeight;
@@ -39,48 +38,41 @@ App({
           that.globalData.hh = hh;
         }
       }); 
-        this.getConfig();
-        var userinfo = '';
-        if (userinfo == '' || userinfo.needauth) {
-            this.getUserInfo(function (res) {
-            }, function (text, close) {
-                var close = close ? 1 : 0, text = text ? text : '';
-                if (close) {
-                    wx.redirectTo({
-                        url: '/pages/message/auth/index?close=' + close + '&text=' + text
-                    })  
-                }
-            }); 
-       }
     },
     /**
-     * 小程序如果没有授权或者没有数据缓存重新跳转到会员中心请求缓存
+     * 小程序检查是否授权方法，写入当前页面路径和参数缓存
      * @date 2018-10-22
      * @author Vencenty
      */
     checkAuth: function () {
-      var url = '/pages/message/auth/index'
+    
+      const url = '/pages/message/auth/index'
+      const currentPages = getCurrentPages()
+      const currentPage = currentPages[currentPages.length - 1]
+      const routeData = {
+        'params': currentPage.options || null,
+        'url': currentPage.route
+      }
+      this.setCache('routeData', routeData)
+
+      console.log(routeData);
+
+      const userinfo = this.getCache('userinfo')
       wx.getSetting({
         success: function (settings) {
           if (!settings.authSetting['scope.userInfo']) {
-            wx.redirectTo({
-              url: url
-            })
+            wx.redirectTo({url: url})
+          } else {
+            if (!userinfo) {
+              wx.redirectTo({ url: url })
+            } else {
+              core.get('member', {}, function (ret) {
+                if (ret.error) {
+                  wx.redirectTo({ url: url })
+                }
+              })
+            }
           }
-        }
-      })
-      var userinfo = this.getCache('userinfo')
-      if(!userinfo) {
-        wx.redirectTo({
-          url: url
-        })
-      }
-      
-      core.get('member', {}, function (ret) {
-        if (ret.error) {
-          wx.redirectTo({
-            url: url,
-          })
         }
       })
     },
@@ -134,7 +126,7 @@ App({
         }
         return rt;
     },
-
+    
     removeCache: function (key) {
         var rt = true;
         try {
@@ -144,111 +136,6 @@ App({
         }  
         return rt; 
     },
-    getUserInfo: function (success, cancel){
-        var that = this;
-       
-        var userinfo = {};
-        var userinfo = that.getCache('userinfo');
-     
-        if (userinfo && !userinfo.needauth) {
-            if (success && typeof success == 'function') {
-                success(userinfo);
-            } 
-            return;
-        }
-
-        //调用登录接口
-        wx.login({
-            success: function (ret) {
-                if (!ret.code) {
-                    core.alert('获取用户登录态失败:' + ret.errMsg);
-                    return;
-                } 
-                core.post('wxapp/login', {code: ret.code}, function (login_res) {
-                 
-                  //  core.alert("wxapp/login" + JSON.stringify(login_res));
-                 
-                    if (login_res.error) {
-                        core.alert('获取用户登录态失败:' + login_res.message);
-                        return;
-                    }
-                    
-                    if (login_res.isclose && cancel && typeof cancel == 'function') {
-                        cancel(login_res.closetext, true);
-                        return;
-                    } 
-                    
-                    wx.getUserInfo({
-                        success: function (res) {
-                            userinfo = res.userInfo;
-                             core.get('wxapp/auth', {
-                                data: res.encryptedData,
-                                iv: res.iv,
-                                sessionKey: login_res.session_key
-                            }, function (auth_res) {
-                                if (auth_res.isblack == 1) {
-                                  wx.showModal({
-                                    title: '无法访问',
-                                    content: '您在商城的黑名单中，无权访问！',
-                                    success: function (res) {
-                                      if (res.confirm) {
-                                        that.close();
-                                      }
-                                      if (res.cancel) {
-                                        that.close();
-                                      }
-                                    }
-                                  })
-                                }
-                                res.userInfo.openid = auth_res.openId;
-                                res.userInfo.id = auth_res.id;
-                                res.userInfo.uniacid = auth_res.uniacid;
-                                res.needauth = 0;
-                                that.setCache('userinfo', res.userInfo, 7200);
-                                that.setCache('userinfo_openid', res.userInfo.openid);
-                                that.setCache('userinfo_id', auth_res.id);
-                                that.getSet();
-                                if (success && typeof success == 'function') {
-                                    success(userinfo);
-                                }
-                            });
-                        },
-                        fail: function (err) {
-                            core.get('wxapp/check', {
-                                openid: login_res.openid
-                            }, function (check_res) {
-                              if (check_res.isblack == 1) {
-                                  wx.showModal({
-                                    title: '无法访问',
-                                    content: '您在商城的黑名单中，无权访问！',
-                                    success: function (res) {
-                                      if (res.confirm) {
-                                        that.close();
-                                      }
-                                      if (res.cancel) {
-                                        that.close();
-                                      }
-                                    }
-                                  })
-                                }
-                                check_res.needauth = 1;
-                                that.setCache('userinfo', check_res, 7200);
-                                that.setCache('userinfo_openid', login_res.openid);
-                                that.setCache('userinfo_id', login_res.id);
-                                that.getSet();
-                                if (success && typeof success == 'function') {
-                                    success(userinfo);
-                                }
-                            });
-                        }
-                    });
-                });
-            },
-            fail: function (error) {
-                core.alert('获取用户信息失败!');
-            }
-        });
-    }, 
     close: function () {
       this.globalDataClose.flag = true;
       wx.reLaunch({
@@ -333,12 +220,12 @@ App({
       flag: false,
     },
     //晚秋
-    // globalData: {
-    //   appid:'wxe9154b3ec8bbd183',
-    //   api: "https://api.clubmall.cn/app/ewei_shopv2_api.php?i=4",
-    //   approot: "https://api.clubmall.cn/addons/ewei_shopv2/",
-    //   userInfo: null
-    // }
+    globalData: {
+      appid:'wx3d3b2fd41970f6db',
+      api: "https://api.clubmall.cn/app/ewei_shopv2_api.php?i=16",
+      approot: "https://api.clubmall.cn/addons/ewei_shopv2/",
+      userInfo: null
+    }
 
     //姜倩
     // globalData: {
@@ -365,19 +252,19 @@ App({
     // }
 
     // 售后
-    // globalData: {
+    //  globalData: {
     //   appid: "wx3502a0f358ee367f",
     //   api: "https://shn2mgo.ifkvip.com/app/ewei_shopv2_api.php?i=2",
     //   approot: "https://shn2mgo.ifkvip.com/addons/ewei_shopv2/",
-    //   userInfo: null
-    // }
+    //    userInfo: null
+    //  }
 
-     globalData: {
-       appid: null,
-       api: null,
-       approot: null,
-       userInfo: null
-     }
+    //  globalData: {
+    //    appid: null,
+    //    api: null,
+    //    approot: null,
+    //    userInfo: null
+    //  }
 
 })
   

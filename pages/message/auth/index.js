@@ -40,15 +40,24 @@ Page({
 
   // 点击open-type="getUserInfo"时候的回调函数
   bindGetUserInfo: function (res) {
+    const routeData = app.getCache('routeData');
+    let { url, params } = routeData;
+    // 拼接重新跳转的url
+    let ret = '';
+    Object.keys(params).forEach(key => {
+      ret += key + '=' + params[key] + '&'
+    })
+    params = ret.substring(0, ret.length - 1)
+    var redirectUrl = '/' + url + '?' + params;
+    console.log(redirectUrl)
+
     wx.login({
       success: function (ret) {
-        // console.log(ret)
         core.post('wxapp/login', { code: ret.code }, function (login_res) {
           if (login_res.error) {
             core.alert('获取用户登录态失败:' + login_res.message);
             return;
-    }
-          // console.log(res, login_res)
+           }
           core.get('wxapp/auth', {
             data: res.detail.encryptedData,
             iv: res.detail.iv,
@@ -75,8 +84,9 @@ Page({
             app.setCache('userinfo', res.detail.userInfo, 7200);
             app.setCache('userinfo_openid', res.detail.userInfo.openid);
             app.setCache('userinfo_id', auth_res.id);
+
             wx.reLaunch({
-              url: '/pages/member/index/index'
+              url: redirectUrl
             })
           })
         })

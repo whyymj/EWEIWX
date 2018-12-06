@@ -31,6 +31,7 @@ Page({
     })
   },
   joinTeam:function(e){
+    app.checkAuth();
     var $this =this;
     var types = core.pdata(e).type;
     var op = core.pdata(e).op;
