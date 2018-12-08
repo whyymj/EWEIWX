@@ -43,7 +43,7 @@
             </view>
         </view>
         <!--tab内容  -->
-        <view class='tabcontent'>
+        <view>
         <!--亲友团  -->
             <view wx:if='{{showtab=="family"}}'>
                 <view class='fui-cell' wx:for="{{ bargain_record }}">

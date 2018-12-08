@@ -655,6 +655,7 @@ Page({
     goodspicker.number(e, $this)
   },
   onLoad: function (options) {
+    app.checkAuth();
     var $this = this;
     $this.setData({
       imgUrl: app.globalData.approot
@@ -705,33 +706,25 @@ Page({
         });
       }
     });
-    $this.setData({ uid: options.id })
-   
-    var userinfo = app.getUserInfo(function () {
-      $this.setData({ options: options });
-      //轮播适配高度
-      wx.getSystemInfo({
-        success: function (result) {
-          $this.setData({
-            advWidth: result.windowWidth
-          });
-          console.log(result.windowHeight);
-        }
-      });
-      $this.setData({
-        success: true,
-        cover: true,
-        showvideo: true
-      });
-      $this.getDetail(options);
-      setTimeout(function () {
-        $this.setData({ areas: app.getCache("cacheset").areas });
-      }, 3000)
-    }, function () {
-      wx.redirectTo({
-        url: '/pages/message/auth/index'
-      })
+    $this.getDetail(options);
+    $this.setData({
+      uid: options.id,
+      options: options,
+      success: true,
+      cover: true,
+      showvideo: true
     });
+    wx.getSystemInfo({
+      success: function (result) {
+        $this.setData({
+          advWidth: result.windowWidth
+        });
+        console.log(result.windowHeight);
+      }
+    });
+    setTimeout(function () {
+      $this.setData({ areas: app.getCache("cacheset").areas });
+    }, 3000)
   },
 
   show_cycelbuydate: function () {
@@ -879,6 +872,7 @@ Page({
   },
   /*点击分享*/
   showshade: function () {
+    app.checkAuth();
     this.setData({ closeBtn: true })
   },
   nav: function () {
@@ -1097,13 +1091,6 @@ Page({
         path: appurl
       })
     }
-  },
-  userinfo: function (e) {
-    var $this = this;
-    app.getUserInfo(function(){
-      $this.onShow();
-    });
-    
   },
   close: function () {
     app.globalData.flag = true;

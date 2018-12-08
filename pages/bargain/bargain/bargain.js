@@ -87,25 +87,26 @@ Page({
   },
   cutPrice: function (){
     app.checkAuth();
+    const url = '/pages/message/auth/index';
     var $this = this;
-    var userinfo = app.getCache('userinfo');
-    if (userinfo == '') {
-      // $this.setData({ modelShow:true});
-      wx.redirectTo({
-        url: '/pages/message/auth/index'
-      })
-    }
     var bargainid = $this.data.bargainid;
     var ajax = 151;
     var mid = $this.data.mid;
     core.get('bargain/bargain', {id:bargainid,ajax:ajax,mid:mid}, function (result) {
+      // 未获取授权首先获取授权
+      if (result.error == -1) {
+        wx.redirectTo({ url: url});
+        return;
+      }
+
       if (result.error == 1) {
         $this.setData({ error_hint: true, error_hint_title: result.message });
         return;
       }
-      if(result.error == 0){
+      if(result.error == 0 && result.cutPrice){
         $this.setData({ layer: true, cutPrice: result.cutPrice});
-        console.log(result)
+      } else {
+        wx.redirectTo({ url: url});
       }
     });
     // this.setData({

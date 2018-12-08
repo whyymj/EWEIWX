@@ -25,7 +25,7 @@ Page({
         modelShow: false
     },
     onLoad: function (options) {
-      app.checkAuth();      
+      app.checkAuth();
       var $this = this;
       core.get('black', {}, function (res) {
         if (res.isblack) {

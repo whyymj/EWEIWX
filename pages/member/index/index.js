@@ -32,25 +32,11 @@ Page({
         iscycelbuy:false,
         bargain:false,
     },
-    onLoad: function (options) {
-      app.checkAuth();
-      var $this = this;
-      $this.setData({ options: options});
-        // app.url(options);
-        // wx.getSystemInfo({
-        //   success: function (result) {
-        //     var swiperheight = result.windowWidth / 1.7
-        //     $this.setData({
-        //       windowWidth: result.windowWidth,
-        //       windowHeight: result.windowHeight,
-        //       swiperheight: swiperheight
-        //     });
-        //   }
-        // });
-
-        // // 店铺装修 会员中心
-        // diypage.get(this, 'member', function (res) {});
-    },
+  onLoad: function (options) {
+    app.checkAuth();
+    var $this = this;
+    $this.setData({ options: options });
+  },
   onShow: function (options) {
     app.checkAuth();
     var $this = this;
@@ -70,7 +56,6 @@ Page({
     // 店铺装修 会员中心
     diypage.get(this, 'member', function (res) { });
   },
-
     getInfo: function(){
         var $this = this;
         core.get('member', {}, function(result){
@@ -102,23 +87,24 @@ Page({
         });
     },
     onShow: function(){
-        this.getInfo();
-        var $this = this;
-        $this.setData({
-          imgUrl: app.globalData.approot
-        });
-        wx.getSetting({
-    		success: function(res) {
-    			var limits = res.authSetting['scope.userInfo'];
-    			$this.setData({limits: limits})
-    			if(!limits) {
-    				// $this.setData({modelShow: true})
-            wx.redirectTo({
-              url: '/pages/message/auth/index'
-            })
-    			}
-    		}
-    	})
+      app.checkAuth();
+      var $this = this;
+      this.getInfo();      
+      wx.getSystemInfo({
+        success: function (result) {
+          var swiperheight = result.windowWidth / 1.7
+          $this.setData({
+            windowWidth: result.windowWidth,
+            windowHeight: result.windowHeight,
+            swiperheight: swiperheight
+          });
+        }
+      });
+      // 店铺装修 会员中心
+      $this.setData({
+        imgUrl: app.globalData.approot
+      });
+      diypage.get(this, 'member', function (res) { });
     },
     onShareAppMessage: function () {
         return core.onShareAppMessage();
@@ -276,10 +262,4 @@ Page({
         url: '/pages/index/index',
       })
     },
-    // userinfo: function (e) {
-    //   var $this = this;
-    //   app.getUserInfo(function(){
-    //     $this.onShow()
-    //   });
-    // }
 });
