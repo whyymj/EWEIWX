@@ -241,3 +241,16 @@
   word-wrap: break-word;
   word-break: break-all;
 }
+
+.explain-title{
+  font-size: 28rpx;
+  color: #000;
+  line-height: 80rpx;
+  padding-left: 24rpx;
+}
+.explain-content{
+  color: #666;
+  font-size: 24rpx;
+  line-height: 32rpx;
+  padding: 0 24rpx 20rpx;
+}
