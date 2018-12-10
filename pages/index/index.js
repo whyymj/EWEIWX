@@ -476,6 +476,10 @@ Page({
     		}
     	})  
     },
+    // 选赠品
+  chooseGift(e) {
+    goodspicker.chooseGift(e,this)
+  },
     // 选规格
     specsTap: function (event) {
       var $this = this
