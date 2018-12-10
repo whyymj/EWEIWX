@@ -53,7 +53,7 @@ circular='true' interval="{{interval}}" duration="{{duration}}" current='{{diyit
        <view class='fui-goods-item'  wx:for='{{childitem}}' wx:for-index='childitemid' wx:for-item='childitems'>
         <navigator url="{{ childitems.bargain > 0?'/pages/bargain/detail/detail?id='+childitems.bargain : '/pages/goods/detail/index?id='+childitems.gid}}" open-type="navigate" class='image {{diyitem.params.showicon=="1"?diyitem.style.iconstyle:""}}' data-text='{{diyitem.style.goodsicon}}' style='background-image:url({{childitems.thumb}})'>
         <!--营销图标 -->
-            <view class='goodsicon' wx:if='{{diyitem.params.showicon=="2"}}' style='position:relative;width:{{iconwidth}}px;height:{{iconheight}}px'>
+            <view class='goodsicon' wx:if='{{diyitem.params.showicon=="2"}}' style='position:relative;width:{{iconwidth}}rpx;height:{{iconheight}}rpx'>
                 <image wx-if='{{diyitem.params.iconposition=="left top"}}' class='left top' mode='widthFix' src="{{childitem.thumb}}" style='width:{{diyitem.style.iconzoom}}%; left:{{diyitem.style.iconpaddingleft}}rpx;top:{{diyitem.style.iconpaddingtop}}rpx' bindload='goodsicon'></image>
                 <image wx-if='{{diyitem.params.iconposition=="right top"}}' class='right top' mode='widthFix' src="{{childitem.thumb}}" style='width:{{diyitem.style.iconzoom}}%; right:{{diyitem.style.iconpaddingleft}}rpx;top:{{diyitem.style.iconpaddingtop}}rpx' bindload='goodsicon'></image>
                 <image wx-if='{{diyitem.params.iconposition=="left bottom"}}' class='left bottom' mode='widthFix' src="{{childitem.thumb}}" style='width:{{diyitem.style.iconzoom}}%; left:{{diyitem.style.iconpaddingleft}}rpx;bottom:{{diyitem.style.iconpaddingtop}}rpx' bindload='goodsicon'></image>
