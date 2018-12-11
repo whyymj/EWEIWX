@@ -2,6 +2,7 @@
 @import "static/css/base.wxss";
 @import "static/css/icon.wxss"; 
 @import "static/css/iconfont.wxss"; 
+@import "utils/wxParse/wxParse.wxss"; 
 
 page{
     background-color: #f3f3f3;
