@@ -81,7 +81,7 @@ Page({
             res.detail.userInfo.id = auth_res.id
             res.detail.userInfo.uniacid = auth_res.uniacid
 
-            app.setCache('userinfo', res.detail.userInfo, 7200);
+            app.setCache('userinfo', res.detail.userInfo);
             app.setCache('userinfo_openid', res.detail.userInfo.openid);
             app.setCache('userinfo_id', auth_res.id);
 

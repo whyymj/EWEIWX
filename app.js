@@ -179,7 +179,7 @@ App({
             arg.mid = mid;
             arg.merchid = merchid;
         }
-        this.setCache('usermid', arg, 7200);
+        this.setCache('usermid', arg);
     },
 	/*再次发起授权*/
     impower: function(limit, msg, route) {
