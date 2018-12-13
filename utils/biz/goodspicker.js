@@ -42,15 +42,9 @@ module.exports = {
     }
     $this.setData({ total: total });
   },
-  chooseGift(e,$this) {
-    // console.log(e)
-    $this.setData({ giftid: e.currentTarget.dataset.id })
-  },
   //立即购买
   buyNow: function (event,$this,page) {
-    if (event.currentTarget.dataset.type) {
-      page = event.currentTarget.dataset.type
-    }
+
     var optionid = $this.data.optionid;
     var hasOption = $this.data.goods.hasoption;
     var diydata = $this.data.diyform;
@@ -83,16 +77,8 @@ module.exports = {
               url: '/pages/order/create/index?id=' + $this.data.id + '&total=' + $this.data.total + '&optionid=' + optionid + '&gdid=' + ret.gdid + '&selectDate=' + selectDate,
             });
           } else {
-            if (giftid) {
-              wx.redirectTo({
-                url: '/pages/order/create/index?id=' + $this.data.id + '&total=' + $this.data.total + '&optionid=' + optionid + '&gdid=' + ret.gdid + '&giftid=' + giftid,
-              });
-            }
-             else if (giftid != "") {//如果选择了赠品或者赠品只有一个
-              if ($this.data.goods.giftinfo && $this.data.goods.giftinfo.length == 1) {
-                giftid = $this.data.goods.giftinfo[0].id
-              }
-              if ($this.data.goods.gifts && $this.data.goods.gifts.length == 1) {
+              if (giftid != "" || $this.data.goods.gifts.length == 1) {//如果选择了赠品或者赠品只有一个
+                if ($this.data.goods.gifts.length == 1) {
                   giftid = $this.data.goods.gifts[0].id//如果赠品只有一个  赋值giftid
                 }
                 wx.redirectTo({
@@ -105,21 +91,14 @@ module.exports = {
         });
       }
     } else {
-      if (giftid) {
-        wx.navigateTo({
-          url: '/pages/order/create/index?id=' + $this.data.id + '&total=' + $this.data.total + '&optionid=' + optionid + '&giftid=' + giftid,
-        });
-      }
-      else if ($this.data.goods.isgift == 0 || page != 'goods_detail'){
+      
+      if ($this.data.goods.isgift == 0 || page != 'goods_detail'){
         wx.navigateTo({
           url: '/pages/order/create/index?id=' + $this.data.id + '&total=' + $this.data.total + '&optionid=' + optionid + '&selectDate=' + selectDate,
         });
       }else{
-        if (giftid != "") {
-          if ($this.data.goods.giftinfo && $this.data.goods.giftinfo.length == 1) {
-            giftid = $this.data.goods.giftinfo[0].id
-          }
-          if ($this.data.goods.gifts && $this.data.goods.gifts.length == 1) {
+        if (giftid != "" || $this.data.goods.gifts.length == 1) {
+          if ($this.data.goods.gifts.length == 1) {
             giftid = $this.data.goods.gifts[0].id
           }
           wx.navigateTo({
@@ -228,9 +207,6 @@ module.exports = {
     
   },
   selectpicker: function (e, $this, page, modeltakeout) {
-    if(e.currentTarget.dataset.home==1) {
-      $this.setData({ giftid: '', })
-    }
     app.checkAuth();
     $this.setData({ optionid: '', specsData:''});
     var active = $this.data.active
