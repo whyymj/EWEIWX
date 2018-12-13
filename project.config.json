@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 10,
+			"current": 7,
 			"list": [
 				{
 					"id": -1,
@@ -78,7 +78,7 @@
 					"id": 7,
 					"name": "商品详情",
 					"pathName": "pages/goods/detail/index",
-					"query": "id=719"
+					"query": "id=597"
 				},
 				{
 					"id": -1,
@@ -95,7 +95,8 @@
 				{
 					"id": -1,
 					"name": "授权失效",
-					"pathName": "pages/message/auth/index"
+					"pathName": "pages/message/auth/index",
+					"query": ""
 				}
 			]
 		}
