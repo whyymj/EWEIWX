@@ -302,7 +302,7 @@ Page({
     goodsicon:function(e){
       this.setData({
         iconheight:e.detail.height,
-        iconwidth: e.detail.width
+        iconwidth: '176'
       })
     },
     getDiypage:function(res){

@@ -426,10 +426,10 @@
     </view>
   </view>
 
-   <view class='fui-cell-group'>
+   <view class='fui-cell-group' wx:if="{{ order.virtual>0 && virtualtemp && virtualtemp.description != '' }}">
     <view class='explain-title'>使用说明</view>
     <view class='explain-content'>
-      这里是说明啊这里是说明啊这里是说明啊这里是说明啊这里是说明啊这里是说明啊这里是说明啊这里是说明啊这里是说明啊这里是说明啊这里是说明啊
+      {{virtualtemp.description}}
     </view>
   </view>
 

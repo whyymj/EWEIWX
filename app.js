@@ -259,12 +259,12 @@ App({
     //    userInfo: null
     //  }
 
-    //  globalData: {
-    //    appid: null,
-    //    api: null,
-    //    approot: null,
-    //    userInfo: null
-    //  }
+     globalData: {
+       appid: null,
+       api: null,
+       approot: null,
+       userInfo: null
+     }
 
 })
   
