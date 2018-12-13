@@ -3,7 +3,7 @@
 <view class="page footer {{paddingb}}" wx:if="{{ show }}">
   <view class="nav" wx:if="{{ list.showTab && !list.isonlyverifygoods}}">
     <view class="{{ data.dispatchtype==0?'red':'default' }}" bindtap="dispatchtype" data-type="0">快递配送</view>
-    <view class="{{ data.dispatchtype==1?'red':'default' }}" wx:if="{{ list.iscycelbuy != 1 }}" bindtap="dispatchtype" data-type="1">{{ list.pickuptext }}</view>
+    <view class="{{ data.dispatchtype==1?'red':'default' }}" wx:if="{{ list.iscycelbuy != 1 }}" bindtap="dispatchtype" data-type="1">{{ list.pickuptext || "上门自提" }}</view>
   </view>
 
   <!--快递配送-->
