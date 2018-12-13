@@ -517,21 +517,6 @@ padding: 30rpx
   background: #fff
 }
 /*赠品picker  */
-.gift-goods-group {
-  font-size: 28rpx;
-  align-items: center;
-}
-.gift-goods-group .subtitle {
-  color: #666;
-  text-decoration: line-through;
-}
-.gift-goods-group .gift-title {
-  padding: 0 12rpx;
-  width: 120rpx;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
 .gift-list-group{
    padding: 0 15rpx; 
   height: auto;
