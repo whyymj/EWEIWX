@@ -53,6 +53,16 @@ App({
         'params': currentPage.options || null,
         'url': currentPage.route
       }
+
+      // 处理扫码进来的商品信息
+      if(routeData.params.hasOwnProperty('scene')) {
+        const params = {}
+        const scene = decodeURIComponent(routeData.params.scene)
+        const paramsArr = scene.split('&').shift().split('=')
+        params.id = paramsArr[1]
+        routeData.params = params
+      }
+      
       this.setCache('routeData', routeData)
 
       console.log(routeData);
@@ -169,11 +179,9 @@ App({
             // console.log('---')
             if (user.mid == '' || typeof user.mid == 'undefined') {
                 arg.mid = mid;
-                arg.merchid = user.merchid;
             }
             if (user.merchid == '' || typeof user.merchid == 'undefined') {
                 arg.merchid = merchid;
-                arg.mid = user.mid;
             }
         } else {
             arg.mid = mid;

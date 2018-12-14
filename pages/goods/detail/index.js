@@ -129,6 +129,7 @@ Page({
   },
 
   favorite: function (event) {
+    app.checkAuth();
     var $this = this;
     var limits = $this.data.limits;
     if (limits) {
@@ -655,7 +656,6 @@ Page({
     goodspicker.number(e, $this)
   },
   onLoad: function (options) {
-    app.checkAuth();
     var $this = this;
     $this.setData({
       imgUrl: app.globalData.approot
@@ -719,7 +719,6 @@ Page({
         $this.setData({
           advWidth: result.windowWidth
         });
-        console.log(result.windowHeight);
       }
     });
     setTimeout(function () {
