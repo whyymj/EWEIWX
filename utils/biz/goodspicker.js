@@ -120,7 +120,7 @@ module.exports = {
             giftid = $this.data.goods.giftinfo[0].id
           }
           if ($this.data.goods.gifts && $this.data.goods.gifts.length == 1) {
-            giftid = $this.data.goods.gifts[0].id
+            giftid = $this.data.goods.gifts[0].id;
           }
           wx.navigateTo({
             url: '/pages/order/create/index?id=' + $this.data.id + '&total=' + $this.data.total + '&optionid=' + optionid + '&giftid=' + giftid,
@@ -247,6 +247,11 @@ module.exports = {
       if (!result.goods.presellendstatus && result.goods.presellstartstatus != undefined && result.goods.ispresell == '1') {
         foxui.toast($this, result.goods.presellstatustitle);
         return;
+      }
+      if (result.goods && result.goods.giftinfo) {
+        if (result.goods.giftinfo.length ==1) {
+          $this.setData({ giftid: result.goods.giftinfo[0].id })
+        }
       }
       var options = result.options;
       if(page=='goodsdetail'){
