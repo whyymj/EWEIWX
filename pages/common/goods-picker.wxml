@@ -102,17 +102,40 @@
               </view>
             </view>
           </view>
+
+          <view class="fui-cell-group fui-sale-group" wx:if="{{goods.giftinfo}}">
+              <view class="fui-cell">
+                <view class="fui-cell-label" style='color:#000;width:98rpx'>赠品</view>
+                <radio-group>
+                  <view class="gift-list flex" style="align-items: center;border-top: 1px solid #eee" wx:for="{{ goods.giftinfo }}" bindtap="chooseGift" data-id="{{item.id}}">
+                    <view class="radio">
+                      <radio color="#ff5555" value="1" class="fui-radio fui-radio-danger"  
+                      data-id="{{item.id}}" checked="{{giftid==item.id?'checked':''}}"/>
+                    </view>
+                    <view class="flex1">
+                      <view wx:for="{{ item.gift }}" class="fui-list" style='background: #fff;'>
+                        <view class="flex gift-goods-group">
+                          <image src="{{item.thumb}}"></image>
+                          <view class="gift-title">{{item.title}}</view>
+                          <view class="subtitle">￥{{item.marketprice}}</view>
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                </radio-group>
+              </view>
+            </view>
         </view>
       </view>
       <view class="fui-navbar {{iphonexnavbar}}">
         <!-- 快速购买picker -->
         <block wx:if='{{pagepicker=="quickbuy"}}'>
           <a href="" class="nav-item btn cartbtn" bindtap="getCart" wx:if="{{modeltakeout!='cantaddcart'}}">加入购物车</a>
-          <a href="" class="nav-item btn buybtn" bindtap='buyNow' wx:if="{{modeltakeout=='shopmodel'||modeltakeout=='cantaddcart'}}">立刻购买</a>
+          <a href="" class="nav-item btn buybtn" bindtap='buyNow' data-type='goods_detail' wx:if="{{modeltakeout=='shopmodel'||modeltakeout=='cantaddcart'}}">立刻购买</a>
         </block>
         <block wx:if='{{pagepicker=="goodslist"}}'>
           <a href="" class="nav-item btn cartbtn" bindtap="getCart">加入购物车</a>
-          <a href="" class="nav-item btn buybtn" bindtap='buyNow'>立刻购买</a>
+          <a href="" class="nav-item btn buybtn" bindtap='buyNow' data-type='goods_detail'>立刻购买</a>
         </block>
         <block wx:if='{{pagepicker!="goodslist" && pagepicker!="quickbuy"}}'>
           <a href="javascript:;" class="nav-item btn confirmbtn {{canBuy!=''?'disabled':''}}" bindtap="{{canBuy==''&&buyType=='cart'?'getCart':''}}{{canBuy==''&&buyType=='buy'?'buyNow':''}}{{canBuy==''&&buyType=='select'?'select':''}}" data-id="{{goods.id}}" data-hasoption="{{goods.hasoption}}"
