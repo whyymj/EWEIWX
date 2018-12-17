@@ -42,7 +42,7 @@ Page({
             wx.setNavigationBarTitle({title: '添加收货地址'})
         }
         //处理一个客户切换新版地址库之后 无法清除地址库缓存的问题
-        app.getSet("cacheset");
+        // app.getSet("cacheset");
         this.setData({areas: app.getCache("cacheset").areas,type:options.type});
     },
     getDetail: function () {
