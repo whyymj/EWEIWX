@@ -135,7 +135,7 @@
             <view class="fui-cell-text price">
               <view class="text-danger">
                 ¥
-                <block wx:if="{{goods.ispresell> 0 && (preselltimeend==0) || preselltimeend>now}}">
+                <block wx:if="{{goods.ispresell> 0 &&  preselltimeend>now}}">
                   <text wx:if="{{ goods.hasoption == 1 }}">
                     <text wx:if="{{ goods.minpresellprice != goods.maxpresellprice}}">{{ goods.minpresellprice }}~{{ goods.maxpresellprice }}</text>
                     <text wx:else>{{ goods.minpresellprice }}</text>
