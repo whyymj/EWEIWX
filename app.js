@@ -153,23 +153,22 @@ App({
       })
     },
     getSet: function () {
-        var $this = this;
-        var cacheset = $this.getCache("cacheset");
-        // if (cacheset == '') {
+      var $this = this;
+      var cacheset = $this.getCache("cacheset");
+      if (cacheset == '') {
         // var sysset = $this.getCache("sysset");
         // if (sysset == '') {
-            setTimeout(function () {
-        var cacheset = $this.getCache("cacheset");
-                core.get('cacheset', {version: cacheset.version}, function (result) {
-                    if (result.update) {
-                        $this.setCache("cacheset", result.data);
-                    }
-                    // $this.setCache("sysset", result.sysset, 7200);
-                });
-            }, 10);
-        // }
+        setTimeout(function () {
+          var cacheset = $this.getCache("cacheset"); 
+          core.get('cacheset', { version: cacheset.version }, function (result) {  
+            if (result.update) {
+              $this.setCache("cacheset", result.data);
+            } 
+            // $this.setCache("sysset", result.sysset, 7200);
+          });
+        }, 10);
+      }
     },
-
     url: function (options) {
         options = options || {};
         var arg = {}, mid = '', merchid = '', user = this.getCache('usermid');

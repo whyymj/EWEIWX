@@ -80,11 +80,10 @@ Page({
             res.detail.userInfo.openid = auth_res.openId
             res.detail.userInfo.id = auth_res.id
             res.detail.userInfo.uniacid = auth_res.uniacid
-
             app.setCache('userinfo', res.detail.userInfo);
             app.setCache('userinfo_openid', res.detail.userInfo.openid);
             app.setCache('userinfo_id', auth_res.id);
-
+            app.getSet();
             wx.reLaunch({
               url: redirectUrl
             })
