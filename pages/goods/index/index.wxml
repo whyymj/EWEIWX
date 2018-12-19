@@ -149,7 +149,7 @@
       <view class='original_price'><text wx:if='{{item.productprice>0}}'>¥{{item.productprice}}</text></view>
 			<view class="price">
 				<view class="text">¥{{item.minprice}}</view>
-        <view bindtap='selectPicker' data-buytype="buy" data-id ='{{item.id}}' wx:if="{{ item.type != 9 && item.type != 5 && item.bargain == 0}}">
+        <view bindtap='selectPicker' data-buytype="buy" data-id ='{{item.id}}' data-home='1' wx:if="{{ item.type != 9 && item.type != 5 && item.bargain == 0}}">
            <text style='color:#ff5555' class='buy icox icox-gouwuche buybtnbtn buybtn-5' ></text> 
         </view>
         <navigator class='buy buybtnbtn buybtn-1 ' wx-if="{{item.type == 9 && item.bargain == 0}}" style='' url="/pages/goods/detail/index?id={{item.id}}">详情</navigator>

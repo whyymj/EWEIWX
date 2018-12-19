@@ -134,7 +134,7 @@
           <a href="" class="nav-item btn buybtn" bindtap='buyNow' data-type='goods_detail' wx:if="{{modeltakeout=='shopmodel'||modeltakeout=='cantaddcart'}}">立刻购买</a>
         </block>
         <block wx:if='{{pagepicker=="goodslist"}}'>
-          <a href="" class="nav-item btn cartbtn" bindtap="getCart">加入购物车</a>
+          <a href="" class="nav-item btn cartbtn" bindtap="getCart" wx:if="{{ !goods.giftinfo}}">加入购物车</a>
           <a href="" class="nav-item btn buybtn" bindtap='buyNow' data-type='goods_detail'>立刻购买</a>
         </block>
         <block wx:if='{{pagepicker!="goodslist" && pagepicker!="quickbuy"}}'>
