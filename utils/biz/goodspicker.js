@@ -249,6 +249,7 @@ module.exports = {
         return;
       }
       if (result.goods && result.goods.giftinfo) {
+        console.log(result.goods.giftinfo)
         if (result.goods.giftinfo.length ==1) {
           $this.setData({ giftid: result.goods.giftinfo[0].id })
         }

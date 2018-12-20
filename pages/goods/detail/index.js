@@ -341,6 +341,10 @@ Page({
       $this.setData({
         show: true, goods: result.goods, minprice: result.goods.minprice, maxprice: result.goods.maxprice, preselltimeend: result.goods.preselltimeend, style: result.goods.labelstyle.style, navbar: result.goods.navbar, labels: result.goods.labels
       });
+      console.log(result.goods.gifts)
+      if (result.goods.gifts && result.goods.gifts.length == 1) {
+        $this.setData({ giftid: result.goods.gifts[0].id })
+      }
       console.log(result.goods)
       wx.setNavigationBarTitle({
         title: result.goods.title || '商品详情'

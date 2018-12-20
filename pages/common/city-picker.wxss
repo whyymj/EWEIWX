@@ -541,6 +541,9 @@ padding: 30rpx
   overflow: hidden;
   white-space: nowrap;
 }
+.fui-list {
+  position: relative;
+}
 .gift-list-group{
    padding: 0 15rpx; 
   height: auto;
@@ -641,4 +644,14 @@ padding: 30rpx
 }
 .goods-picker .option-Commission.show{
   display:inline-block !important;
+}
+.sold-out-gift {
+  position:absolute;
+  z-index:4;
+  background:rgba(255,255,255,.8);
+  width:100%;
+  height: 100%;
+  line-height:104rpx;
+  text-align:center;
+  pointer-events: none;
 }
