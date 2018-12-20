@@ -302,7 +302,7 @@ Page({
     goodsicon:function(e){
       this.setData({
         iconheight:e.detail.height,
-        iconwidth: '176'
+        iconwidth: e.detail.width
       })
     },
     getDiypage:function(res){
@@ -476,6 +476,10 @@ Page({
     		}
     	})  
     },
+    // 选赠品
+  chooseGift(e) {
+    goodspicker.chooseGift(e,this)
+  },
     // 选规格
     specsTap: function (event) {
       var $this = this
