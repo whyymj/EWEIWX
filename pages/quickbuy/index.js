@@ -402,6 +402,7 @@ Page({
 
   //添加商品到购物车
   addGoodToCartFn: function (e) {
+    app.checkAuth();
     var that = this;
     var modeltakeout = this.data.main.cartdata == 1 ? 'takeoutmodel' : 'shopmodel';
     if (!e.currentTarget.dataset.canadd) {
