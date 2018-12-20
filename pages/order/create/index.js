@@ -338,7 +338,7 @@ Page({
   },
   submit: function () {
     var data = this.data, $this = this, diydata = this.data.diyform;
-    var giftid = data.goods.giftid;
+    var giftid = data.goods.giftid || data.giftid;
     if (this.data.goods.giftid == 0 && this.data.goods.gifts.length == 1) {
       giftid = this.data.goods.gifts[0].id;
       // console.log(giftid)
