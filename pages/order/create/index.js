@@ -305,6 +305,7 @@ Page({
       list.deductcredit2 = data.deductcredit2;
       list.deductmoney = data.deductmoney;
       list.deductcredit = data.deductcredit;
+      list.gifts = data.gifts;
       if ($this.data.data.deduct) {
         data.realprice -= data.deductmoney  //减去积分抵扣的金额
       }
