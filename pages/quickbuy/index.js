@@ -15,7 +15,7 @@ Page({
     num: 0,
     change: false,
     div: false,
-    numtotal: [],
+    numtotal: {},
     clearcart: true,
     canBuy: '',
     // 购物车
@@ -80,7 +80,7 @@ Page({
       console.log(ret);
 
 
-      var arr = []; // 商品在购物车中的数量
+      var arr = []; // 商品在购物车中的数量 
 
       var style = ''; // 样式
       style = ret.style.shopstyle == 1 ? 'changeCss2' : (ret.style.shopstyle == 2 ? 'changeCss3' : '')
@@ -101,7 +101,7 @@ Page({
 
 
       var id = that.data.main.cartdata == 1 ? that.data.pageid : '';
-      var numtotal = [];
+      var numtotal = {};
 
 
 
@@ -139,9 +139,9 @@ Page({
       var id = that.data.main.cartdata == 1 ? that.data.pageid : '';
       core.get('quick/index/getCart', { quickid: id }, function (ret) {
         // console.log("购物车",ret);
-        var numtotal = [];
+        var numtotal = {};
         for (var i in ret.simple_list) {
-          // console.log(i + "=" + ret.simple_list[i])
+          console.log(i + "=" + ret.simple_list[i])
           numtotal[i] = ret.simple_list[i];
         }
         that.setData({
@@ -341,7 +341,6 @@ Page({
 
   // 弹窗picker点击确定按钮或单规格商品加入购物车
   addCartquick: function (a, b) {
-    console.log(a + ";" + b);
     var that = this;
 
     var numbers = that.data.numtotal;
