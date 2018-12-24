@@ -189,6 +189,7 @@ Page({
           $this.setData({ areas: app.getCache("cacheset").areas });
         }, 3000)
         app.url(options);
+        console.log(app.getCache('usermid'))
         diypage.get(this,'home', function(res){
           $this.getDiypage(res)
         	/*启动广告*/

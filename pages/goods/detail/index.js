@@ -702,6 +702,7 @@ Page({
     }
     this.setData({ id: options.id });
     app.url(options);
+    console.log(app.getCache('usermid'))
     wx.getSystemInfo({
       success: function (result) {
         $this.setData({
