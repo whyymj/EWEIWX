@@ -48,12 +48,11 @@ Page({
           });
         },
         fail: function (ret) {
-
+          core.get('store/selector', obj, function (result) {
+            $this.setData({ list: result.list, show: true });
+          });
         }
       })
-
-
-
 
         
     },

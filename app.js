@@ -174,6 +174,13 @@ App({
         var arg = {}, mid = '', merchid = '', user = this.getCache('usermid');
         mid = options.mid || '';
         merchid = options.merchid || '';
+
+        for (let i in user) {
+          if (typeof user[i] != 'undefined') {
+            arg[i] = user[i]
+          }
+        }
+
         if (user != '') {
             // console.log('---')
             if (user.mid == '' || typeof user.mid == 'undefined') {

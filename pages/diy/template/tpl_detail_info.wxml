@@ -10,10 +10,10 @@
                   <view style="font-size: 20rpx;color: #666;margin-top:-6rpx;">{{diyitem.params.share==''?'分享': diyitem.params.share}}</view>
                 </view>
             </view>
-            <block wx:if="{{goods.subtitle}}" style="color:{{ diyitem.style.subtitlecolor }}">
-                <view class="fui-cell goods-subtitle">
-                    <text class='text-danger' selectable="true"  >{{goods.subtitle}}</text>
-                </view>
+            <block wx:if="{{goods.subtitle}}">
+              <view class="fui-cell goods-subtitle">
+                <text class='text-danger' style="color:{{ diyitem.style.subtitlecolor }}" selectable="true"  >{{goods.subtitle}}</text>
+              </view>
             </block>
             <block wx:if="{{!goods.seckillinfo}}"  >
                 <view class="fui-cell">
@@ -89,7 +89,7 @@
             </block>
             <!--限时购end-->
             <view class="fui-cell">
-                <view class="fui-cell-text flex">
+                <view class="fui-cell-text flex" style="color:{{ diyitem.style.textcolor }}">
                     <block wx:if="{{dispatchpriceObj==1}}">
                         <block wx:if="{{goods.type==1 && goods.isverify !=2}}">
                             <text>快递:{{goods.dispatchprice.min}} ~ {{goods.dispatchprice.max}}</text>
