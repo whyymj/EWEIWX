@@ -297,7 +297,16 @@ Page({
     
     $this.setData({ loading: true });
     core.get('goods/get_detail', { id: options.id }, function (result) {
-      console.log(result);
+      
+      // 需要强转为浮点型的数据
+      const needForceConvertToFloatData = ['marketprice', 'productprice']
+      // 处理价格比较的时候带有比较的不是浮点数，而是两个字符串出错的情况
+      needForceConvertToFloatData.forEach((value) => {
+        if(typeof result.goods[value] != 'undefined') {
+          result.goods[value] = parseFloat(result.goods[value])
+        }
+      })
+
       if (result.error > 0) {
         $this.setData({ show: true, showgoods: false });
         foxui.toast($this, result.message);
