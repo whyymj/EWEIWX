@@ -158,9 +158,9 @@ Page({
 
   // 导航菜单跳转
   menunavigage: function (e) {
-      console.log(url)
+      const url = e.currentTarget.dataset.url
       wx.navigateTo({
-          url:  e.currentTarget.dataset.url,
+          url: url,
           fail: function () {
               wx.switchTab({
                   url: url,
