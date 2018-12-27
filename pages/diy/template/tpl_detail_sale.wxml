@@ -142,11 +142,11 @@
             <!--同城配送end-->
         </view>        
         <!--不配送区域start-->
-        <block wx:if="{{goods.citys.length>0}}">
+        <block wx:if="{{goods.citys.citys.length>0 && goods.type !=5 && goods.isverify!=2 }}">
             <view class='fui-cell-group fui-cell-click  fui-sale-group' style='margin-top:0' id="city-picker" bindtap="cityPicker" data-class="city-picker" data-tap="{{active}}">
                 <view class='fui-cell'>
                     <view class='fui-cell-text'>不配送区域:
-                        <block wx:for="{{goods.citys}}" wx:for-index="idx" wx:for-item="item">{{item}}</block>
+                        <block wx:for="{{goods.citys.citys}}" wx:for-index="idx" wx:for-item="item">{{item}}</block>
                     </view>
                     <view class='fui-cell-remark'></view>
                 </view>
