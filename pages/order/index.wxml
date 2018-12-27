@@ -37,6 +37,12 @@
             <view class='text-right' style="color:#666">x
               <text>{{ val.total }}</text>
             </view>
+            <view class='text-right' style="color:#666" wx:if="{{ val.single_refundid }}">
+              <text wx:if="{{ val.single_refundid==9 }}">维权完成</text>
+              <text wx:if="{{ val.single_refundid==8 }}">已拒绝</text>
+              <text wx:if="{{ val.single_refundid==1 }}">退款中</text>
+              <text wx:if="{{ val.single_refundid==2 }}">退货中</text>
+            </view>
           </view>
         </view>
         <!--赠品显示start-->

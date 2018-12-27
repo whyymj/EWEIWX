@@ -282,6 +282,14 @@ App({
     //    userInfo: null
     //  }
 
+    //api
+    //  globalData: {
+    //    appid: "wx3d3b2fd41970f6db",
+    //    api: "https://api.clubmall.cn/app/ewei_shopv2_api.php?i=16",
+    //    approot: "https://api.clubmall.cn/addons/ewei_shopv2/",
+    //    userInfo: null
+    //  }
+
      globalData: {
        appid: null,
        api: null,
