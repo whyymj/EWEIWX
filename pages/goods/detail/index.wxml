@@ -352,8 +352,8 @@
                   <!--积分  -->
                   <view wx:if='{{activity.credit}}' class="sale-line" style="font-size: 24rpx;">
                     <span class="sale-tip">{{credittext}}</span>
-                    <text wx:if="{{activity.credit.deduct}}">最高抵扣￥{{activity.credit.deduct}}</text>
-                    <text wx:if="{{activity.credit.give}}">；购买赠送{{activity.credit.give}}{{credittext}}</text>
+                    <text wx:if="{{activity.credit.deduct}}">最高抵扣￥{{activity.credit.deduct}}；</text>
+                    <text wx:if="{{activity.credit.give}}">购买赠送{{activity.credit.give}}{{credittext}}</text>
                   </view>
                 </view>
                 <view class="fui-cell-remark"></view>
