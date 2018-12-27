@@ -26,15 +26,27 @@ Page({
   },
   get_list: function () {
     var $this = this;
-    core.get('order/express_number', $this.data.options, function (list) {
-      console.log(list)
-      if (list.error == 0) {
-        list.show = true;
-        $this.setData(list);
-      } else {
-        core.toast(list.message, 'loading')
-      }
-    });
+    if(typeof($this.data.options.singlerefund)=='undefined'){
+        core.get('order/express_number', $this.data.options, function (list) {
+              console.log(list)
+              if (list.error == 0) {
+                list.show = true;
+                $this.setData(list);
+              } else {
+                core.toast(list.message, 'loading')
+              }
+            });
+    }else{
+        core.get('order/single_express_number', $this.data.options, function (list) {
+            console.log(list)
+            if (list.error == 0) {
+                list.show = true;
+                $this.setData(list);
+            } else {
+                core.toast(list.message, 'loading')
+            }
+        });
+    }
   },
   inputPrickChange: function(e){
     var $this = this;
@@ -65,14 +77,22 @@ Page({
     var express = $this.data.express;
     var expresscom = $this.data.expresscom;
 
-    core.get('order/express_number', { submit:1,refundid: refundid, orderid: orderid, express_number: express_number, express: express, expresscom: expresscom},function(result){
-      if(result.error == 0){
-        wx.navigateTo({
-          url: '/pages/order/detail/index?id='+orderid,
-        })
-      }
-      console.log(result)
-    });
-
+    if(typeof($this.data.options.singlerefund)=='undefined'){
+      core.get('order/express_number', { submit:1,refundid: refundid, orderid: orderid, express_number: express_number, express: express, expresscom: expresscom},function(result){
+        if(result.error == 0){
+          wx.navigateTo({
+            url: '/pages/order/detail/index?id='+orderid,
+          })
+        }
+      });
+    }else{
+        core.get('order/single_express_number', { submit:1,refundid: refundid, orderid: orderid, express_number: express_number, express: express, expresscom: expresscom},function(result){
+            if(result.error == 0){
+                wx.navigateTo({
+                    url: '/pages/order/detail/index?id='+orderid,
+                })
+            }
+        });
+    }
   }
 });

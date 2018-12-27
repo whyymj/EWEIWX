@@ -29,6 +29,7 @@
     "pages/order/express/index",
     "pages/order/comment/index",
     "pages/order/refund/index",
+    "pages/order/singlerefund/index",
     "pages/order/create/index",
     "pages/order/store/index",
     "pages/order/store/map",
