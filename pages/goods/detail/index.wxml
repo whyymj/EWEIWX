@@ -378,7 +378,7 @@
         <!--同城配送end-->
       </view>
       <!--不配送区域start-->
-      <block wx:if="{{goods.citys.citys.length>0}}">
+      <block wx:if="{{goods.citys.citys.length>0 && goods.type !=5 && goods.isverify!=2}}">
         <view class='fui-cell-group fui-cell-click  fui-sale-group' style='margin-top:0' id="city-picker" bindtap="cityPicker" data-class="city-picker" data-tap="{{active}}">
           <view class='fui-cell'>
             <view class='fui-cell-text'>{{ goods.citys.onlysent == 0 ? '不':'只' }}配送区域:
