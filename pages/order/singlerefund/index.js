@@ -64,7 +64,7 @@ Page({
                     url: '/pages/order/detail/index?id='+$this.data.order.id,
                 })
             } else {
-                core.toast(list.message, 'loading')
+                core.toast(list.message, 'none')
             }
         },true);
     },
@@ -115,7 +115,7 @@ Page({
                         url: '/pages/order/detail/index?id='+$this.data.order.id,
                     })
                 }
-                core.toast(data.message,'loading');
+                core.toast(data.message,'none');
             }, true)
         });
     },
@@ -128,7 +128,7 @@ Page({
                         url: '/pages/order/detail/index?id='+$this.data.order.id,
                     })
                 }
-                core.toast(data.message,'loading');
+                core.toast(data.message,'none');
             }, true)
         });
     }
