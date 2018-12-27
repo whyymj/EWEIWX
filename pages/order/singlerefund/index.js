@@ -40,7 +40,7 @@ Page({
                 $this.setData(list);
                 console.log($this.data)
             } else {
-                core.toast(list.message, 'loading');
+                core.toast(list.message, 'none');
                 setTimeout(function() {
                   wx.navigateBack()
                 },1500)
@@ -60,9 +60,10 @@ Page({
         core.post('order/single_refund/submit', data, function (list) {
          
             if (list.error == 0) {
-                wx.navigateTo({
-                    url: '/pages/order/detail/index?id='+$this.data.order.id,
-                })
+                // wx.navigateTo({
+                //     url: '/pages/order/detail/index?id='+$this.data.order.id,
+                // })
+                wx.navigateBack();
             } else {
                 core.toast(list.message, 'none')
             }
@@ -108,25 +109,30 @@ Page({
     },
     refundcancel:function (e) {
         var $this = this;
-        core.confirm('确定您要取消申请?',function () {
+        core.confirm('您确定要取消申请?',function () {
             core.post('order/single_refund/cancel', {id: $this.data.options.id}, function (data) {
                 if (data.error == 0) {
-                    wx.navigateTo({
-                        url: '/pages/order/detail/index?id='+$this.data.order.id,
-                    })
+                    // wx.navigateTo({
+                    //     url: '/pages/order/detail/index?id='+$this.data.order.id,
+                    // })
+                    wx.navigateBack();
                 }
                 core.toast(data.message,'none');
             }, true)
         });
+    },
+    back:function () {
+        wx.navigateBack();
     },
     fefundreceive:function (e) {
         var $this = this;
         core.confirm('确认您已经收到换货物品?',function () {
             core.post('order/single_refund/receive', {id: $this.data.options.id,single_refundid:$this.data.refund.id}, function (data) {
                 if (data.error == 0) {
-                    wx.navigateTo({
-                        url: '/pages/order/detail/index?id='+$this.data.order.id,
-                    })
+                    // wx.navigateTo({
+                    //     url: '/pages/order/detail/index?id='+$this.data.order.id,
+                    // })
+                    wx.navigateBack();
                 }
                 core.toast(data.message,'none');
             }, true)

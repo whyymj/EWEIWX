@@ -140,7 +140,7 @@
    <view class="fui-footer text-right">
        <block wx:if="{{ order.single_refundstate==0}}">
            <view class="btn btn-danger-o btn-sm btn-submit" bindtap="submit">提交申请</view>
-           <view class="btn btn-default-o btn-sm btn-default-o back" bindtap="refundcancel">取消申请</view>
+           <view class="btn btn-default-o btn-sm btn-default-o back" bindtap="back">取消</view>
        </block>
        <block wx:if="{{ order.single_refundstate==1 || order.single_refundstate==2 || order.single_refundstate==8 || order.single_refundstate==9}}">
            <view wx:if="{{ refund.status==5}}"  class="btn btn-danger btn-sm" bindtap="fefundreceive" style="width: 250rpx;">确认收到换货物品</view>
