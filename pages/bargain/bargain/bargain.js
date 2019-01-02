@@ -31,6 +31,7 @@ Page({
     timeout:0,
   },
   onLoad: function (options) {
+    app.url(options)
     var $this = this;
     var isIpx = app.getCache('isIpx');
     if (isIpx) {

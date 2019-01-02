@@ -32,30 +32,11 @@ Page({
         iscycelbuy:false,
         bargain:false,
     },
-  onLoad: function (options) {
-    app.checkAuth();
-    var $this = this;
-    $this.setData({ options: options });
-  },
-  onShow: function (options) {
-    app.checkAuth();
-    var $this = this;
-    var options = $this.data.options;
-    app.url(options);
-    wx.getSystemInfo({
-      success: function (result) {
-        var swiperheight = result.windowWidth / 1.7
-        $this.setData({
-          windowWidth: result.windowWidth,
-          windowHeight: result.windowHeight,
-          swiperheight: swiperheight
-        });
-      }
-    });
-
-    // 店铺装修 会员中心
-    diypage.get(this, 'member', function (res) { });
-  },
+    onLoad: function (options) {
+      app.checkAuth();
+      var $this = this;
+      $this.setData({ options: options });
+    },
     getInfo: function(){
         var $this = this;
         core.get('member', {}, function(result){

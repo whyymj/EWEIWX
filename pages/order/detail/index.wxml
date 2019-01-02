@@ -7,7 +7,7 @@
   <view class="fui-list bg">
 
     <view class="row" style="font-size:34rpx">
-      <view class="">{{ order.statusstr }}{{ order.refundstate>0?'('+order.refundtext+')':''}}</view>
+      <view class="">{{ order.statusstr }}{{ order.refundstate>0 && order.refundstate!=3?'('+order.refundtext+')':''}}</view>
     </view>
     <view class="order-price">订单金额(含运费):¥
       <text>{{ order.price }}</text>
@@ -140,23 +140,34 @@
       <text class='shop'>{{ shop.name=="null"?'':shop.name}}</text>
     </view>
     <block wx:for="{{ nogift }}">
-      <navigator class='fui-list goods-item' url="/pages/goods/detail/index?id={{ item.id }}" open-type="redirect">
-        <view class="fui-list-media">
+      <view class='fui-list goods-item' >
+        <navigator class="fui-list-media" url="/pages/goods/detail/index?id={{ item.id }}" open-type="redirect">
           <image class="goods_img" src="{{ item.thumb }}" />
-        </view>
-        <view class="fui-list-inner" style="height:140rpx">
+        </navigator>
+        <navigator class="fui-list-inner" style="height:140rpx" url="/pages/goods/detail/index?id={{ item.id }}" open-type="redirect">
           <view class='text'>{{ item.title }}</view>
           <view class='subtitle'>{{ item.optionname }}</view>
-        </view>
-        <view class="price text-right" style="height:140rpx">
+        </navigator>
+        <view class="price text-right" style="height:140rpx;">
           <view class='text-right'>¥
             <text>{{ item.price/item.total }}</text>
           </view>
-          <view class='text-right' style="color:#666">x
+          <view class='text-right' style="color:#666;line-height:72rpx">x
             <text>{{ item.total }}</text>
           </view>
+
+          <block wx:if="{{order.canrefund && order.is_single_refund}}">
+            <navigator url="/pages/order/singlerefund/index?id={{item.ordergoodsid}}" class='text-right' style="color:#666">
+              <text class='refund-btn block btn btn-sm btn-default-o' wx:if="{{ item.single_refundstate==8 }}">已拒绝</text>
+              <text class='refund-btn block btn btn-sm btn-default-o' wx:if="{{ item.single_refundstate==9 }}">维权成功</text>
+              <text class='refund-btn block btn btn-sm btn-default-o' wx:if="{{ item.single_refundstate==1 }}">退款中</text>
+              <text class='refund-btn block btn btn-sm btn-default-o' wx:if="{{ item.single_refundstate==2 }}">退货中</text>
+              <text class='refund-btn block btn btn-sm btn-default-o' wx:if="{{ item.single_refundstate==0 }}">{{ order.status==1 && item.sendtime ==0?'退款':'售后'}}</text>
+            </navigator>
+          </block>
+
         </view>
-      </navigator>
+      </view>
       <view class="fui-list noclick" wx:if="{{ item.diyformfields.length>0 }}">
         <view class="fui-list-inner">
           <view class="text">
@@ -479,9 +490,11 @@
       <navigator wx:if="{{ order.cancomment }}" class="btn btn-default btn-default-o btn-sm" url="/pages/order/comment/index?id={{ order.id }}">评价</navigator>  
       <view wx:if="{{ order.cancomplete && order.iscycelbuy == 0 && !order.isonlyverifygoods }}" class="btn btn-default btn-default-o btn-sm" bindtap="finish">确认收货</view>
                  
-      <navigator wx:if="{{ order.canrefund && order.iscycelbuy == 0}}" class="btn btn-default btn-sm" url="/pages/order/refund/index?id={{ order.id }}">{{ order.refundtext }}</navigator>
-      <navigator wx:if="{{ order.canrefund && order.iscycelbuy == 1 && order.status == 1}}" class="btn btn-default btn-sm" url="/pages/order/refund/index?id={{ order.id }}">{{ order.refundtext }}</navigator>
-      <view wx:if="{{ order.cancancelrefund }}" class='btn btn-default-o btn-sm btn-cancel' bindtap="refundcancel">取消申请</view>
+      <navigator wx:if="{{ order.canrefund && order.iscycelbuy == 0 && order.refundstate!=3}}" class="btn btn-default btn-sm" url="/pages/order/refund/index?id={{ order.id }}">{{ order.refundtext }}</navigator>
+      <block wx:if="{{order.refundstate!=3}}">
+        <navigator wx:if="{{ order.canrefund && order.iscycelbuy == 1 && order.status == 1}}" class="btn btn-default btn-sm" url="/pages/order/refund/index?id={{ order.id }}">{{ order.refundtext }}</navigator>
+        <view wx:if="{{ order.cancancelrefund }}" class='btn btn-default-o btn-sm btn-cancel' bindtap="refundcancel">取消申请</view>
+      </block>
     </block>
     <block wx:if="{{ order.canrestore }}">
       <view class="btn btn-default btn-default-o btn-sm" data-type="2" data-orderid="{{ order.id }}" bindtap="delete">

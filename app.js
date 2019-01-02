@@ -53,6 +53,16 @@ App({
         'params': currentPage.options || null,
         'url': currentPage.route
       }
+
+      // 处理扫码进来的商品信息
+      if(routeData.params.hasOwnProperty('scene')) {
+        const params = {}
+        const scene = decodeURIComponent(routeData.params.scene)
+        const paramsArr = scene.split('&').shift().split('=')
+        params.id = paramsArr[1]
+        routeData.params = params
+      }
+      
       this.setCache('routeData', routeData)
 
 
@@ -142,37 +152,41 @@ App({
       })
     },
     getSet: function () {
-        var $this = this;
-        var cacheset = $this.getCache("cacheset");
-        // if (cacheset == '') {
+      var $this = this;
+      var cacheset = $this.getCache("cacheset");
+      if (cacheset == '') {
         // var sysset = $this.getCache("sysset");
         // if (sysset == '') {
-            setTimeout(function () {
-        var cacheset = $this.getCache("cacheset");
-                core.get('cacheset', {version: cacheset.version}, function (result) {
-                    if (result.update) {
-                        $this.setCache("cacheset", result.data);
-                    }
-                    // $this.setCache("sysset", result.sysset, 7200);
-                });
-            }, 10);
-        // }
+        setTimeout(function () {
+          var cacheset = $this.getCache("cacheset"); 
+          core.get('cacheset', { version: cacheset.version }, function (result) {  
+            if (result.update) {
+              $this.setCache("cacheset", result.data);
+            } 
+            // $this.setCache("sysset", result.sysset, 7200);
+          });
+        }, 10);
+      }
     },
-
     url: function (options) {
         options = options || {};
         var arg = {}, mid = '', merchid = '', user = this.getCache('usermid');
         mid = options.mid || '';
         merchid = options.merchid || '';
+
+        for (let i in user) {
+          if (typeof user[i] != 'undefined') {
+            arg[i] = user[i]
+          }
+        }
+
         if (user != '') {
             // console.log('---')
             if (user.mid == '' || typeof user.mid == 'undefined') {
                 arg.mid = mid;
-                arg.merchid = user.merchid;
             }
             if (user.merchid == '' || typeof user.merchid == 'undefined') {
                 arg.merchid = merchid;
-                arg.mid = user.mid;
             }
         } else {
             arg.mid = mid;
@@ -219,12 +233,12 @@ App({
       flag: false,
     },
     //晚秋
-    globalData: {
-      appid:'wx3d3b2fd41970f6db',
-      api: "https://api.clubmall.cn/app/ewei_shopv2_api.php?i=16",
-      approot: "https://api.clubmall.cn/addons/ewei_shopv2/",
-      userInfo: null
-    }
+    // globalData: {
+    //   appid:'wx3d3b2fd41970f6db',
+    //   api: "https://api.clubmall.cn/app/ewei_shopv2_api.php?i=16",
+    //   approot: "https://api.clubmall.cn/addons/ewei_shopv2/",
+    //   userInfo: null
+    // }
 
     //姜倩
     // globalData: {
@@ -258,12 +272,29 @@ App({
     //    userInfo: null
     //  }
 
+
+    // 测试站
     //  globalData: {
-    //    appid: null,
-    //    api: null,
-    //    approot: null,
+    //    appid: "wx3d3b2fd41970f6db",
+    //    api: "https://yctcs.100cms.com/app/ewei_shopv2_api.php?i=2",
+    //    approot: "https://yctcs.100cms.com/addons/ewei_shopv2/",
     //    userInfo: null
     //  }
+
+    //api
+    //  globalData: {
+    //    appid: "wx3d3b2fd41970f6db",
+    //    api: "https://api.clubmall.cn/app/ewei_shopv2_api.php?i=16",
+    //    approot: "https://api.clubmall.cn/addons/ewei_shopv2/",
+    //    userInfo: null
+    //  }
+
+     globalData: {
+       appid: null,
+       api: null,
+       approot: null,
+       userInfo: null
+     }
 
 })
   

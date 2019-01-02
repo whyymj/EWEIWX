@@ -189,6 +189,7 @@ Page({
           $this.setData({ areas: app.getCache("cacheset").areas });
         }, 3000)
         app.url(options);
+        console.log(app.getCache('usermid'))
         diypage.get(this,'home', function(res){
           $this.getDiypage(res)
         	/*启动广告*/
@@ -302,7 +303,7 @@ Page({
     goodsicon:function(e){
       this.setData({
         iconheight:e.detail.height,
-        iconwidth: '176'
+        iconwidth: e.detail.width
       })
     },
     getDiypage:function(res){
@@ -476,6 +477,10 @@ Page({
     		}
     	})  
     },
+    // 选赠品
+  chooseGift(e) {
+    goodspicker.chooseGift(e,this)
+  },
     // 选规格
     specsTap: function (event) {
       var $this = this

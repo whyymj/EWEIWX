@@ -135,7 +135,7 @@
             <view class="fui-cell-text price">
               <view class="text-danger">
                 ¥
-                <block wx:if="{{goods.ispresell> 0 && (preselltimeend==0) || preselltimeend>now}}">
+                <block wx:if="{{goods.ispresell> 0 &&  preselltimeend>now}}">
                   <text wx:if="{{ goods.hasoption == 1 }}">
                     <text wx:if="{{ goods.minpresellprice != goods.maxpresellprice}}">{{ goods.minpresellprice }}~{{ goods.maxpresellprice }}</text>
                     <text wx:else>{{ goods.minpresellprice }}</text>
@@ -352,8 +352,8 @@
                   <!--积分  -->
                   <view wx:if='{{activity.credit}}' class="sale-line" style="font-size: 24rpx;">
                     <span class="sale-tip">{{credittext}}</span>
-                    <text wx:if="{{activity.credit.deduct}}">最高抵扣￥{{activity.credit.deduct}}</text>
-                    <text wx:if="{{activity.credit.give}}">；购买赠送{{activity.credit.give}}{{credittext}}</text>
+                    <text wx:if="{{activity.credit.deduct}}">最高抵扣￥{{activity.credit.deduct}}；</text>
+                    <text wx:if="{{activity.credit.give}}">购买赠送{{activity.credit.give}}{{credittext}}</text>
                   </view>
                 </view>
                 <view class="fui-cell-remark"></view>
@@ -378,7 +378,7 @@
         <!--同城配送end-->
       </view>
       <!--不配送区域start-->
-      <block wx:if="{{goods.citys.citys.length>0}}">
+      <block wx:if="{{goods.citys.citys.length>0 && goods.type !=5 && goods.isverify!=2}}">
         <view class='fui-cell-group fui-cell-click  fui-sale-group' style='margin-top:0' id="city-picker" bindtap="cityPicker" data-class="city-picker" data-tap="{{active}}">
           <view class='fui-cell'>
             <view class='fui-cell-text'>{{ goods.citys.onlysent == 0 ? '不':'只' }}配送区域:

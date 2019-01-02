@@ -129,6 +129,7 @@ Page({
   },
 
   favorite: function (event) {
+    app.checkAuth();
     var $this = this;
     var limits = $this.data.limits;
     if (limits) {
@@ -296,7 +297,16 @@ Page({
     
     $this.setData({ loading: true });
     core.get('goods/get_detail', { id: options.id }, function (result) {
-      console.log(result);
+      
+      // 需要强转为浮点型的数据
+      const needForceConvertToFloatData = ['marketprice', 'productprice']
+      // 处理价格比较的时候带有比较的不是浮点数，而是两个字符串出错的情况
+      needForceConvertToFloatData.forEach((value) => {
+        if(typeof result.goods[value] != 'undefined') {
+          result.goods[value] = parseFloat(result.goods[value])
+        }
+      })
+
       if (result.error > 0) {
         $this.setData({ show: true, showgoods: false });
         foxui.toast($this, result.message);
@@ -340,6 +350,10 @@ Page({
       $this.setData({
         show: true, goods: result.goods, minprice: result.goods.minprice, maxprice: result.goods.maxprice, preselltimeend: result.goods.preselltimeend, style: result.goods.labelstyle.style, navbar: result.goods.navbar, labels: result.goods.labels
       });
+      console.log(result.goods.gifts)
+      if (result.goods.gifts && result.goods.gifts.length == 1) {
+        $this.setData({ giftid: result.goods.gifts[0].id })
+      }
       console.log(result.goods)
       wx.setNavigationBarTitle({
         title: result.goods.title || '商品详情'
@@ -655,7 +669,6 @@ Page({
     goodspicker.number(e, $this)
   },
   onLoad: function (options) {
-    app.checkAuth();
     var $this = this;
     $this.setData({
       imgUrl: app.globalData.approot
@@ -698,6 +711,7 @@ Page({
     }
     this.setData({ id: options.id });
     app.url(options);
+    console.log(app.getCache('usermid'))
     wx.getSystemInfo({
       success: function (result) {
         $this.setData({
@@ -719,7 +733,6 @@ Page({
         $this.setData({
           advWidth: result.windowWidth
         });
-        console.log(result.windowHeight);
       }
     });
     setTimeout(function () {

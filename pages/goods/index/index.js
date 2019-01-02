@@ -398,6 +398,10 @@ Page({
       var $this = this
       goodspicker.specsTap(event, $this)
     },
+  // 选赠品
+  chooseGift(e) {
+    goodspicker.chooseGift(e, this)
+  },
     //关闭pickerpicker
     emptyActive: function () {
       this.setData({

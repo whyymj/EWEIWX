@@ -394,7 +394,7 @@ image.radius{
     width: 33.33%;
 }
 .fui-picturew.row-4 .item {
-    width:24.9%;
+    width:24.999%;
 }
 .fui-picturew .item{
     display: block;
