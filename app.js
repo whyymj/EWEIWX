@@ -55,7 +55,6 @@ App({
       }
       this.setCache('routeData', routeData)
 
-      console.log(routeData);
 
       const userinfo = this.getCache('userinfo')
       wx.getSetting({
