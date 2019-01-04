@@ -65,7 +65,6 @@ App({
       
       this.setCache('routeData', routeData)
 
-      console.log(routeData);
 
       const userinfo = this.getCache('userinfo')
       wx.getSetting({
@@ -279,6 +278,14 @@ App({
     //    appid: "wx3d3b2fd41970f6db",
     //    api: "https://yctcs.100cms.com/app/ewei_shopv2_api.php?i=2",
     //    approot: "https://yctcs.100cms.com/addons/ewei_shopv2/",
+    //    userInfo: null
+    //  }
+
+    //api
+    //  globalData: {
+    //    appid: "wx3d3b2fd41970f6db",
+    //    api: "https://api.clubmall.cn/app/ewei_shopv2_api.php?i=16",
+    //    approot: "https://api.clubmall.cn/addons/ewei_shopv2/",
     //    userInfo: null
     //  }
 

@@ -125,6 +125,17 @@
     margin-top: 24rpx;
     font-size: 26rpx
 }
+.btn.block.refund-btn{
+  height: 44rpx;
+  line-height: 40rpx;
+  border-radius: 44rpx;
+  font-size: 24rpx;
+  width: 108rpx;
+  padding: 0;
+  text-align: center; 
+  margin-right: 0;
+  margin-top: 2rpx
+}
 .btn .icox{
     margin-right: 6rpx;
     vertical-align:baseline;
