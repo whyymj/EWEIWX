@@ -4,13 +4,15 @@ var core = require('./../../../utils/core.js')
 Page({
   data: {
     close:0,
-    text:''
+    text:'',
+    imgUrl: ''
    },
     onLoad: function (options) {
-      this.setData({
+      this.setData({ 
+        close: options.close, 
+        text: options.text, 
         imgUrl: app.globalData.approot
-      });
-      this.setData({close: options.close, text: options.text});
+        });
     },
     onShow: function () {
         var name = app.getCache('sysset').shopname;
