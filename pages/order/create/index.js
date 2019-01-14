@@ -401,6 +401,12 @@ Page({
         core.alert('请填写联系方式!');
         return;
       }
+
+      if (!/^[1][3-9]\d{9}$|^([6|9])\d{7}$|^[0][9]\d{8}$|^[6]([8|6])\d{5}$/.test($.trim(data.list.member.mobile))) {
+        core.alert("请填写正确联系电话!");
+        return;
+      }
+
       if (data.list.isforceverifystore) {
         if (!data.list.storeInfo) {
           core.alert('请选择门店!');
