@@ -1,6 +1,6 @@
 <view class='fui-goods-group {{diyitem.style.liststyle}}'  wx:if='{{diyitem.params.goodsscroll!=1}}' style='background:{{diyitem.style.background}}'>
     <view class='fui-goods-item' wx:for='{{diyitem.data}}' wx:for-index='childid' wx:for-item='childitem'>
-        <navigator url="{{ childitem.bargain > 0?'/pages/bargain/detail/detail?id='+childitem.bargain : '/pages/goods/detail/index?id='+childitem.gid}}" class='image {{diyitem.params.showicon=="1"?diyitem.style.iconstyle:""}}' data-text='{{diyitem.style.goodsicon}}' style='background-image:url({{childitem.thumb}})'>
+        <navigator url="{{ childitem.bargain > 0?'/pages/bargain/detail/detail?id='+childitem.bargain : '/pages/goods/detail/index?id='+childitem.gid}}" class='image {{diyitem.params.showicon=="1"?diyitem.style.iconstyle:""}}' data-text='{{diyitem.style.goodsicon}}' style='background-image:url({{diyitem.params.showicon=="2"?diyitem.params.goodsiconsrc:childitem.thumb}})'>
         
         <!--营销图标  -->
             <view class='goodsicon' wx:if='{{diyitem.params.showicon=="2"}}' style='position:relative;width:{{iconwidth}}px;height:{{iconheight}}px'>
@@ -51,7 +51,7 @@ circular='true' interval="{{interval}}" duration="{{duration}}" current='{{diyit
   <block>
     <swiper-item wx:for="{{diyitem.data_temp}}" wx:for-index="childid" wx:for-item="childitem" next-margin='10px'>
        <view class='fui-goods-item'  wx:for='{{childitem}}' wx:for-index='childitemid' wx:for-item='childitems'>
-        <navigator url="{{ childitems.bargain > 0?'/pages/bargain/detail/detail?id='+childitems.bargain : '/pages/goods/detail/index?id='+childitems.gid}}" open-type="navigate" class='image {{diyitem.params.showicon=="1"?diyitem.style.iconstyle:""}}' data-text='{{diyitem.style.goodsicon}}' style='background-image:url({{childitems.thumb}})'>
+        <navigator url="{{ childitems.bargain > 0?'/pages/bargain/detail/detail?id='+childitems.bargain : '/pages/goods/detail/index?id='+childitems.gid}}" open-type="navigate" class='image {{diyitem.params.showicon=="1"?diyitem.style.iconstyle:""}}' data-text='{{diyitem.style.goodsicon}}' style='background-image:url({{diyitem.params.showicon=="2"?diyitem.params.goodsiconsrc:childitem.thumb}})'>
         <!--营销图标 -->
             <view class='goodsicon' wx:if='{{diyitem.params.showicon=="2"}}' style='position:relative;width:{{iconwidth}}px;height:{{iconheight}}px'>
                 <image wx-if='{{diyitem.params.iconposition=="left top"}}' class='left top' mode='widthFix' src="{{childitem.thumb}}" style='width:{{diyitem.style.iconzoom}}%; left:{{diyitem.style.iconpaddingleft}}rpx;top:{{diyitem.style.iconpaddingtop}}rpx' bindload='goodsicon'></image>

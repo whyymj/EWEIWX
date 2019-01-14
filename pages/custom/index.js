@@ -671,7 +671,7 @@ Page({
       });
     } else {
       core.get('diypage/getInfo', { dataurl: dataurl }, function (ret) {
-        console.error('dataurl' + dataurl)
+        //console.error('dataurl' + dataurl)
         var topmenu = $this.data.topmenu;
         core.get('diypage', { type: pageid }, function (result) {
           var diypage = result.diypage;
