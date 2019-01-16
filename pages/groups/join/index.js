@@ -31,7 +31,7 @@ Page({
     })
   },
   joinTeam:function(e){
-    app.checkAuth();
+    // app.checkAuth();
     var $this =this;
     var types = core.pdata(e).type;
     var op = core.pdata(e).op;
@@ -297,7 +297,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    app.checkAuth();
   },
 
   /**
