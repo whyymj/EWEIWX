@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 7,
+			"current": 2,
 			"list": [
 				{
 					"id": -1,
@@ -45,9 +45,9 @@
 					"query": "id=4"
 				},
 				{
-					"id": -1,
-					"name": "333",
-					"pathName": "raffle/pages/index/index",
+					"id": 2,
+					"name": "瓜分优惠券",
+					"pathName": "friendcoupon/index",
 					"query": ""
 				},
 				{
