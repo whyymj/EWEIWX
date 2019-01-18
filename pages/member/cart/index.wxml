@@ -73,7 +73,7 @@
                 <image class="" src="{{ val.thumb }}"/>
             </view>
             <view class="fui-list-inner">
-                <navigator>
+                <navigator data-url="/pages/goods/detail/index?id={{ val.goodsid }}" bindtap="url"> 
                     <view class="text">{{ val.title }}</view>
                     <view class="subtitle cart-option" wx:if="{{ val.optionid!=0 }}">
                         <view class="choose-option">{{ val.optiontitle }}</view>
