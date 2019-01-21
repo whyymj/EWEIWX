@@ -1,106 +1,113 @@
 <view class="coupon-carve">
-
-    <view class="header">
-        <image src="/static/images/carve/coupon-share.png" style='width: 100%;height: 100%;position: absolute;z-index: 0;'/>
-        <!--领取瓜分券-->
-        <view class="get" style="display: none">
-            <view class="price">1000<span>元</span></view>
-            <image src="/static/images/carve/coupon-get.png" />
-            <view class="txt">赶快邀请100个共同好友共同瓜分红包吧！</view>
-        </view>
-
-        <!--领取成功-->
-        <view class="success" style="display: none">
-            <view class="text">
-                <view>恭喜您获得</view>
-                <view class="price">56.26<span>元</span></view>
-                <view class="txt">无门槛使用券</view>
-            </view>
-            <view class="btns">
-                <view class="btn">返回商城</view>
-                <view class="btn">立即领取</view>
-            </view>
-        </view>
-
-        <!--瓜分中-->
-        <view class="underway share" >
-            <view class="text">
-                <view class="price" style="margin-top: 0">还差<span>5</span>人完成</view>
-                <view class="price">邀请你一起瓜分<span>1000</span>元</view>
-                <view class="txt"><span>10:20:30</span>后结束</view>
-            </view>
-            <view class="btns">
-                <view class="btn">返回商城</view>
-                <view class="btn">邀请好友瓜分</view>
-            </view>
-        </view>
-
-
-        <!--被分享人领取-->
-        <view class="share" style="display: none">
-            <view class="text">
-                <p class="name">“那只奇怪的猴子”</p>
-                <p class="price">邀请你一起瓜分<span>1000</span>元</p>
-                <p class="txt"><span>10:20:30</span>后结束</p>
-            </view>
-            <view class="btns">
-                <view class="btn">返回商城</view>
-                <view class="btn">立即瓜分</view>
-            </view>
-        </view>
-    </view>
-    <view class="carve-title">
-        <image src="/static/images/carve/coupon-tip.png" />
-        <span>好友手气</span>
-        <image src="/static/images/carve/coupon-tip.png" />
+  <view class="header">
+    <image src="/static/images/carve/coupon-share.png" style='width: 100%;height: 100%;position: absolute;z-index: 0;' />
+    <!--领取瓜分券-->
+    <view class="get" style='position: relative;' wx:if="{{data.isReceive == 0 && share_id == '' && !data.success}}">
+      <view class="price">{{data.activitySetting.coupon_money}}<span>元</span></view>
+      <image bindtap='getCoupon' src="/static/images/carve/coupon-get.png" />
+      <view class="txt">赶快邀请{{data.overPeople}}个共同好友共同瓜分红包吧！</view>
     </view>
 
-    <!--好友手气start-->
-    <view class="content-card luck-list">
-        <view class="inner">
-            <view class="item">
-                <image class="adver" src="/static/images/carve/coupon-share.png" />
-                <span class="name">下面的查看更多超过四条数据显示</span>
-                <span>￥9.99</span>
-            </view>
-            <view class="look">查看更多</view>
-        </view>
-    </view>
-    <!--好友手气end-->
-
-    <!--暂无好友瓜分start-->
-    <view class="content-card coupon-blank">
-        <view class="inner"> 
-            <image class="coupon-blank-image" src="/static/images/carve/coupon-blank.png" />
-            <view class="text">暂时没有好友瓜分哦</view>
-        </view>
-    </view>
-    <!--暂无好友瓜分end-->
-
-    <view class="carve-title">
-        <image src="/static/images/carve/coupon-tip.png" />
-        <span>活动说明</span>
-        <image src="/static/images/carve/coupon-tip.png" />
+    <!--被分享人领取-->
+    <view class="share" style='position: relative;' wx:if="{{data.isReceive == 0 && share_id != '' && !data.success}}">
+      <view class="text">
+        <view class="name">“{{data.activityData.nickname}}”</view>
+        <view class="price">邀请你一起瓜分
+          <span>{{data.activitySetting.coupon_money}}</span>元</view>
+        <view class="txt">
+          <span>(暂无接口)</span>后结束</view>
+      </view>
+      <view class="btns">
+        <navigator open-type='reLaunch' hover-class="none" url="/pages/index/index" class="btn">返回商城</navigator>
+        <view class="btn" bindtap='carve'>立即瓜分</view>
+      </view>
     </view>
 
-    <!--活动说明start-->
-    <view class="content-card explain">
-        <view class="inner">
-            <view class="explain-title">活动规则</view>
-            <view class="explain-con">
-                <view><span>活动时间：</span>2018-11-25 12:00 至 2019-11-25 12:00</view>
-                <view><span>活动时长：</span>24小时</view>
-                <view><span>瓜分人数：</span>4人</view>
-            </view>
-
-            <view class="explain-title">瓜分步骤</view>
-            <view class="explain-step">
-                <view>1.在首页领取入口领取活动</view>
-                <view>2.在首页领取入口领取活动</view>
-                <view>3.在首页领取入口领取活动</view>
-            </view>
-        </view>
+    <!--瓜分中-->
+    <view class="underway share" style='position: relative;' wx:if="{{data.isReceive == 1 && !data.success}}">
+      <view class="text">
+        <view class="price" style="margin-top: 0">还差
+          <span>{{data.overPeople}}</span>人完成</view>
+        <view class="price">邀请你一起瓜分
+          <span>{{data.activitySetting.coupon_money}}</span>元</view>
+        <view class="txt">
+          <span>10:20:30(暂无接口)</span>后结束</view>
+      </view>
+      <view class="btns">
+        <navigator open-type='reLaunch' hover-class="none" url="/pages/index/index" class="btn">返回商城</navigator>
+        <button class="btn" open-type='share' hover-class='none' bindtap="share">邀请好友瓜分</button>
+      </view>
     </view>
-    <!--活动说明end-->
 
+    <!--领取成功-->
+    <view class="success" style='position: relative;' wx:if="{{data.isReceive == 1 && data.success}}">
+      <view class="text">
+        <view>恭喜您获得</view>
+        <view class="price">{{data.currentActivityInfo.deduct}}<span>元</span></view>
+        <view class="txt">{{data.currentActivityInfo.enough ? ('满￥' + data.currentActivityInfo.enough + '可用') : '无门槛优惠券'}}</view>
+      </view>
+      <view class="btns">
+        <navigator open-type='reLaunch' hover-class="none" url="/pages/index/index" class="btn">返回商城</navigator>
+        <navigator open-type='reLaunch' hover-class="none" url="/pages/index/index" class="btn">立即使用</navigator>
+      </view>
+    </view>
+  </view>
+  <view class="carve-title">
+    <image src="/static/images/carve/coupon-tip.png" />
+    <span>好友手气</span>
+    <image src="/static/images/carve/coupon-tip.png" />
+  </view>
+
+  <!--好友手气start-->
+  <view class="content-card luck-list" wx:if="{{data.activityData.length > 0}}">
+    <view class="inner">
+      <view class="item" wx:for="{{data.activityData}}">
+        <image class="adver" src="{{item.avatar}}" />
+        <span class="name">{{item.nickname}}</span>
+        <span>￥{{item.deduct}}</span>
+      </view>
+      <view class="look" wx:if="{{data.activityData.length > 4}}">查看更多</view>
+    </view>
+  </view>
+  <!--好友手气end-->
+
+  <!--暂无好友瓜分start-->
+  <view class="content-card coupon-blank" wx:if="{{data.activityData.length < 1}}">
+    <view class="inner">
+      <image class="coupon-blank-image" src="/static/images/carve/coupon-blank.png" />
+      <view class="text">暂时没有好友瓜分哦</view>
+    </view>
+  </view>
+  <!--暂无好友瓜分end-->
+
+  <view class="carve-title">
+    <image src="/static/images/carve/coupon-tip.png" />
+    <span>活动说明</span>
+    <image src="/static/images/carve/coupon-tip.png" />
+  </view>
+
+  <!--活动说明start-->
+  <view class="content-card explain">
+    <view class="inner">
+      <view class="explain-title">活动规则</view>
+      <view class="explain-con" style='margin-bottom: 0;'>
+        <view>
+          <span>活动时间：</span>{{data.activitySetting.activity_end_time}} 至 {{data.activitySetting.activity_start_time}}</view>
+        <view>
+          <span>活动时长：</span>{{data.activitySetting.duration}}小时</view>
+        <view>
+          <span>瓜分人数：</span>{{data.activitySetting.people_count}}人</view>
+      </view>
+
+      <view wx:if="{{data.activitySetting.desc.length > 0}}" class="explain-title">瓜分步骤</view>
+      <view class="explain-step" wx:if="{{data.activitySetting.desc.length > 0}}">
+        <view wx:for="{{data.activitySetting.desc}}">{{item}}</view>
+      </view>
+    </view>
+  </view>
+  <!--活动说明end-->
+</view>
+
+<view class="fui-toast {{FoxUIToast.show?'in':'out'}}">
+  <view class="text">{{FoxUIToast.text}}</view>
 </view>

@@ -1,66 +1,93 @@
-// carve/index.js
+var app = getApp();
+var core = app.requirejs('/core');
+var foxui = app.requirejs('foxui');
+var $ = app.requirejs('jquery');
+
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    activity_setting: {},
+    shareid: '',
+    id: '',
+    share_id: ''
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
-
+    var $this = this;
+    if(options.share_id){
+      $this.setData({ share_id: options.share_id});
+    }
+    if (options.id) {
+      $this.setData({ id: options.id });
+    }
+    $this.getList();
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  onShow: function() {
+    var $this = this;
+    $this.getList();
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
+  // 领取优惠券
+  getCoupon: function(){
+    var $this = this;
+    var args = { id: $this.data.id, share_id: $this.data.share_id};
 
+    core.get('friendcoupon/receive', args , function (ret) {
+      if(ret.error == 0){
+        foxui.toast($this, '领取成功');
+        $this.getList();
+      }else{
+        foxui.toast($this, ret.message);
+      }
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
+  // 参与瓜分  
+  carve: function () {
+    var $this = this;
+    var args = { id: $this.data.id, share_id: $this.data.share_id };
+    // app.checkAuth()
+    core.get('friendcoupon/divide', args , function (ret) {
+        if(ret.error == 0){
+          foxui.toast($this, '瓜分成功');
+          $this.getList();
+        } else {
+          foxui.toast($this, ret.message);
+        }
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
+  // 分享
+  onShareAppMessage(res) {
+    var $this = this;
+    if (res.from === 'button') {
 
+      console.log(res.target)
+    }
+    return {
+      title: '好友瓜分券',
+      path: '/friendcoupon/index?shareid=' + $this.data.shareid
+    }
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  // 获取数据
+  getList() {
+    var $this = this;
+    core.get('friendcoupon', { id: $this.data.id, share_id: $this.data.share_id}, function (ret) {
+      if(ret.error == 0){
+        if (ret.currentActivityInfo){
+          ret.currentActivityInfo.enough = Number(ret.currentActivityInfo.enough);
+        }
+        
+        $this.setData({ 
+          activityData: ret.activityData,
+          activityData: ret.activityData,
+          data: ret,
+          shareid: ret.currentActivityInfo ? ret.currentActivityInfo.headerid : ''
+        })
+      }else{
+        foxui.toast($this, ret.message);
+      }
+    })
   }
 })

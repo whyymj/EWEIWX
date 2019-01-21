@@ -171,7 +171,7 @@
   color: #ff3c00;
   height: 192rpx;
   box-sizing: border-box;
-  padding-top: 60rpx;
+  padding-top: 75rpx;
 }
 
 .header .get .price span {
@@ -185,7 +185,7 @@
   text-align: center;
   line-height: 42rpx;
   position: relative;
-  top: -.120rpx;
+  top: -10rpx;
   background: linear-gradient(to bottom, #fb6238, #ff3c00) !important;
 }
 
@@ -227,7 +227,7 @@
 
 .header .success .btns {
   display: flex;
-  margin-top: 70rpx;
+  margin-top: 90rpx;
 }
 
 .header .success .btns .btn, .header .share .btns .btn {
@@ -282,5 +282,5 @@
 .header .share .btns {
   display: flex;
   justify-content: space-between;
-  margin-top: 66rpx;
+  margin-top: 75rpx;
 }
