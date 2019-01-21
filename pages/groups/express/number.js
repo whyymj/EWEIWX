@@ -19,7 +19,7 @@ Page({
         $this.setData({
           options: options
         });
-        console.log(list)
+        
       } else {
         core.toast(list.message, 'loading')
       }
@@ -42,14 +42,12 @@ Page({
     wx.navigateBack();
   },
   submit: function (e) {
-    console.log(1)
+  
     var $this = this;
     var expresssn = $this.data.expresssn;
     var refundid = $this.data.options.refundid;
     var orderid = $this.data.options.orderid;
-    console.log(refundid)
-    console.log(expresssn)
-    console.log(orderid)
+    
 
     if (expresssn == "") {
       wx.showToast({

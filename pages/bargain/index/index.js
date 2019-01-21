@@ -8,7 +8,7 @@ Page({
   onLoad: function () {
     var $this = this;
     core.get('bargain/get_list',{},function(ret){
-      console.log(ret);
+     
       
       $this.setData({list:ret.list});
     });
@@ -38,11 +38,11 @@ Page({
     this.onLoad();
   },
   bindSearch:function(e){
-    console.log(e.detail);
+   
     var $this = this;
     var keywords = e.detail.value;
     core.get('bargain/get_list', {keywords:keywords}, function (ret) {
-      console.log(ret.list.length);
+     
       if (ret.list.length <= 0){
         $this.setData({emptyHint:true});
       }else{

@@ -350,11 +350,11 @@ Page({
       $this.setData({
         show: true, goods: result.goods, minprice: result.goods.minprice, maxprice: result.goods.maxprice, preselltimeend: result.goods.preselltimeend, style: result.goods.labelstyle.style, navbar: result.goods.navbar, labels: result.goods.labels
       });
-      console.log(result.goods.gifts)
+
       if (result.goods.gifts && result.goods.gifts.length == 1) {
         $this.setData({ giftid: result.goods.gifts[0].id })
       }
-      console.log(result.goods)
+   
       wx.setNavigationBarTitle({
         title: result.goods.title || '商品详情'
       });
@@ -416,7 +416,7 @@ Page({
 
       var fullbackgoods = $this.data.fullbackgoods;
       if (fullbackgoods != undefined) {
-        console.log(fullbackgoods)
+       
         var maxfullbackratio = fullbackgoods.maxfullbackratio;
         var maxallfullbackallratio = fullbackgoods.maxallfullbackallratio;
         var maxfullbackratio = Math.round(maxfullbackratio);
@@ -582,7 +582,7 @@ Page({
     var id = e.currentTarget.dataset.id
     var $this = this
     core.post('goods.pay_coupon', { id: id }, function (result) {
-      console.log(result)
+     
       if (result.error == 0) {
         $this.setData({
           showcoupon: false,
@@ -605,7 +605,7 @@ Page({
       // $this.setData({ modelShow: true })
       return
     }
-    console.log(timeOut);
+   
     if (timeType == 'timeout' || timeType == 'access_time'){
       if (timeOut == 'false'){
         $this.setData({ goods_hint_show: true });
@@ -711,7 +711,7 @@ Page({
     }
     this.setData({ id: options.id });
     app.url(options);
-    console.log(app.getCache('usermid'))
+   
     wx.getSystemInfo({
       success: function (result) {
         $this.setData({
@@ -760,7 +760,7 @@ Page({
   package: function () {
     var $this = this;
     core.get('package.get_list', { goodsid: this.data.packagegoodsid }, function (result) {
-      console.log(result.list[0])
+     
       $this.setData({
         packageList: result.list[0]
       })

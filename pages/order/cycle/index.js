@@ -81,7 +81,7 @@ Page({
       var orderid = $this.data.orderid;
       var isall = $this.data.isdelay;
       core.get('order/do_deferred', { cycelid: cycelid, time: newDate, orderid: orderid,is_all:isall},function(res){
-        console.log(res);
+        
         if(res.error == 0){
           foxui.toast($this,'修改成功');
         }
@@ -124,7 +124,7 @@ Page({
   get_list:function(){
     var $this = this;
     core.get('order/cycelbuy_list', $this.options,function(res){
-      console.log(res)
+     
       if(res.error > 0){
         if (list.error != 50000) {
           core.toast(list.message, 'loading');

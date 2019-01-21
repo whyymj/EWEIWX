@@ -30,7 +30,7 @@ Page({
                 url: '/pages/index/index'
               })
               clearInterval(timer)
-            console.log(userInfo)
+            
               $this.setData({ userInfo: userInfo})
             }else{
 
@@ -51,7 +51,7 @@ Page({
     })
     params = ret.substring(0, ret.length - 1)
     var redirectUrl = '/' + url + '?' + params;
-    console.log(redirectUrl)
+    
 
     wx.login({
       success: function (ret) {

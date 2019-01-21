@@ -97,7 +97,7 @@ App({
             };
         }
         var ext = wx.getExtConfigSync();
-        console.log(ext);
+        
         this.globalData.api = ext.config.api;
         this.globalData.approot = ext.config.approot;
         this.globalData.appid = ext.config.appid;
@@ -181,7 +181,7 @@ App({
         }
 
         if (user != '') {
-            // console.log('---')
+           
             if (user.mid == '' || typeof user.mid == 'undefined') {
                 arg.mid = mid;
             }

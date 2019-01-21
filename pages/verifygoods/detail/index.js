@@ -29,7 +29,7 @@ Page({
     var $this = this;
     core.get('verifygoods/get_detail', $this.data.options, function (result) {
       if (result.error == 0) {
-        console.log(result);
+      
         $this.setData({ verifygoods: result.item,store:result.store,canverify:result.canverify,canverify_message:result.canverify_message, qrcode: result.qrcode, verifygoodlogs: result.verifygoodlogs, verifynum: result.verifynum, limitdatestr: result.limitdatestr, verifycode: result.verifycode })
       } else {
         if (result.error != 50000) {

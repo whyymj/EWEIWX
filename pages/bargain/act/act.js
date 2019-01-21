@@ -8,7 +8,7 @@ Page({
     var $this = this;
     core.get('bargain/act',options,function(result){
       $this.setData({goods:result.goods,mid:result.mid});
-      console.log(result);
+      
     });
     var isIpx = app.getCache('isIpx');
     if (isIpx) {

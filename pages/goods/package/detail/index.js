@@ -42,7 +42,7 @@ Page({
           good[i] = { goodsid: packgoods[i].goodsid, optionid: null }
         }
       }
-      console.log(good)
+    
       $this.setData({
         packgoods:packgoods,
         package: result.package,
@@ -52,7 +52,7 @@ Page({
   },
   option:function(e){
     var $this = this;
-    // console.log(e.currentTarget.dataset.goodsid)
+
     var goodsid = e.currentTarget.dataset.goodsid;
     var index = e.currentTarget.dataset.index;
     core.get('package.get_option', { pid: $this.data.pid, goodsid: goodsid}, function (result) {
@@ -86,13 +86,11 @@ Page({
     var packageprice = this.data.option[index].packageprice;//所选option价格
     packgoods[this.data.index].packageprice = packageprice;//所选option价格替换商品价格
     var sum =0;//套餐价格
-    console.log(this.data.option[index].packageprice);
-    console.log(packgoods[this.data.index]);
-    console.log(packgoods);
+    
     for (var i = 0; i < packgoods.length;i++){
       sum += packgoods[i].packageprice*1
     }
-    console.log(sum);
+   
     this.setData({
       option_active: optionid,
       option_title: option_title,
@@ -116,7 +114,7 @@ Page({
   buy:function(){
     var $this = this;
     var good = this.data.good;
-    console.log(good)
+  
     var all=true;
     for(var i=0;i<good.length;i++){
       if (good[i].optionid == null){

@@ -7,7 +7,7 @@ Page({
   onLoad: function (options) {
     var $this = this;
     core.get('bargain/rule',options,function(res){
-      console.log(res)
+     
       parser.wxParse('wxParseData', 'html', res.rule.rule, $this, '0');
     });
   }

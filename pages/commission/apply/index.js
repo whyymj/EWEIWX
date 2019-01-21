@@ -43,14 +43,9 @@ Page({
         },false,true);
     },
     typeChange: function (e) {
-        // var val = e.detail.value;//源代码
-        // var applytype = this.data.type_array[val].type;
-        // this.setData({applytype:applytype, applyIndex: val});
-
-        //mjy 结构改变   applytype赋值
+       
         var val = e.currentTarget.dataset.name;
-        // console.log(val);
-        // var applytype = val;
+        
         this.setData({ applytype: val });
     },
     bankChange: function (e) {
@@ -81,10 +76,9 @@ Page({
           var html = "提现到银行卡"
 
         }
-        // var html = data.type_array[data.applytype].title; //源代码
+     
         var postData = {type: data.applytype};
-        // console.log(data.applytype);
-        // console.log(html);
+       
         if(data.applytype==2){
             if(!data.last_data.realname){
                 foxui.toast($this, "请填写姓名");
@@ -106,7 +100,7 @@ Page({
             postData.realname = data.last_data.realname;
             postData.alipay = data.last_data.alipay;
             postData.alipay1 = data.last_data.alipay1;
-            // console.log(html);
+           
         }
         
         else if(data.applytype==3){
@@ -135,7 +129,7 @@ Page({
             postData.bankname = data.banklist[data.bankIndex]['bankname'];
             postData.bankcard = data.last_data.bankcard;
             postData.bankcard1 = data.last_data.bankcard1;
-            // console.log(html);
+            
         }
         if (data.applytype < 2) {
             confirm_msg = '确认要' + html + "？";

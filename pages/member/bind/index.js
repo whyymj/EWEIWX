@@ -153,7 +153,7 @@ Page({
     imageChange:function(){
       var $this = this;
       core.get('member/bind/imageChange',{},function(result){
-        console.log(result)
+         
         $this.setData({ verifycode_img: result.verifycode_img});
       });
     }

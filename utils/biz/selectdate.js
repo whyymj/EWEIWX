@@ -158,6 +158,6 @@ module.exports = {
             receipttime:Date.parse($this.data.currentYear + '/' + $this.data.currentMonth + '/' + e.target.dataset.day) / 1000,
         })
         
-        console.log("当前选择日期：" + $this.data.currentDate);
+    
     }
 }

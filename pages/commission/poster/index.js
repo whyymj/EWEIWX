@@ -75,9 +75,7 @@ Page({
                     })
                     setTimeout(function () {
                         wx.hideLoading()
-                    }, 1000);
-
-                    console.log($this.data.posterArr[$this.data.index].poster);
+                    }, 1000);                
 
                     wx.downloadFile({
                         url: $this.data.posterArr[$this.data.index].poster,
@@ -137,7 +135,7 @@ Page({
         core.json('commission/poster/getimage', {
             id: arr[index].id
         }, function (ret) {
-            console.log(ret);
+            
             if(ret.error == 0){
                 arr[index].thumb = ret.thumb;
                 arr[index].poster = ret.poster;
@@ -168,7 +166,7 @@ Page({
           moveY: moveY,
           touchMove: touchMove
         })
-        //console.log("touchMove:" + touchMove + " touchDot:" + touchDot + " diff:" + (touchMove - touchDot));
+        
         // 向左滑动
         if (touchMove - touchDot <= -60 && time < 10) {
             this.setData({

@@ -30,7 +30,7 @@ Page({
     getList: function () {
         var $this = this;
         core.get('member.fullback.get_list', {page: $this.data.page, type: $this.data.type}, function (ret) {
-        	console.log(ret)
+        
             var data = {total: ret.total, pagesize: ret.pagesize, list: ret.list, show: true};
             if (ret.list.length > 0) {
                 data.page = $this.data.page + 1;
@@ -44,7 +44,7 @@ Page({
     },
     myTab: function (e) {
         var $this = this;
-        console.log(e.currentTarget.dataset.type)
+      
         var type = e.currentTarget.dataset.type;
         $this.setData({type: type, page: 1, list: []});
         $this.getList()

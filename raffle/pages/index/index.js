@@ -48,7 +48,7 @@ Page({
   onLoad: function () {
 
     var $this = this;
-    console.log(2);
+
     wx.request({
       url: 'https://u.we7shop.com/api/activity/activity-text?activity_id=1',
       data: {},
@@ -56,7 +56,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded'
       },
       success: function (res) {
-        console.log(res.data.status, res.data.result.cjiang);
+      
         if (res.data.status==1){
           $this.setData({
             replace1: res.data.result.cjiang,
@@ -70,7 +70,7 @@ Page({
     });
     
     if (new Date().getMonth() == 5) {
-      console.log(new Date().getMonth(), new Date().getDate(), new Date().getHours());
+      
       if (5 <= new Date().getDate() && new Date().getDate() <= 7 && new Date().getHours() >= 10) {
         this.setData({
           now: true,
@@ -527,44 +527,11 @@ Page({
         time: '4',
         rotateAngle: rotateAngle
       })
-      console.log($this.data.rotateAngle);
+      
       clearInterval(timer);
       setTimeout(function () {
         offOn = !offOn;
-        // radian = 360 - (rotateAngle - halfAngle) % 360; //除了多转的那些圈  剩下实际旋转角度
-        // if (radian <= angle * 1) {
-        //   prize = '获得三等奖';
-        //   awards = '服务器托管初级版本立减400元优惠券';
-        //   cdkey = '12324e57698-=909087'
-        // } else if (radian <= angle * 2) {
-        //   prize = '获得四等奖';
-        //   awards = '服务器数据迁移5折优惠券';
-        //   cdkey = '12324e57698-=909087'
-        // } else if (radian <= angle * 3) {
-        //   prize = '获得二等奖';
-        //   awards = '服务器托管中级版本立减600元优惠券';
-        //   cdkey = '12324e57698-=909087'
-        // } else if (radian <= angle * 4) {
-        //   prize = '获得五等奖';
-        //   awards = '数据库读写分离5折优惠券';
-        //   cdkey = '12324e57698-=909087'
-        // } else if (radian <= angle * 5) {
-        //   prize = '获得一等奖';
-        //   awards = '服务器托管高级版本立减800元优惠券';
-        //   cdkey = '12324e57698-=909087'
-        // } else if (radian <= angle * 6) {
-        //   prize = '获得五等奖';
-        //   awards = '数据库读写分离5折优惠券';
-        //   cdkey = '12324e57698-=909087'
-        // } else if (radian <= angle * 7) {
-        //   prize = '获得七等奖';
-        //   awards = '价值100元添加小程序域名白名单';
-        //   cdkey = '12324e57698-=909087'
-        // } else if (radian <= angle * 8) {
-        //   prize = '获得六等奖';
-        //   awards = '600元组合券';
-        //   cdkey = '12324e57698-=909087'
-        // }
+       
         $this.setData({
           sudokuShow: true,
         })
@@ -735,7 +702,7 @@ Page({
             'content-type': 'application/x-www-form-urlencoded'
           },
           success: function (res) {
-            console.log(res.data);
+           
             if (res.data==0) {
               $this.setData({
                 login: true,

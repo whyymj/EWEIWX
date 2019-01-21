@@ -51,19 +51,19 @@ Page({
         
     },
   regionchange(e) {
-    console.log(e.type)
+    
   },
   markertap(e) {
-    console.log(e.markerId)
+  
   },
   controltap(e) {
-    console.log(e.controlId)
+    
   },
 	onLoad: function(options){
 		var $this = this;
 
         core.get('shop.cityexpress.map',{},function (res) {
-          console.log(res.cityexpress.lng);
+         
             $this.setData({
               lng:res.cityexpress.lng,
               lat:res.cityexpress.lat,

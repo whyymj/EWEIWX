@@ -118,7 +118,7 @@ Page({
         $this.setData({loading:true});
         $this.data.params.page = $this.data.page;
         core.get('goods/get_list', $this.data.params ,function(result){
-        	console.log(result)
+        
           var data = { loading: false, count: result.total,show: true};
             if(!result.list){
                 result.list = [];

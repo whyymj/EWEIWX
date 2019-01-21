@@ -43,7 +43,7 @@ module.exports = {
     $this.setData({ total: total });
   },
   chooseGift(e,$this) {
-    // console.log(e)
+    
     $this.setData({ giftid: e.currentTarget.dataset.id })
   },
   //立即购买
@@ -73,7 +73,7 @@ module.exports = {
       if (!verify){
         return;
       } else {
-        console.log(diydata.f_data)
+      
         core.post('order/create/diyform',{
           id: $this.data.id,
           diyformdata: diydata.f_data
@@ -134,7 +134,7 @@ module.exports = {
   // //加入购物车
   getCart: function (event,$this){
     var optionid = $this.data.optionid;
-    console.log($this.data.goods.hasoption);
+    
     
     var hasOption = $this.data.goods.hasoption;
     var diydata = $this.data.diyform;
@@ -146,7 +146,7 @@ module.exports = {
       return;
     }
     if ($this.data.quickbuy) {
-      console.log('quickbuy');
+     
       
       
       //是否存在自定义表单
@@ -161,7 +161,7 @@ module.exports = {
               diyformdata: diydata.f_data
             }
           })
-          console.log($this.data.formdataval)
+         
         }
       }
 
@@ -181,7 +181,7 @@ module.exports = {
             id: $this.data.id,
             diyformdata: diydata.f_data
           }, function (ret) {
-            console.log($this.data)
+            
             core.post('member/cart/add', {
               id: $this.data.id,
               total: $this.data.total,
@@ -249,7 +249,7 @@ module.exports = {
         return;
       }
       if (result.goods && result.goods.giftinfo) {
-        console.log(result.goods.giftinfo)
+      
         if (result.goods.giftinfo.length ==1) {
           $this.setData({ giftid: result.goods.giftinfo[0].id })
         }
@@ -285,7 +285,7 @@ module.exports = {
           specsData: [],
           specs: []
         })
-        console.log($this.data.specsData)
+        
         
         if (result.goods.minbuy != 0 && $this.data.total < result.goods.minbuy) {
           var total = result.goods.minbuy
@@ -365,7 +365,7 @@ module.exports = {
         }
       }
     });
-    console.log(specs)
+    
     $this.setData({
       specsData:specs,
       specsTitle: title,

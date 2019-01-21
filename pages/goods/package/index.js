@@ -24,7 +24,7 @@
   onLoad: function (options) {
     var $this =this;
     core.get('package.get_list', { goodsid: options.id }, function (result) {
-      console.log(result.list)
+      
       $this.setData({
         list: result.list
       })

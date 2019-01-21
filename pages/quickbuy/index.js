@@ -77,9 +77,7 @@ Page({
 
 
     core.get('quick/index/main', { id: this.data.pageid }, function (ret) {
-      console.log(ret);
-
-
+     
       var arr = []; // 商品在购物车中的数量 
 
       var style = ''; // 样式
@@ -119,7 +117,7 @@ Page({
         var arr = [18];
         var goodslength = 18;
       }
-      // console.log(111)
+   
       for (var i = 0; i < that.data.main.group.length; i++) {
         if (that.data.main.goodsArr[that.data.main.group[i].type]) {
           var templength = that.data.main.goodsArr[that.data.main.group[i].type].length ? that.data.main.goodsArr[that.data.main.group[i].type].length : 0.6;
@@ -131,17 +129,17 @@ Page({
 
         }
 
-        // console.log(that.data.arrscroll)
+   
       }
 
 
 
       var id = that.data.main.cartdata == 1 ? that.data.pageid : '';
       core.get('quick/index/getCart', { quickid: id }, function (ret) {
-        // console.log("购物车",ret);
+      
         var numtotal = {};
         for (var i in ret.simple_list) {
-          console.log(i + "=" + ret.simple_list[i])
+         
           numtotal[i] = ret.simple_list[i];
         }
         that.setData({
@@ -179,13 +177,13 @@ Page({
   // 左边选项卡切换方法
   clickLab: function (e) {
     var id = e.currentTarget.dataset.id; //左侧点击跳转id
-    // console.log(id)
+  
     var arr = this.data.arrLab;
     for (var i = 0; i < arr.length; i++) {
       arr[i] = 0;
     }
     arr[id] = 1;
-    // console.log(arr);
+
     this.setData({
       arrLab: arr,
       id: e.currentTarget.dataset.id
@@ -200,9 +198,9 @@ Page({
       showPicker: true
     })
     var id = this.data.main.cartdata == 1 ? this.data.pageid : '';
-    // console.log(id)
+ 
     core.get('quick/index/getCart', { quickid: id }, function (ret) {
-      console.log(ret);
+    
       var main = that.data.main;
       main.cartList = ret
       that.setData({
@@ -216,7 +214,7 @@ Page({
       that.setData({
         tempcartid: tempcartid
       })
-      console.log(that.data.tempcartid)
+    
     })
   },
   shopCarHid: function () {
@@ -316,13 +314,7 @@ Page({
    * 生命周期函数--监听页面滚动
    */
   onPageScroll: function (e) {
-    // console.log(e);
-    // if (e.scrollTop>=230) { // 切换样式
-    //   console.log('到了')
-    //   this.setData({
-    //     top230: true
-    //   })
-    // }
+    
   },
 
   /**
@@ -358,7 +350,7 @@ Page({
       typevalue: b ? b : '',
       diyformdata: that.data.formdataval ? that.data.formdataval : ''
     }, function (ret) {
-      console.log(ret);
+    
 
 
       // 如果达到最大购买数量或者超出库存，提示错误信息
@@ -378,8 +370,7 @@ Page({
         main.cartList.list = [1];
 
         numbers[that.data.goodsid] = ret.goodstotal;
-        // console.log(numbers[e.currentTarget.dataset.id])
-        // console.log(Boolean(numbers[e.currentTarget.dataset.id]))
+    
         that.setData({
           numtotal: numbers,
           main: main,
@@ -407,8 +398,7 @@ Page({
     if (!e.currentTarget.dataset.canadd) {
       modeltakeout = 'cantaddcart'
     }
-    console.log(that.data.formdataval)
-    // console.log(e)
+  
     that.setData({
       morechose: e.currentTarget.dataset.more
     })
@@ -440,10 +430,7 @@ Page({
           cycledate: false
         })
         goodspicker.selectpicker(e, that, goodslist, modeltakeout);
-        console.log(123)
-
-        // var tempname = 'select-picker';
-        console.log(123)
+       
 
       } else {
         that.setData({
@@ -570,7 +557,7 @@ Page({
     var that = this;
     var id = this.data.main.cartdata == 1 ? this.data.pageid : '';
     core.get('quick/index/clearCart', { quickid: id }, function (ret) {
-      console.log(ret);
+     
       var main = that.data.main;
       main.cartList = {
         list: [],
@@ -581,9 +568,9 @@ Page({
       var arr = [];
       // 这里有bug，清空购物车的时候遍历id数组，比当前有的id大的商品不在数组里所以要找到最大的id值将数组置为0
       for (var i = 0; i < tempcartid.length; i++) {
-        console.log(tempcartid[i])
+      
         arr[Number(tempcartid[i])] = -1
-        console.log(arr)
+      
       }
       that.setData({
         main: main,
@@ -592,7 +579,7 @@ Page({
         clearcart: false,
         showPicker: false
       })
-      console.log(that.data.numtotal)
+      
     })
   },
 
@@ -607,7 +594,7 @@ Page({
 
   // 结算
   gopay: function () {
-    console.log(this.data.main.cartList)
+    
     var fromquick = this.data.main.cartdata == 1 ? this.data.pageid : '';
     if (!this.data.main.cartList.list.length) {
       // 如果购物车中没有商品
@@ -654,7 +641,7 @@ Page({
       typevalue: value,
       // diyformdata: ''
     }, function (ret) {
-      console.log(ret);
+      
       if (ret.error == 0) {
         var arr = that.data.cartcartArr;
         arr[opid] = ret.goodsOptionTotal || ret.goodsOptionTotal == 0 ? ret.goodsOptionTotal : ret.goodstotal;
@@ -679,7 +666,7 @@ Page({
 
   // 右侧主体滚动事件
   scrollfn: function (e) {
-    // console.log(e.detail.scrollTop)
+  
     var that = this;
     var arrtemp = this.data.arrLab;
     for (var i = 0; i < that.data.arrscroll.length; i++) {
@@ -693,7 +680,6 @@ Page({
         break;
       }
 
-      // console.log('goodslength：' + goodslength)
     }
   },
   onShareAppMessage: function (res) {

@@ -56,7 +56,7 @@ Page({
             url: '/pages/bargain/bargain/bargain?id=' + result.id + '&mid=' + result.mid,
           })
         }
-        console.log(result.bargain.id)
+    
         $this.setData({ list: result.list, bargain: result.bargain, bargain_set: result.bargain_set, bargain_record: result.bargain_record, bargain_actor: result.bargain_actor, swi: result.swi, trade_swi: result.trade_swi, myself_swi: result.myself_swi, bargainid: result.list.id, mid: result.mid, arrived: result.arrived, timeout:result.timeout});       
         parser.wxParse('wxParseData', 'html', result.bargain.content, $this, '0');
 

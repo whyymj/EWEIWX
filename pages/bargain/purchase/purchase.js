@@ -7,7 +7,7 @@ Page({
   onLoad: function (options) {
     var $this = this;
     core.get('bargain/purchase',options,function(result){
-      console.log(result)
+  
       $this.setData({goods:result.goods,mid:result.mid})
     });
     var isIpx = app.getCache('isIpx');

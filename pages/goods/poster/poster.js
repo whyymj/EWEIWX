@@ -27,7 +27,7 @@ Page({
         core.json('goods/poster/getimage', {
             id: goodsid
         }, function (ret) {
-            console.log(ret);
+           
             if(ret.error==0){
                 $this.setData({
                     Image: ret.url

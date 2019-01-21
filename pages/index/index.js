@@ -189,7 +189,7 @@ Page({
           $this.setData({ areas: app.getCache("cacheset").areas });
         }, 3000)
         app.url(options);
-        console.log(app.getCache('usermid'))
+        
         diypage.get(this,'home', function(res){
           $this.getDiypage(res)
         	/*启动广告*/
@@ -604,7 +604,7 @@ Page({
     },
     // 顶部菜单切换
     tabtopmenu: function (e) {
-      console.log(e);
+      
       var $this = this,
         diypages = $this.data.diypages,
         list = diypages.items,
@@ -724,7 +724,7 @@ Page({
             var num = item.data[0].data.length;
             core.get('diypage/getInfo', { dataurl: dataurl, num: num, paramsType: paramsType }, function (ret){
                 item.data[0].data = ret.goods.list;
-                console.error(ret.goods)
+              
                 if (item.data[0].data.length == ret.goods.count){
                   item.data[0].showmore = true;
                 }
@@ -740,7 +740,7 @@ Page({
             var num = item.data[item.status].data.length;
             core.get('diypage/getInfo', { dataurl: dataurl, num: num, paramsType: paramsType  }, function (ret) {
               item.data[item.status].data = ret.goods.list;
-              console.error(ret.goods.count)
+              
               if (item.data[item.status].data.length == ret.goods.count) {
                 item.data[item.status].showmore = true;
               }
