@@ -1,6 +1,17 @@
 <view class="coupon-carve">
-  <view class="header">
+  <view class="coupon-model" wx:if="{{invalidMessage}}">
+    <view class="inner">
+      <view class="title">提醒</view>
+      <view class="content">{{invalidMessage}}</view>
+      <view class="btns">
+        <view class="btn1 line" wx:if="{{mylink}}" bindtap='mycoupon'>查看我的</view>
+        <navigator open-type='reLaunch' hover-class="none" url="/pages/index/index" class="btn1">返回商城</navigator>
+      </view>
+    </view>
+  </view>
+  <view class="header" >
     <image src="/static/images/carve/coupon-share.png" style='width: 100%;height: 100%;position: absolute;z-index: 0;' />
+    <image src="/static/images/carve/employ.png" wx:if="{{data.coupon.used == 1}}" style='width: 194rpx;height: 194rpx;position: absolute;right: 78rpx;top: 320rpx;z-index: 6;' />
     <!--领取瓜分券-->
     <view class="get" style='position: relative;' wx:if="{{data.isReceive == 0 && share_id == '' && !data.success}}">
       <view class="price">{{data.activitySetting.coupon_money}}<span>元</span></view>
@@ -11,11 +22,11 @@
     <!--被分享人领取-->
     <view class="share" style='position: relative;' wx:if="{{data.isReceive == 0 && share_id != '' && !data.success}}">
       <view class="text">
-        <view class="name">“{{data.activityData.nickname}}”</view>
+        <view class="name">“{{data.share_user.nickname}}”</view>
         <view class="price">邀请你一起瓜分
           <span>{{data.activitySetting.coupon_money}}</span>元</view>
         <view class="txt">
-          <span>(暂无接口)</span>后结束</view>
+          <span><block>{{time[0]}}天</block><block>{{time[1]}}时</block><block>{{time[2]}}分</block><block>{{time[3]}}秒</block></span>后结束</view>
       </view>
       <view class="btns">
         <navigator open-type='reLaunch' hover-class="none" url="/pages/index/index" class="btn">返回商城</navigator>
@@ -26,12 +37,9 @@
     <!--瓜分中-->
     <view class="underway share" style='position: relative;' wx:if="{{data.isReceive == 1 && !data.success}}">
       <view class="text">
-        <view class="price" style="margin-top: 0">还差
-          <span>{{data.overPeople}}</span>人完成</view>
-        <view class="price">邀请你一起瓜分
-          <span>{{data.activitySetting.coupon_money}}</span>元</view>
-        <view class="txt">
-          <span>10:20:30(暂无接口)</span>后结束</view>
+        <view class="price" style="margin-top: 0">还差<span>{{data.overPeople}}</span>人完成</view>
+        <view class="price">邀请你一起瓜分<span>{{data.activitySetting.coupon_money}}</span>元</view>
+        <view class="txt"><span>{{time[0]}}天{{time[1]}}时{{time[2]}}分{{time[3]}}秒</span>后结束</view>
       </view>
       <view class="btns">
         <navigator open-type='reLaunch' hover-class="none" url="/pages/index/index" class="btn">返回商城</navigator>
@@ -61,12 +69,12 @@
   <!--好友手气start-->
   <view class="content-card luck-list" wx:if="{{data.activityData.length > 0}}">
     <view class="inner">
-      <view class="item" wx:for="{{data.activityData}}">
+      <view class="item" wx:for="{{data.activityData}}" wx:for-index="index" wx:if="{{!listlength ? index < 4 : listlength}}">
         <image class="adver" src="{{item.avatar}}" />
         <span class="name">{{item.nickname}}</span>
         <span>￥{{item.deduct}}</span>
       </view>
-      <view class="look" wx:if="{{data.activityData.length > 4}}">查看更多</view>
+      <view class="look" bindtap='more' wx:if="{{data.activityData.length > 4 && !listlength}}">查看更多</view>
     </view>
   </view>
   <!--好友手气end-->

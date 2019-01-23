@@ -8,7 +8,9 @@ Page({
     activity_setting: {},
     shareid: '',
     id: '',
-    share_id: ''
+    share_id: '',
+    time: ['00', '00', '00', '00'],
+    listlength: false,
   },
 
   onLoad: function (options) {
@@ -31,7 +33,10 @@ Page({
   getCoupon: function(){
     var $this = this;
     var args = { id: $this.data.id, share_id: $this.data.share_id};
-
+    if (!$this.data.isLogin) {
+      app.checkAuth();
+      return;
+    }
     core.get('friendcoupon/receive', args , function (ret) {
       if(ret.error == 0){
         foxui.toast($this, '领取成功');
@@ -46,7 +51,10 @@ Page({
   carve: function () {
     var $this = this;
     var args = { id: $this.data.id, share_id: $this.data.share_id };
-    // app.checkAuth()
+    if (!$this.data.isLogin){
+      app.checkAuth();
+      return;
+    }
     core.get('friendcoupon/divide', args , function (ret) {
         if(ret.error == 0){
           foxui.toast($this, '瓜分成功');
@@ -57,17 +65,24 @@ Page({
     })
   },
 
+  // 查看我的
+  mycoupon: function() {
+    this.setData({ id: this.data.mylink})
+    this.getList();
+  },
+
   // 分享
   onShareAppMessage(res) {
     var $this = this;
-    if (res.from === 'button') {
-
-      console.log(res.target)
-    }
     return {
       title: '好友瓜分券',
-      path: '/friendcoupon/index?shareid=' + $this.data.shareid
+      path: '/friendcoupon/index?share_id=' + $this.data.shareid + '&id=' + $this.data.id
     }
+  },
+
+  // 查看更多
+  more: function(){
+    this.setData({ listlength: true});
   },
 
   // 获取数据
@@ -75,16 +90,31 @@ Page({
     var $this = this;
     core.get('friendcoupon', { id: $this.data.id, share_id: $this.data.share_id}, function (ret) {
       if(ret.error == 0){
+        console.error(ret)
         if (ret.currentActivityInfo){
           ret.currentActivityInfo.enough = Number(ret.currentActivityInfo.enough);
         }
         
         $this.setData({ 
           activityData: ret.activityData,
-          activityData: ret.activityData,
           data: ret,
+          isLogin: ret.isLogin,
+          mylink: ret.mylink,
+          invalidMessage: ret.invalidMessage,
           shareid: ret.currentActivityInfo ? ret.currentActivityInfo.headerid : ''
         })
+
+        if (ret.overTime){
+          let timer = setInterval(function () {
+            $this.setData({
+              time: core.countDown(ret.overTime)
+            })
+            if (!$this.data.time) {
+              clearInterval(timer);
+              $this.getList();
+            }
+          }, 1000);
+        }
       }else{
         foxui.toast($this, ret.message);
       }

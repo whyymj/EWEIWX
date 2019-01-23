@@ -272,5 +272,30 @@ module.exports = {
             }
         });
         return obj;
+    },
+
+  // 倒计时
+  //timePoint 截止时间点、时间戳
+  countDown: function (timePoint, time) {
+    // 当前时间
+    let now = parseInt(Date.now() / 1000);
+    let leftTime = 0;
+    if (timePoint) {
+      leftTime = timePoint > now ? (timePoint - now) : (now - timePoint); //时间差
+      leftTime = parseInt(leftTime);
     }
+    if (time) {
+      leftTime = parseInt(time);
+    }
+    if (leftTime == 0) {
+      return false;
+    } else {
+      let day = Math.floor(leftTime / (60 * 60 * 24));
+      let hour = Math.floor((leftTime - day * 24 * 60 * 60) / 3600);
+      let minute = Math.floor((leftTime - day * 24 * 60 * 60 - hour * 3600) / 60);
+      let second = Math.floor(leftTime - day * 24 * 60 * 60 - hour * 3600 - minute * 60);
+      let time = [day, hour < 10 ? '0' + hour : hour, minute < 10 ? '0' + minute : minute, second < 10 ? '0' + second : second];
+      return time;
+    }
+  },
 };
