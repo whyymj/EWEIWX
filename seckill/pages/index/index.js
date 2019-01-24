@@ -57,7 +57,7 @@ Page({
             } else {
             }
             var swiperheight = res.windowWidth / 1.7
-            console.log(swiperheight);
+         
             $this.setData({
               swiperheight: swiperheight
             })
@@ -80,7 +80,7 @@ Page({
                         $this.setData(data);
                     });
                 }
-              console.log(ret)
+           
                 $this.setData({
                     rooms: ret.rooms,
                     room_num: ret.rooms.length,
@@ -404,7 +404,7 @@ Page({
                     if (ret.goods.list.length <= 8) {
                         diypages.items[i].data[type].showmore = true;
                     }
-                    console.log(diypages.items[i])
+                   
                     $this.setData({ diypages: diypages})
                 }
             }

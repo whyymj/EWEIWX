@@ -56,7 +56,7 @@ Page({
     }
     
     core.get('groups/order', {status:$this.data.type_,page:$this.data.page}, function (result) {
-      console.log( result );
+    
       if( result.error == 0 ){
         $this.setData({
           list: $this.data.list.concat(result.list)

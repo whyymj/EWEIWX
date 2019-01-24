@@ -29,7 +29,7 @@ Page({
   },
   onLoad:function(options){
     var $this = this;
-    console.log(123)
+
   
     var isIpx = app.getCache('isIpx');
     if (isIpx) {

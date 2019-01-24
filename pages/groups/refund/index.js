@@ -34,14 +34,14 @@ Page({
   get_list: function () {
     var $this = this;
     core.get('groups.refund', { orderid: this.data.orderid}, function (list) {
-      console.log(list)
+     
       if (list.error == 0) {
         if (list.order.status < 2) {
           list.rtypeArr = ['退款(仅退款不退货)'];
         }
         list.show = true;
         $this.setData(list);
-        console.log($this.data)
+        
       } else {
         core.toast(list.message, 'loading')
       }

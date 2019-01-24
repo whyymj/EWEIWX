@@ -31,7 +31,7 @@ Page({
         } else {
             this.setData({level: 1});
         }
-        console.log(this.data)
+     
     },
     //三级分类绑定事件
     cateChild: function (event) { 
@@ -40,7 +40,7 @@ Page({
             child: event.currentTarget.dataset.child,
             back:1
         });
-        console.log(this.data)
+        
     },
     //返回上一级
     backParent: function (event) {
@@ -60,9 +60,9 @@ Page({
                 advimg: result.set.advimg,
                 recommands: result.recommands,
                 child: result.recommands
-                //level:result.set.level-1,
+                
             });
-            console.log(result)
+          
         });
     },
     onShow: function () {

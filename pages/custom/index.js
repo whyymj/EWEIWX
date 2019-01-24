@@ -648,7 +648,7 @@ Page({
       return;
     }
     if (dataurl.indexOf('pages') == 1) {
-      console.error('1230' + pageid)
+     
       var index = dataurl.lastIndexOf("=");
       var pageid = dataurl.substring(index + 1, dataurl.length);
       core.get('diypage', { id: pageid }, function (result) {
@@ -671,7 +671,7 @@ Page({
       });
     } else {
       core.get('diypage/getInfo', { dataurl: dataurl }, function (ret) {
-        console.error('dataurl' + dataurl)
+        //console.error('dataurl' + dataurl)
         var topmenu = $this.data.topmenu;
         core.get('diypage', { type: pageid }, function (result) {
           var diypage = result.diypage;
@@ -682,9 +682,9 @@ Page({
                 if (i == type) {
                   item.data[i]['data'] = ret.goods.list;
                   if (ret.goods.list.length <= 8) {
-                    console.log(ret.goods.list.length)
+                  
                     item.data[i]['showmore'] = true
-                    console.log(item.data[i])
+                   
                   }
                 }
               }
@@ -700,7 +700,7 @@ Page({
   },
   // 选项卡切换
   tabwidget: function (e) {
-    console.error(e)
+  
     var $this = this,
       diypages = $this.data.diypages,
       list = diypages.items,
@@ -722,7 +722,7 @@ Page({
           if (ret.goods.list.length <= 8) {
             diypages.items[i].data[type].showmore = true;
           }
-          console.log(diypages.items[i])
+          
           $this.setData({ diypages: diypages })
         }
       }
@@ -744,10 +744,10 @@ Page({
           var num = item.data[0].data.length;
           core.get('diypage/getInfo', { dataurl: dataurl, num: num, paramsType: paramsType }, function (ret) {
             item.data[0].data = ret.goods.list;
-            console.error(ret.goods)
+           
             if (item.data[0].data.length == ret.goods.count) {
               item.data[0].showmore = true;
-              console.log(item)
+             
             }
             $this.setData({ diypages: diypages })
           });
@@ -761,7 +761,7 @@ Page({
           var num = item.data[item.status].data.length;
           core.get('diypage/getInfo', { dataurl: dataurl, num: num, paramsType: paramsType }, function (ret) {
             item.data[item.status].data = ret.goods.list;
-            console.error(ret.goods.count)
+           
             if (item.data[item.status].data.length == ret.goods.count) {
               item.data[item.status].showmore = true;
             }

@@ -146,7 +146,7 @@ Page({
     },
     selected: function (e) {
         core.loading();
-        console.log(e.target);
+        
         var $this=this,dataset = core.pdata(e),id = dataset.id,select=dataset.select==1?0:1;
         core.post('member/cart/select',{id:id,select:select},function (data) {
             $this.get_cart();

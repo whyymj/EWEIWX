@@ -98,7 +98,7 @@ Page({
     detail.cycelid = $this.data.cycelid;
     $this.setData({ posting: true });
     core.post('order/addressSubmit', detail, function (result) {
-      console.log(result)
+      
       if (result.error != 0) {
         $this.setData({ posting: false });
         fui.toast($this, result.message);
@@ -211,6 +211,6 @@ Page({
     return index;
   },
   updateAll:function(e){
-    console.log(e)
+   
   }
 })

@@ -74,24 +74,24 @@ Page({
           });
         }
       } else {
-        console.log(result)
+        
       }
 
     })
   },
   onReachBottom: function () {
-    console.log(this.data)
+    
     if (this.data.loaded || this.data.res.list.length == this.data.total) {
       return;
     }
     this.getList();
   },
   bindSearch: function (e) {
-    console.log(e.detail);
+    
     var $this = this;
     var keywords = e.detail.value;
     core.get('groups.list', { keyword: keywords }, function (res) {
-      console.log(res.list);
+     
       if (res.list.length <= 0) {
         $this.setData({ empty: true });
       } else {

@@ -31,7 +31,7 @@ Page({
     })
   },
   joinTeam:function(e){
-    app.checkAuth();
+    // app.checkAuth();
     var $this =this;
     var types = core.pdata(e).type;
     var op = core.pdata(e).op;
@@ -126,7 +126,7 @@ Page({
     var id = core.pdata(e).goodsid;
     var ladder_id = core.pdata(e).id;
     var ladder_price = core.pdata(e).price
-    console.log(ladder_price)
+  
     this.setData({
       selectindex: selectindex,
       id:id,
@@ -215,9 +215,9 @@ Page({
     }
     $this.data.optionarr = optionarr;
     $this.data.selectSpecsarr = selectSpecsarr
-    console.log($this.data.optionarr)
+   
     core.post('groups.goods.get_option', { spec_id: $this.data.optionarr, groups_goods_id: $this.data.goods_id},function(result){
-      console.log(result)
+    
       $this.setData({
         optiondata: result.data,
       })
@@ -297,7 +297,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    app.checkAuth();
   },
 
   /**

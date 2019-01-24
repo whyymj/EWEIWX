@@ -23,7 +23,7 @@ Page({
   onLoad: function (options) {
     var $this = this;
     this.setData({ options: options});
-    console.log(options)
+   
     var isIpx = app.getCache('isIpx');
     if (isIpx) {
       $this.setData({
@@ -50,7 +50,7 @@ Page({
           core.confirm(msg.message, function () { wx.navigateBack() }, function () { wx.navigateBack()} );
           return;
         }
-        console.log( msg.data.stores );
+      
         $this.setData({data:msg.data,sysset:msg.sysset});
         if (msg.data.address ){
           $this.setData({ aid: msg.data.address.id });

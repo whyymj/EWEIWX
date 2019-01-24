@@ -14,7 +14,7 @@ Page({
     }else{
       var url = decodeURIComponent(options.url);
     }
-    console.log(url);
+  
    	var $this = this;
     $this.setData({
       url: url

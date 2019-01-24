@@ -38,7 +38,7 @@ Page({
                 }
                 // list.show = true;
                 $this.setData(list);
-                console.log($this.data)
+               
             } else {
                 core.toast(list.message, 'loading');
                 setTimeout(function() {

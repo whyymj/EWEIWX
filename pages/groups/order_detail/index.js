@@ -80,7 +80,7 @@ Page({
     },
     code: function (e) {
         var $this=this;
-        console.log( $this.data.verify );
+       
         core.post('groups/verify/qrcode', { id: $this.data.order.id, verifycode: $this.data.order.verifycode},function (json) {
             if (json.error==0){
                 $this.setData({

@@ -222,7 +222,7 @@ Page({
     }
     $this.data.optionarr = optionarr;
     $this.data.selectSpecsarr = selectSpecsarr
-    console.log($this.data.optionarr)
+  
     core.post('groups.goods.get_option', { spec_id: $this.data.optionarr, groups_goods_id: $this.data.data.goods.id }, function (result) {
       $this.setData({
         optiondata: result.data,

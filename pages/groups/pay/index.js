@@ -25,7 +25,7 @@ Page({
         this.setData({
             options: options
         });
-        console.log(options)
+        
         app.url(options);
     },
     onShow:function () {

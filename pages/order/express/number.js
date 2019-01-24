@@ -28,7 +28,7 @@ Page({
     var $this = this;
     if(typeof($this.data.options.singlerefund)=='undefined'){
         core.get('order/express_number', $this.data.options, function (list) {
-              console.log(list)
+             
               if (list.error == 0) {
                 list.show = true;
                 $this.setData(list);
@@ -38,7 +38,7 @@ Page({
             });
     }else{
         core.get('order/single_express_number', $this.data.options, function (list) {
-            console.log(list)
+         
             if (list.error == 0) {
                 list.show = true;
                 $this.setData(list);

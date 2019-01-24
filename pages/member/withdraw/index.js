@@ -112,26 +112,9 @@ Page({
         this.setData({money: money});
         this.setData({disabled: this.allow()?false:true})
     },
-    // pickerChange: function (event) {
-    //     var data = {};
-    //     var index = event.detail.value;
-    //     data.checked = this.data.objectArray[index];
-    //     if(data.checked.id==3){
-    //         data.bankChecked = this.data.info.banklist[0];
-    //         data.bankCheckedIndex = 0;
-    //     }
-    //     this.setData(data);
-    // },
+   
     typeChange: function (e) {
-      // var val = e.detail.value;//源代码
-      // var applytype = this.data.type_array[val].type;
-      // this.setData({applytype:applytype, applyIndex: val});
-
-      //mjy 结构改变   applytype赋值
-      // var val = e.currentTarget.dataset.name;
-      // console.log(val);
-      // // var applytype = val;
-      // this.setData({ applytype: val });
+      
       var data = {};
       var index = e.currentTarget.dataset.name;
         data.checked = this.data.objectArray[index];

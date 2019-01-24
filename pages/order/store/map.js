@@ -22,7 +22,7 @@ Page({
     },
     getInfo: function () {
         var $this = this;
-        console.log(this.data.storeid)
+     
         core.get('store/map', { id: this.data.storeid, merchid: this.data.merchid}, function (result) {
             $this.setData({store: result.store,markers: [{id: 1, latitude: Number(result.store.lat), longitude: Number(result.store.lng)}],show:true});
         });

@@ -113,8 +113,8 @@ image {
     vertical-align: middle;
 }
 image {
-    height: 100rpx;
-    width: 100rpx;
+    height: 60rpx;
+    width: 180rpx;
 }
 
 /*switch*/

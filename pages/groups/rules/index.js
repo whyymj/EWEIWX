@@ -15,7 +15,7 @@ Page({
   onLoad: function (options) {
     var $this = this;
     core.post('groups.goods.play',{}, function (result) {
-      console.log(result)
+      
       $this.setData({
         rules: result.rules
       })

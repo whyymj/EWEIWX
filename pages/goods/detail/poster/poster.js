@@ -9,7 +9,7 @@ Page({
   },
   
   onLoad: function (options) {
-  	console.log(options)
+  
   },
 	/*图片预览*/
 	previewImage: function(){

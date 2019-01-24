@@ -36,7 +36,7 @@ Page({
     var $this = this;
 
     core.get('groups/team', { success: $this.data.success, page: $this.data.page }, function (result) {
-      console.log(result);
+     
       if (result.error == 0) {
         $this.setData({
           list: $this.data.list.concat(result.list)

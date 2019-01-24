@@ -29,7 +29,7 @@ Page({
    */
   onLoad: function (options) {
     var $this = this;
-    console.log(options)
+   
     var isIpx = app.getCache('isIpx');
     if (isIpx) {
       $this.setData({
@@ -78,7 +78,7 @@ Page({
             })
             var id = $this.data.data.id
             core.get('groups.goods.get_spec', { id: id }, function (result) {
-              console.log(result)
+              
               $this.setData({
                 spec: result.data
               })
@@ -133,7 +133,7 @@ Page({
     }
     $this.data.optionarr = optionarr;
     $this.data.selectSpecsarr = selectSpecsarr
-    console.log($this.data.optionarr)
+  
     core.post('groups.goods.get_option', { spec_id: $this.data.optionarr, groups_goods_id: $this.data.goods_id }, function (result) {
       $this.setData({
         optiondata: result.data,
@@ -220,7 +220,7 @@ Page({
   onShareAppMessage: function () {
     var $this = this;
     var $data = $this.data.data;
-    console.log($data);
+  
     return {
       title:$data.title
     }

@@ -3,7 +3,7 @@ var app = getApp(), core = app.requirejs('core'), $ = app.requirejs('jquery'), f
 Page({
   onPullDownRefresh: function(){
     var $this = this
-    console.log(1)
+
     core.get('groups', {}, function (result) {
       if (result.error == 0) {
         $this.setData({
@@ -48,7 +48,7 @@ Page({
   },
   navigate:function(e){
     var link = core.pdata(e).link
-    console.log(link)
+   
     wx.navigateTo({
       url: link,
       fail:function(){

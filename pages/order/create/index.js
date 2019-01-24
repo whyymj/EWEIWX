@@ -71,11 +71,11 @@ Page({
     $this.setData({ options: options });
     $this.setData({ bargainid: options.bargainid });
     app.url(options);
-    console.log($this.data.options)
+    
     core.get('order/create', $this.data.options, function (list) {
-      console.log(list);
+     
       if (list.error == 0) {
-        console.log(list)
+        
         goodslist = $this.getGoodsList(list.goods);
         var comboprice = ($this.data.originalprice - list.goodsprice).toFixed(2);
         $this.setData({
@@ -225,12 +225,12 @@ Page({
         goodslist.push(vv);
       });
     });
-    console.log(goodslist);
+    
     var originalprice = 0;
     for (var i = 0; i < goodslist.length; i++) {
       originalprice += goodslist[i].price;
     }
-    console.log(originalprice);
+    
     this.setData({
       originalprice: originalprice
     })
@@ -341,12 +341,9 @@ Page({
     var giftid = data.goods.giftid || data.giftid;
     if (this.data.goods.giftid == 0 && this.data.goods.gifts.length == 1) {
       giftid = this.data.goods.gifts[0].id;
-      // console.log(giftid)
+     
     }
-    //  if (this.data.goods.gifts) {
-    //   console.log(this.data.goods.gifts);
-    // }
-    //console.log(data.fromquick);
+    
     if (data.submit) {
       return;
     }
@@ -401,6 +398,12 @@ Page({
         core.alert('请填写联系方式!');
         return;
       }
+
+      if (!/^[1][3-9]\d{9}$|^([6|9])\d{7}$|^[0][9]\d{8}$|^[6]([8|6])\d{5}$/.test($.trim(data.list.member.mobile))) {
+        core.alert("请填写正确联系电话!");
+        return;
+      }
+
       if (data.list.isforceverifystore) {
         if (!data.list.storeInfo) {
           core.alert('请选择门店!');
@@ -652,7 +655,7 @@ Page({
     });
   },
   radioChange: function (e) {
-    // console.log(e.currentTarget.dataset.giftgoodsid);
+    
     this.setData({
       giftid: e.currentTarget.dataset.giftgoodsid,
       gift_title: e.currentTarget.dataset.title,
@@ -795,7 +798,7 @@ Page({
     var str1 = tempdata.invoice_info.entity ? '[纸质] ' : '[电子] ';
     var str2 = tempdata.invoice_info.title + ' ';
     var str3 = tempdata.invoice_info.company ? '（单位: ' + tempdata.invoice_info.number + '）' : '（个人）';
-    // console.log(str1+str2+str3);
+   
     tempdata.invoicename = str1 + str2 + str3;
     if (!tempdata.invoice_info.title) {
       foxui.toast(this, "请填写发票抬头");
