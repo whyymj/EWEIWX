@@ -17,20 +17,21 @@ var $ = app.requirejs('jquery');
 
 Page({
     data: {
-        route: "member",
-        icons: app.requirejs('icons'),
-        member:{},
-        diypages:{},
-        audios: {},
-        audiosObj:{},
-        modelShow: false, 
-        //轮播
-        autoplay: true,
-        interval: 5000,
-        duration: 500,
-        swiperheight:0,
-        iscycelbuy:false,
-        bargain:false,
+      route: "member",
+      icons: app.requirejs('icons'),
+      member:{},
+      diypages:{},
+      audios: {},
+      audiosObj:{},
+      modelShow: false, 
+      //轮播
+      autoplay: true,
+      interval: 5000,
+      duration: 500,
+      swiperheight:0,
+      iscycelbuy:false,
+      bargain:false,
+      result: {}
     },
     onLoad: function (options) {
       app.checkAuth();
@@ -90,6 +91,17 @@ Page({
     onShareAppMessage: function () {
         return core.onShareAppMessage();
     },
+  imagesHeight: function (e) {
+    var width = e.detail.width, height = e.detail.height, type = e.target.dataset.type, $this = this;
+    wx.getSystemInfo({
+      success: function (res) {
+        $this.data.result[type] = res.windowWidth / width * height;
+        if (!$this.data[type] || ($this.data[type] && result[type] < $this.data[type])) {
+          $this.setData({ result: $this.data.result });
+        }
+      }
+    });
+  },
     
     /*用户授权-取消*/
     cancelclick:  function(){
