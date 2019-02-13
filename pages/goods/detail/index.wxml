@@ -541,7 +541,7 @@
                 <view class="remark img">
                   <block wx:for="{{item.images}}" wx:for-index="idx" wx:for-item="image">
                     <view class="img">
-                      <image src="{{image}}" bindtap='preview' data-src="{{image}}" data-urls="{{item.images}}"></image>
+                      <image src="{{image}}" bindtap='preview' mode='widthFix' data-src="{{image}}" data-urls="{{item.images}}"></image>
                     </view>
                   </block>
                 </view>
