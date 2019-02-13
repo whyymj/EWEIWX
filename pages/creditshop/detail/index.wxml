@@ -26,7 +26,7 @@
         <span class="text-danger" style="vertical-align: middle;"> 
         <block wx:if="{{goods.mincredit>0}}">{{goods.mincredit}}</block>
         <block wx:else>{{goods.credit}}</block>        
-          <span style="font-size: 22rpx;"> 积分</span><block wx:if="{{goods.money>0}}">+￥{{goods.money}}</block></span>
+          <span style="font-size: 22rpx;"> {{sysset.texts.credit || "积分"}} </span><block wx:if="{{goods.money>0}}">+￥{{goods.money}}</block></span>
         <span class="original">￥{{goods.price}}</span>
       </view>
     </view>
@@ -181,7 +181,7 @@
               <navigator open-type="navigate" url='/pages/creditshop/detail/index?id={{item.id}}'>
                 <image src="{{item.thumb}}" />
                 <view class="title">{{item.title}}</view>
-                <view class="price">{{item.credit}}积分 <block wx:if="{{item.money>0}}">+ ￥{{item.money}}</block></view>
+                <view class="price">{{item.credit}}{{sysset.texts.credit || "积分"}} <block wx:if="{{item.money>0}}">+ ￥{{item.money}}</block></view>
               </navigator>
             </view>
           </block>
@@ -215,7 +215,7 @@
         </view>
         <view class="info info-price text-danger">
           <span>
-            <span class='price'>{{optiongoods.credit}}</span>积分<span wx:if="{{optiongoods.money>0}}">+¥<span class='price'>{{optiongoods.money}}</span></span>
+            <span class='price'>{{optiongoods.credit}}</span>{{sysset.texts.credit || "积分"}} <span wx:if="{{optiongoods.money>0}}">+¥<span class='price'>{{optiongoods.money}}</span></span>
           </span>
         </view>
         <view class="info info-total">
