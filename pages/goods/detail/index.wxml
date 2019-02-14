@@ -551,7 +551,7 @@
                     <view class="remark img">
                       <block wx:for="{{item.reply_images}}" wx:for-index="idx" wx:for-item="replyImage">
                         <view class="img">
-                          <image src="{{replyImage}}"></image>
+                          <image src="{{replyImage}}" mode='widthFix'></image>
                         </view>
                       </block>
                     </view>
