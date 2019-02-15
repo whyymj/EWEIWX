@@ -11,7 +11,8 @@
 var app=getApp(),core=app.requirejs('core'),$=app.requirejs('jquery');
 Page({
     data: {
-        search: false
+        search: false,
+        show_distance:false
     },
     onLoad: function (options) {
         // 页面初始化 options为页面跳转所带来的参数
@@ -42,12 +43,15 @@ Page({
         success: function (res) {
           obj.lat = res.latitude;
           obj.lng = res.longitude;
-         
+          $this.setData({ show_distance: true })
           core.get('store/selector', obj, function (result) {
             $this.setData({ list: result.list, show: true });
           });
         },
         fail: function (ret) {
+          setTimeout(function () {
+            core.toast("位置获取失败");
+          }, 1000);
           core.get('store/selector', obj, function (result) {
             $this.setData({ list: result.list, show: true });
           });
