@@ -72,6 +72,7 @@ Page({
           coupons: msg.data.coupons,
           balances: msg.data.balances,
           redbags: msg.data.redbags,
+          sysset: msg.sysset
         });
       }
       $this.setData({ hidden: true });
