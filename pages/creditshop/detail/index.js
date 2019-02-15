@@ -117,7 +117,8 @@ Page({
         replaysmore: result.replymore,
         stores: result.stores,
         goodsrec: result.goodsrec,
-        hasoption:result.goods.hasoption
+        hasoption:result.goods.hasoption,
+        sysset: result.sysset
       });
       /*倒计时*/
       if (result.goods.istime > 0 && result.goods.timestart > 0 && result.goods.timeend>0){

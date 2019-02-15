@@ -33,7 +33,7 @@
 <!--图片end-->
 <!--tab start-->
 <view class="menu">
-  <navigator class="item first" open-type="navigate" url="/pages/creditshop/creditlog/index">我的积分</navigator>
+  <navigator class="item first" open-type="navigate" url="/pages/creditshop/creditlog/index">我的{{sysset.texts.credit || "积分"}}</navigator>
   <navigator class="item" open-type="navigate" url="/pages/creditshop/log/index">兑换记录</navigator>
 </view>
 <!--tab end-->
@@ -67,7 +67,7 @@
       <view class="price">
         <span class="text" style="color: #ed2822;font-size: 30rpx;">
           <p style="text-overflow:ellipsis;display: -webkit-box;overflow:hidden;-webkit-line-clamp: 1;-webkit-box-orient: vertical;word-break: break-all">{{item.credit}}
-            <span style="font-size: 20rpx;">积分</span><span wx:if="{{item.money>0}}">+￥{{item.money}}</span>
+            <span style="font-size: 20rpx;">{{sysset.texts.credit || "积分"}}</span><span wx:if="{{item.money>0}}">+￥{{item.money}}</span>
           </p>
         </span>
       </view>
@@ -92,7 +92,7 @@
       <view class="price">
         <span class="text" style="color: #ed2822;font-size: 30rpx;">
           <p style="text-overflow:ellipsis;display: -webkit-box;overflow:hidden;-webkit-line-clamp: 1;-webkit-box-orient: vertical;word-break: break-all">{{item.credit}}
-            <span style="font-size: 20rpx;">积分</span><span wx:if="{{item.money>0}}">+￥{{item.money}}</span>
+            <span style="font-size: 20rpx;">{{sysset.texts.credit || "积分"}}</span><span wx:if="{{item.money>0}}">+￥{{item.money}}</span>
           </p>
         </span>
       </view>
@@ -116,7 +116,7 @@
       <view class="price">
         <span class="text" style="color: #ed2822;font-size: 30rpx;">
           <p style="text-overflow:ellipsis;display: -webkit-box;overflow:hidden;-webkit-line-clamp: 1;-webkit-box-orient: vertical;word-break: break-all">{{item.credit}}
-            <span style="font-size: 20rpx;">积分</span><span wx:if="{{item.money>0}}">+￥{{item.money}}</span>
+            <span style="font-size: 20rpx;">{{sysset.texts.credit || "积分"}}</span><span wx:if="{{item.money>0}}">+￥{{item.money}}</span>
           </p>
         </span>
       </view>
@@ -139,7 +139,7 @@
         <view class="price">
           <span class="text" style="color: #ed2822;font-size: 30rpx;">
             <p style="text-overflow:ellipsis;display: -webkit-box;overflow:hidden;-webkit-line-clamp: 1;-webkit-box-orient: vertical;word-break: break-all">{{item.credit}}
-              <span style="font-size: 20rpx;">积分</span><span wx:if="{{item.money>0}}">+￥{{item.money}}</span>
+              <span style="font-size: 20rpx;">{{sysset.texts.credit || "积分"}}</span><span wx:if="{{item.money>0}}">+￥{{item.money}}</span>
             </p>
           </span>
         </view>
@@ -163,7 +163,7 @@
       <view class="price">
         <span class="text" style="color: #ed2822;font-size: 30rpx;">
           <p style="text-overflow:ellipsis;display: -webkit-box;overflow:hidden;-webkit-line-clamp: 1;-webkit-box-orient: vertical;word-break: break-all">{{item.credit}}
-            <span style="font-size: 20rpx;">积分</span><span wx:if="{{item.money>0}}">+￥{{item.money}}</span>
+            <span style="font-size: 20rpx;">{{sysset.texts.credit || "积分"}}</span><span wx:if="{{item.money>0}}">+￥{{item.money}}</span>
           </p>
         </span>
       </view>
