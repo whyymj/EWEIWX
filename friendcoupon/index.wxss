@@ -352,3 +352,11 @@
         right: 0;
         bottom: 0;
     }
+    .receive {
+      border:none;
+      background:none;
+      display: inline-block;
+    }
+    .receive::after,.receive::before{
+      display: none;
+    }

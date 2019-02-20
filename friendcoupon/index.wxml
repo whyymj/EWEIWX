@@ -9,14 +9,24 @@
       </view>
     </view>
   </view>
+
+<!-- <form bindsubmit='onFormSubmit' report-submit="true">
+      <button formType="submit" class='es-footer-btn es-row-bg' bindtap='create'>提交订单</button>
+    </form> -->
+
+
   <view class="header" >
     <image src="/static/images/carve/coupon-share.png" style='width: 100%;height: 100%;position: absolute;z-index: 0;' />
     <image src="/static/images/carve/employ.png" wx:if="{{data.coupon.used == 1}}" style='width: 194rpx;height: 194rpx;position: absolute;right: 78rpx;top: 320rpx;z-index: 6;' />
     <!--领取瓜分券-->
     <view class="get" style='position: relative;' wx:if="{{data.isReceive == 0 && share_id == '' && !data.success}}">
       <view class="price">{{data.activitySetting.coupon_money}}<span>元</span></view>
-      <image bindtap='getCoupon' src="/static/images/carve/coupon-get.png" />
-      <view class="txt">赶快邀请{{data.overPeople}}个共同好友共同瓜分红包吧！</view>
+      <form bindsubmit='getCoupon' report-submit="true">
+        <button formType="submit" class="receive">
+          <image src="/static/images/carve/coupon-get.png" />
+        </button>
+      </form>
+      <view class="txt">赶快邀请{{data.activitySetting.people_count - 1}}个共同好友共同瓜分红包吧！</view>
     </view>
 
     <!--被分享人领取-->
@@ -30,7 +40,9 @@
       </view>
       <view class="btns">
         <navigator open-type='reLaunch' hover-class="none" url="/pages/index/index" class="btn">返回商城</navigator>
-        <view class="btn" bindtap='carve'>立即瓜分</view>
+        <form report-submit="true" bindsubmit='carve' >
+          <button form-type='submit' class="btn">立即瓜分</button>
+        </form>
       </view>
     </view>
 
@@ -56,7 +68,7 @@
       </view>
       <view class="btns">
         <navigator open-type='reLaunch' hover-class="none" url="/pages/index/index" class="btn">返回商城</navigator>
-        <navigator open-type='reLaunch' hover-class="none" url="/pages/index/index" class="btn">立即使用</navigator>
+        <navigator open-type='reLaunch' hover-class="none" url="{{data.coupon.used == 1 ? 0 : '/pages/index/index'}}" class="btn">立即使用</navigator>
       </view>
     </view>
   </view>
@@ -69,12 +81,12 @@
   <!--好友手气start-->
   <view class="content-card luck-list" wx:if="{{data.activityData.length > 0}}">
     <view class="inner">
-      <view class="item" wx:for="{{data.activityData}}" wx:for-index="index" wx:if="{{!listlength ? index < 4 : listlength}}">
+      <view class="item" wx:for="{{activityData}}" wx:for-index="index" wx:if="{{!listlength ? index < 4 : listlength}}">
         <image class="adver" src="{{item.avatar}}" />
         <span class="name">{{item.nickname}}</span>
         <span>￥{{item.deduct}}</span>
       </view>
-      <view class="look" bindtap='more' wx:if="{{data.activityData.length > 4 && !listlength}}">查看更多</view>
+      <view class="look" bindtap='more' wx:if="{{data.activityData.length > 5 && !listlength}}">查看更多</view>
     </view>
   </view>
   <!--好友手气end-->

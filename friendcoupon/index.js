@@ -24,15 +24,15 @@ Page({
     $this.getList();
   },
 
-  onShow: function() {
-    var $this = this;
-    $this.getList();
-  },
+  // onShow: function() {
+  //   var $this = this;
+  //   $this.getList();
+  // },
 
   // 领取优惠券
-  getCoupon: function(){
+  getCoupon: function(e){
     var $this = this;
-    var args = { id: $this.data.id, share_id: $this.data.share_id};
+    var args = { id: $this.data.id, share_id: $this.data.share_id, form_id: e.detail.formId};
     if (!$this.data.isLogin) {
       app.checkAuth();
       return;
@@ -42,22 +42,25 @@ Page({
         foxui.toast($this, '领取成功');
         $this.getList();
       }else{
-        foxui.toast($this, ret.message);
+        //foxui.toast($this, ret.message);
+        $this.setData({
+          invalidMessage: ret.message
+        })
       }
     })
   },
 
   // 参与瓜分  
-  carve: function () {
+  carve: function (e) {
     var $this = this;
-    var args = { id: $this.data.id, share_id: $this.data.share_id };
+    var args = { id: $this.data.id, share_id: $this.data.share_id, form_id: e.detail.formId };
     if (!$this.data.isLogin){
       app.checkAuth();
       return;
     }
     core.get('friendcoupon/divide', args , function (ret) {
         if(ret.error == 0){
-          foxui.toast($this, '瓜分成功');
+          foxui.toast($this, ret.message);
           $this.getList();
         } else {
           foxui.toast($this, ret.message);
@@ -67,7 +70,10 @@ Page({
 
   // 查看我的
   mycoupon: function() {
-    this.setData({ id: this.data.mylink})
+    this.setData({
+      id: this.data.data.currentActivityInfo.activity_id,
+      share_id: this.data.data.currentActivityInfo.headerid
+    })
     this.getList();
   },
 
@@ -79,10 +85,26 @@ Page({
       path: '/friendcoupon/index?share_id=' + $this.data.shareid + '&id=' + $this.data.id
     }
   },
-
   // 查看更多
   more: function(){
-    this.setData({ listlength: true});
+    var $this = this
+    console.log($this.data.data.activityData.length)
+    core.get('friendcoupon/more', {
+      id: $this.data.id,
+      share_id: $this.data.shareid,
+      pindex: 10
+      // pindex: 2
+    }, function (ret) {
+      if (ret.result.list.length === 0) {
+        foxui.toast($this, "没有更多")
+      } else {
+        
+      }
+    })
+    // core.get('friendcoupon/more', {id: $this.data.id, share_id: $this.data.share_id, pindex: $this.data.data.activityData.length}, function (ret) {
+    //     console.log(ret)
+    // })
+
   },
 
   // 获取数据
@@ -90,28 +112,30 @@ Page({
     var $this = this;
     core.get('friendcoupon', { id: $this.data.id, share_id: $this.data.share_id}, function (ret) {
       if(ret.error == 0){
-        console.error(ret)
         if (ret.currentActivityInfo){
           ret.currentActivityInfo.enough = Number(ret.currentActivityInfo.enough);
         }
-        
         $this.setData({ 
           activityData: ret.activityData,
           data: ret,
           isLogin: ret.isLogin,
           mylink: ret.mylink,
           invalidMessage: ret.invalidMessage,
-          shareid: ret.currentActivityInfo ? ret.currentActivityInfo.headerid : ''
+          shareid: ret.currentActivityInfo ? ret.currentActivityInfo.headerid : '',
         })
 
-        if (ret.overTime){
+        console.log($this.data.activityData)
+
+
+        // 活动还没有结束的时候显示倒计时
+        if (+ret.overTime + 3 > Math.round(+new Date / 1000)){
           let timer = setInterval(function () {
             $this.setData({
-              time: core.countDown(ret.overTime)
+              time: core.countDown(+ret.overTime + 3)
             })
             if (!$this.data.time) {
               clearInterval(timer);
-              $this.getList();
+                $this.getList();
             }
           }, 1000);
         }
