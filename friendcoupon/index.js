@@ -44,7 +44,7 @@ Page({
       }else{
         //foxui.toast($this, ret.message);
         $this.setData({
-          invalidMessage: ret.message
+          invalidMessage: ret.message.replace('<br>', "\n")
         })
       }
     })
@@ -88,7 +88,6 @@ Page({
   // 查看更多
   more: function(){
     var $this = this
-    console.log($this.data.data.activityData.length)
     core.get('friendcoupon/more', {
       id: $this.data.id,
       share_id: $this.data.shareid,
@@ -114,6 +113,9 @@ Page({
       if(ret.error == 0){
         if (ret.currentActivityInfo){
           ret.currentActivityInfo.enough = Number(ret.currentActivityInfo.enough);
+        }
+        if (typeof (ret.activitySetting.desc) == 'string'){
+          $this.setData({ isArray: true })
         }
         $this.setData({ 
           activityData: ret.activityData,

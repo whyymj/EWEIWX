@@ -2,7 +2,7 @@
   <view class="coupon-model" wx:if="{{invalidMessage}}">
     <view class="inner">
       <view class="title">提醒</view>
-      <view class="content">{{invalidMessage}}</view>
+      <view class="content"><text>{{invalidMessage}}</text></view>
       <view class="btns">
         <view class="btn1 line" wx:if="{{mylink}}" bindtap='mycoupon'>查看我的</view>
         <navigator open-type='reLaunch' hover-class="none" url="/pages/index/index" class="btn1">返回商城</navigator>
@@ -26,7 +26,7 @@
           <image src="/static/images/carve/coupon-get.png" />
         </button>
       </form>
-      <view class="txt">赶快邀请{{data.activitySetting.people_count - 1}}个共同好友共同瓜分红包吧！</view>
+      <view class="txt">赶快邀请{{data.activitySetting.people_count - 1}}个好友共同瓜分红包吧！</view>
     </view>
 
     <!--被分享人领取-->
@@ -50,7 +50,7 @@
     <view class="underway share" style='position: relative;' wx:if="{{data.isReceive == 1 && !data.success}}">
       <view class="text">
         <view class="price" style="margin-top: 0">还差<span>{{data.overPeople}}</span>人完成</view>
-        <view class="price">邀请你一起瓜分<span>{{data.activitySetting.coupon_money}}</span>元</view>
+        <view class="price">邀请好友一起瓜分<span>{{data.activitySetting.coupon_money}}</span>元</view>
         <view class="txt"><span>{{time[0]}}天{{time[1]}}时{{time[2]}}分{{time[3]}}秒</span>后结束</view>
       </view>
       <view class="btns">
@@ -112,7 +112,7 @@
       <view class="explain-title">活动规则</view>
       <view class="explain-con" style='margin-bottom: 0;'>
         <view>
-          <span>活动时间：</span>{{data.activitySetting.activity_end_time}} 至 {{data.activitySetting.activity_start_time}}</view>
+          <span>活动时间：</span>{{data.activitySetting.activity_start_time}} 至 {{data.activitySetting.activity_end_time}}</view>
         <view>
           <span>活动时长：</span>{{data.activitySetting.duration}}小时</view>
         <view>
@@ -121,7 +121,8 @@
 
       <view wx:if="{{data.activitySetting.desc.length > 0}}" class="explain-title">瓜分步骤</view>
       <view class="explain-step" wx:if="{{data.activitySetting.desc.length > 0}}">
-        <view wx:for="{{data.activitySetting.desc}}">{{item}}</view>
+        <view wx:if="{{isArray}}">{{data.activitySetting.desc}}</view>
+        <view wx:if="{{!isArray}}" wx:for="{{data.activitySetting.desc}}">{{item}}</view>
       </view>
     </view>
   </view>

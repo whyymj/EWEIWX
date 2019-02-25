@@ -48,7 +48,8 @@
 					"id": 2,
 					"name": "瓜分优惠券",
 					"pathName": "friendcoupon/index",
-					"query": "id=52&share_id=40"
+					"query": "id=88",
+					"scene": null
 				},
 				{
 					"id": -1,
