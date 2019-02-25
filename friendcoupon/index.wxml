@@ -79,14 +79,14 @@
   </view>
 
   <!--好友手气start-->
-  <view class="content-card luck-list" wx:if="{{data.activityData.length > 0}}">
+  <view class="content-card luck-list" wx:if="{{activityList.length > 0}}">
     <view class="inner">
-      <view class="item" wx:for="{{activityData}}" wx:for-index="index" wx:if="{{!listlength ? index < 4 : listlength}}">
+      <view class="item" wx:for="{{activityList}}" wx:for-index="index">
         <image class="adver" src="{{item.avatar}}" />
         <span class="name">{{item.nickname}}</span>
         <span>￥{{item.deduct}}</span>
       </view>
-      <view class="look" bindtap='more' wx:if="{{data.activityData.length > 5 && !listlength}}">查看更多</view>
+      <view class="look" bindtap='more' wx:if="{{data.activityData.length > 5}}">查看更多</view>
     </view>
   </view>
   <!--好友手气end-->
