@@ -71,6 +71,7 @@ Page({
           $this.getList();
         } else {
           foxui.toast($this, ret.message);
+          $this.getList();
         }
     })
   },
