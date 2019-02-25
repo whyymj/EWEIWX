@@ -280,6 +280,14 @@ App({
     //    approot: "https://yctcs.100cms.com/addons/ewei_shopv2/",
     //    userInfo: null
     //  }
+    
+    // 姜倩
+     globalData: {
+       appid: "wx21e66d345b76074d",
+       api: "https://jqnyrv.ifkvip.com/app/ewei_shopv2_api.php?i=51",
+       approot: "https://jqnyrv.ifkvip.com/addons/ewei_shopv2/",
+       userInfo: null
+     }
 
     //api
     //  globalData: {
@@ -289,12 +297,12 @@ App({
     //    userInfo: null
     //  }
 
-     globalData: {
-       appid: null,
-       api: null,
-       approot: null,
-       userInfo: null
-     }
+    //  globalData: {
+    //    appid: null,
+    //    api: null,
+    //    approot: null,
+    //    userInfo: null
+    //  }
 
 })
   

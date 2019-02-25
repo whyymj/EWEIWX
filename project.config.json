@@ -9,7 +9,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "1.9.94",
-	"appid": "wx3d3b2fd41970f6db",
+	"appid": "wx21e66d345b76074d",
 	"projectname": "%E4%BA%BA%E4%BA%BA%E5%95%86%E5%9F%8Eapi",
 	"isGameTourist": false,
 	"condition": {
@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 12,
 			"list": [
 				{
 					"id": -1,
@@ -98,6 +98,20 @@
 					"name": "授权失效",
 					"pathName": "pages/message/auth/index",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "优惠券",
+					"pathName": "pages/sale/coupon/detail/index",
+					"query": "id=131",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "优惠券",
+					"pathName": "pages/sale/coupon/my/detail/index",
+					"query": "id=385",
+					"scene": null
 				}
 			]
 		}
