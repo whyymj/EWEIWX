@@ -16,6 +16,7 @@ Page({
   },
 
   onLoad: function (options) {
+    app.url(options);
     var $this = this;
     if(options.share_id){
       $this.setData({ share_id: options.share_id});
@@ -88,10 +89,9 @@ Page({
   // 分享
   onShareAppMessage(res) {
     var $this = this;
-    return {
-      title: '好友瓜分券',
-      path: '/friendcoupon/index?share_id=' + $this.data.shareid + '&id=' + $this.data.id
-    }
+    var title = $this.data.data.activitySetting.title
+    var url = '/friendcoupon/index?share_id=' + $this.data.shareid + '&id=' + $this.data.id
+    return core.onShareAppMessage(url, title);
   },
   // 查看更多
   more: function(){
