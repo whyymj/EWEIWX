@@ -23,7 +23,7 @@ Page({
       $this.onPullDownRefresh()
     }, 300)
     wx.reLaunch({
-      url: '/pages/bargain/index/index',
+      url: '../../../bargain/index/index',
     })
   },
 

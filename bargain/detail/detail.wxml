@@ -23,7 +23,7 @@
             <image src='/static/images/label.png'></image>
                 <text selectable="true">{{goods.title}}</text>
             </view>
-             <navigator url='/pages/bargain/rule/rule?id={{ goods.id }}&mid={{ goods.mid }}' class="fui-cell-remark rule" style="margin-left: 60rpx;">
+             <navigator url='../rule/rule?id={{ goods.id }}&mid={{ goods.mid }}' class="fui-cell-remark rule" style="margin-left: 60rpx;">
               <i style="font-size:42rpx;color: #fd5555;" class="icox icox-activity"></i>
               <view style="font-size: 20rpx;color: #666;margin-top:-6rpx;">规则</view>
             </navigator> 
@@ -86,7 +86,7 @@
           <view class="icox icox-homepage"></view>
           <view class="label">首页</view>
         </navigator>
-        <navigator class='nav-item' url="/pages/bargain/act/act">
+        <navigator class='nav-item' url="../act/act">
           <view class="icox icox-people"></view>
           <view class="label">我的</view>
         </navigator>

@@ -71,7 +71,7 @@
   ],
   "subPackages": [
     {
-      "root": "pages/bargain",
+      "root": "bargain",
       "pages": [
         "index/index",
         "detail/detail",

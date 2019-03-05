@@ -125,7 +125,7 @@ Page({
           return;
         }
         wx.navigateTo({
-          url: '/pages/bargain/bargain/bargain?id=' + result.id +'&mid=' + result.mid,
+          url: '../bargain/bargain?id=' + result.id +'&mid=' + result.mid,
         })
       } 
       
@@ -143,7 +143,7 @@ Page({
     var $this = this;
     var act_id = $this.data.act_swi;
     wx.navigateTo({
-      url: '/pages/bargain/bargain/bargain?id='+act_id,
+      url: '../bargain/bargain?id='+act_id,
     })
   },
   closeError:function(){

@@ -6,7 +6,7 @@
     <image src='{{ list.head_image }}'></image>
     <text>{{ list.nickname }}</text>
   </view>
-  <navigator class='goodsinfo flex' url='/pages/bargain/detail/detail?id={{ bargain.id }}'>
+  <navigator class='goodsinfo flex' url='../detail/detail?id={{ bargain.id }}'>
     <view class='image'>
       <image mode='aspectFit' src='{{ bargain.thumb }}'></image>
     </view>
@@ -98,7 +98,7 @@
         <button class='bargainBuy' wx:if="{{ trade_swi != 0 && myself_swi == 0 && arrived == 0}}" bindtap='seekHelp' open-type="share">找人帮砍</button> 
       </view>
       <view class='fui-navbar flex {{iphonexnavbar}}' wx:if="{{ swi == '222' && istime == 1 && timeout == 0}}">
-       <navigator class='buybtn' url="/pages/bargain/detail/detail?id={{ bargain.id }}">我也要砍</navigator>
+       <navigator class='buybtn' url="../detail/detail?id={{ bargain.id }}">我也要砍</navigator>
        <view class='bargainBuy' bindtap='cutPrice'>帮砍一刀</view>
       </view>
       <!--已到底底部按钮 -->

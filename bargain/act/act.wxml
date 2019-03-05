@@ -1,6 +1,6 @@
 <view class='page navbar'>
   <view class='fui-goods-group' wx:if="{{ goods }}">
-    <navigator class="fui-goods-item" wx:for="{{ goods }}" url="/pages/bargain/bargain/bargain?id={{ item[0]['actor_id'] }}&mid={{ mid }}" hover-class="none" open-type="navigate">
+    <navigator class="fui-goods-item" wx:for="{{ goods }}" url="../bargain/bargain?id={{ item[0]['actor_id'] }}&mid={{ mid }}" hover-class="none" open-type="navigate">
         <view class="image" style="background-image:url({{ item[0]['thumb'] }})"></view>
       <view class="detail goods_list_detail">
         <view class="name">{{ item[0]['title'] }}</view>
@@ -37,15 +37,15 @@
       <span class="icox icox-shouye1"></span>
       <span class="label">商城首页</span>
     </navigator>
-    <navigator url='/pages/bargain/index/index' class='nav-item' hover-class="none" open-type='redirect'>
+    <navigator url='../index/index' class='nav-item' hover-class="none" open-type='redirect'>
       <span class="icox icox-quanbukanjia"></span>
       <span class="label">全部砍价</span>
     </navigator>
-    <navigator url='/pages/bargain/act/act' class='nav-item active' hover-class="none" open-type='redirect'>
+    <navigator url='../act/act' class='nav-item active' hover-class="none" open-type='redirect'>
       <span class="icox icox-kanjiazhong"></span>
       <span class="label">砍价中</span>
     </navigator>
-    <navigator url='/pages/bargain/purchase/purchase' class='nav-item' hover-class="none" open-type='redirect'>
+    <navigator url='../purchase/purchase' class='nav-item' hover-class="none" open-type='redirect'>
       <span class="icox icox-yigoumai"></span>
       <span class="label">已购买</span>
     </navigator>
