@@ -4,7 +4,7 @@
 <view class='page withdraw navbar {{paddingb}}' wx:if="{{ show }}">
 <!--累计佣金-->
     <view class='header'>
-        <navigator hover-class="none" url="/pages/commission/log/index" class='btn pull-right' open-type="navigate">{{ set['texts']['commission_detail'] }}</navigator>
+        <navigator hover-class="none" url="../log/index" class='btn pull-right' open-type="navigate">{{ set['texts']['commission_detail'] }}</navigator>
         <view class='text'>
             <view class='num'>{{ member['commission_total'] }}</view>
             <view>{{ set['texts']['commission_total'] }}({{ set['texts']['yuan'] }})</view>

@@ -274,12 +274,12 @@ App({
 
 
     // 测试站
-    //  globalData: {
-    //    appid: "wx3d3b2fd41970f6db",
-    //    api: "https://yctcs.100cms.com/app/ewei_shopv2_api.php?i=2",
-    //    approot: "https://yctcs.100cms.com/addons/ewei_shopv2/",
-    //    userInfo: null
-    //  }
+     globalData: {
+       appid: "wx3d3b2fd41970f6db",
+       api: "https://yctcs.100cms.com/app/ewei_shopv2_api.php?i=2",
+       approot: "https://yctcs.100cms.com/addons/ewei_shopv2/",
+       userInfo: null
+     }
     
     // 姜倩
     //  globalData: {
@@ -297,12 +297,12 @@ App({
     //    userInfo: null
     //  }
 
-     globalData: {
-       appid: null,
-       api: null,
-       approot: null,
-       userInfo: null
-     }
+    //  globalData: {
+    //    appid: null,
+    //    api: null,
+    //    approot: null,
+    //    userInfo: null
+    //  }
 
 })
   

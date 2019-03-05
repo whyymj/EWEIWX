@@ -5,16 +5,6 @@
     "pages/creditshop/detail/index",
     "pages/creditshop/comment/index",
     "pages/creditshop/express/index",
-    "pages/commission/poster/index",
-    "pages/commission/qrcode/index",
-    "pages/commission/index",
-    "pages/commission/log/index",
-    "pages/commission/log/detail",
-    "pages/commission/down/index",
-    "pages/commission/apply/index",
-    "pages/commission/withdraw/index",
-    "pages/commission/order/index",
-    "pages/commission/register/index",
     "pages/shop/notice/index/index",
     "pages/shop/notice/detail/detail",
     "pages/shop/caregory/index",
@@ -56,7 +46,6 @@
     "pages/public/coupon/index",
     "pages/message/auth/index",
     "pages/web/index",
-    "pages/commission/return/index",
     "pages/map/index",
     "pages/order/pay/share/share",
     "pages/order/pay/coupons/coupons",
@@ -90,6 +79,22 @@
         "act/act",
         "bargain/bargain",
         "purchase/purchase"
+      ]
+    },
+    {
+      "root": "commission",
+      "pages": [
+        "pages/poster/index",
+        "pages/qrcode/index",
+        "pages/index",
+        "pages/log/index",
+        "pages/log/detail",
+        "pages/down/index",
+        "pages/apply/index",
+        "pages/withdraw/index",
+        "pages/order/index",
+        "pages/register/index",
+        "pages/return/index"
       ]
     },
     {

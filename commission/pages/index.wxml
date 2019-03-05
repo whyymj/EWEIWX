@@ -33,12 +33,12 @@
                 <view class='num'>{{ member['commission_ok'] }}</view>
                 <view class="title">{{ set['texts']['commission_ok'] }}({{ set['texts']['yuan'] }})</view>
             </view>
-            <navigator hover-class="none" url='{{member["commission_ok"]==0?"":"/pages/commission/withdraw/index"}}' open-type="navigate" class='btn btn-warning pull-right {{ member["commission_ok"]==0?" disabled":"" }}'>{{ set['texts']['commission'] }}{{ set['texts']['withdraw'] }}</navigator>
+            <navigator hover-class="none" url='{{member["commission_ok"]==0?"":"./withdraw/index"}}' open-type="navigate" class='btn btn-warning pull-right {{ member["commission_ok"]==0?" disabled":"" }}'>{{ set['texts']['commission'] }}{{ set['texts']['withdraw'] }}</navigator>
         </view>
     </view>
     <!--方块按钮组-->
     <view class="fui-block-group">
-        <navigator class="fui-block-child" url="/pages/commission/withdraw/index">
+        <navigator class="fui-block-child" url="./withdraw/index">
             <view class="icon" style="color: #ff4357;">
 
                 <i class="icox icox-qian"></i>
@@ -49,7 +49,7 @@
                 {{ set['texts']['yuan'] }}
             </view>
         </navigator>
-        <navigator class="fui-block-child" url="/pages/commission/order/index">
+        <navigator class="fui-block-child" url="./order/index">
             <view class="icon" style="color: #9ec9f4;">
                 <i class="icox icox-dingdan2"></i>
             </view>
@@ -59,7 +59,7 @@
                 笔
             </view>
         </navigator>
-        <navigator class="fui-block-child" url="/pages/commission/log/index">
+        <navigator class="fui-block-child" url="./log/index">
             <view class="icon" style="color: #ffbe2e;">
                 <i class="icox icox-tixian1"></i>
             </view>
@@ -69,7 +69,7 @@
                 笔
             </view>
         </navigator>
-        <navigator class="fui-block-child" url="/pages/commission/down/index">
+        <navigator class="fui-block-child" url="./down/index">
             <view class="icon" style="color: #ff6e02;">
                 <i class="icox icox-heilongjiangtubiao11"></i>
             </view>
@@ -92,7 +92,7 @@
         </view>
     </navigator>
 
-    <navigator class="fui-cell-group" wx:if="{{ set.closed_qrcode==0 || set.postercount>0 }}" url="{{set.postercount>0? '/pages/commission/poster/index': '/pages/commission/qrcode/index' }}">
+    <navigator class="fui-cell-group" wx:if="{{ set.closed_qrcode==0 || set.postercount>0 }}" url="{{set.postercount>0? './poster/index': './qrcode/index' }}">
         <view class="fui-cell">
             <view class="fui-cell-icon">
                 <text class="icox {{set.postercount>0? 'icox-zhuyi': 'icox-erweima1'}}" style="color: #feb312;"></text>

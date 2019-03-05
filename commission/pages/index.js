@@ -22,7 +22,7 @@ Page({
         core.get('commission/index',{},function (json) {
             if (json.error == 70000){
                 wx.redirectTo({
-                    url:'/pages/commission/register/index'
+                    url:'../../commission/pages/register/index'
                 });
                 return;
             }

@@ -53,7 +53,7 @@ Page({
         var data=this.data;
         if (data.cansettle){
             wx.navigateTo({
-                url: '/pages/commission/apply/index'
+                url: '../apply/index'
             });
         }
     }

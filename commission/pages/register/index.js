@@ -28,7 +28,7 @@ Page({
         core.get('commission/register', {}, function (json) {
             if (json.error == 70003){
                 wx.redirectTo({
-                    url:'/pages/commission/index'
+                    url:'../index'
                 });
                 return;
             }
@@ -90,10 +90,10 @@ Page({
         core.post('commission/register', data, function (json) {
             if (json.error == 0){
                 wx.redirectTo({
-                    url:json.check==1?'/pages/commission/index':'/pages/commission/register/index',
+                    url:json.check==1?'../index':'../register/index',
                     fail: function () {
                       wx.switchTab({
-                        url: json.check == 1 ? '/pages/commission/index' : '/pages/commission/register/index'
+                        url: json.check == 1 ? '../index' : '../register/index'
                       })
                     }
                 });

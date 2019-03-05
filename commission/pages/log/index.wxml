@@ -14,7 +14,7 @@
     </view>
 
     <view class='fui-list-group' wx:if="{{ list.length>0 }}" style="background:#f3f3f3">
-        <navigator wx:for="{{ list }}" hover-class="none" url="/pages/commission/log/detail?id={{ item.id }}" open-type="navigate" style="background:#fff; display:block;margin-top: 20rpx;">
+        <navigator wx:for="{{ list }}" hover-class="none" url="../log/detail?id={{ item.id }}" open-type="navigate" style="background:#fff; display:block;margin-top: 20rpx;">
             <view  class='fui-list' >
               <view class='fui-list-inner'>
                   <view class='row'>

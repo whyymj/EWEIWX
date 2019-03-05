@@ -43,7 +43,7 @@ Page({
             }
             else if(ret.error==70000){
                 wx.redirectTo({
-                    url:'/pages/commission/register/index'
+                    url:'../register/index'
                 });
                 return;
             }
