@@ -19,7 +19,7 @@
 
   <!--实物快递-->
   <view class="fui-list-group" wx:if="{{ address }}">
-    <navigator class="fui-list" wx:if="{{ order.status>1 }}" url="/pages/groups/express/index?id={{ order.id }}">
+    <navigator class="fui-list" wx:if="{{ order.status>1 }}" url="../express/index?id={{ order.id }}">
       <view class="fui-list-media">
         <view class="fui-list-icon">
           <text class="icox icox-icon049"></text>
@@ -101,7 +101,7 @@
       <text class='shop'>{{ shop_name }}</text>
     </view>
     <block>
-      <navigator class='fui-list goods-item' url="/pages/groups/goods/index?id={{order.goodid }}" open-type="redirect">
+      <navigator class='fui-list goods-item' url="../goods/index?id={{order.goodid }}" open-type="redirect">
         <view class="fui-list-media">
           <image class="goods_img" src="{{ goods.thumb }}" />
         </view>
@@ -327,7 +327,7 @@
         <picker  value="{{ cancelindex }}" range="{{ cancel }}" bindchange="cancel">取消订单</picker>
       </view> 
 
-      <navigator  wx:if="{{order.status == 0}}" class="btn btn-danger-o btn-sm" url="/pages/groups/pay/index?id={{ order.id }}">支付订单</navigator>
+      <navigator  wx:if="{{order.status == 0}}" class="btn btn-danger-o btn-sm" url="../pay/index?id={{ order.id }}">支付订单</navigator>
 
 
        <view  wx:if="{{order.isverify == 1 && order.status > 0 && verifynum > 0 && order.refundstate == 0 && (order.success == 1 || order.is_team == 0) }}"  class="btn btn-default btn-default-o btn-sm"  bindtap="code">我要使用</view> 
@@ -336,7 +336,7 @@
 
       <view wx:if="{{order.status == 2}}" data-orderid="{{order_id}}" class="btn btn-default btn-default-o btn-sm" bindtap="finish">确认收货</view>
                  
-      <navigator wx:if='{{order.status>0 && order.status!=3 && (order.success != 0 || order.is_team == 0) && !goodRefund}}'  class="btn btn-default btn-default-o btn-sm" url="/pages/groups/refund/index?id={{ order.id }}">{{order.status==1?"申请退款":"申请售后"}}{{order.refundstate>0?"中":""}}</navigator>
+      <navigator wx:if='{{order.status>0 && order.status!=3 && (order.success != 0 || order.is_team == 0) && !goodRefund}}'  class="btn btn-default btn-default-o btn-sm" url="../refund/index?id={{ order.id }}">{{order.status==1?"申请退款":"申请售后"}}{{order.refundstate>0?"中":""}}</navigator>
 
       <view wx:if='{{order.refundstate>0}}' class='btn btn-default-o btn-sm btn-cancel' bindtap="refundcancel">取消申请</view>
     </block>

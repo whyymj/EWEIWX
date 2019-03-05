@@ -129,7 +129,7 @@ Page({
       }
 
       wx.navigateTo({
-        url: '/pages/groups/confirm/index?id=' + $this.data.goods_id + '&heads=0&type=groups&option_id=' + $this.data.option_id + '&teamid=' + teamid + '&ladder_id=' + $this.data.ladder_id,
+        url: '../confirm/index?id=' + $this.data.goods_id + '&heads=0&type=groups&option_id=' + $this.data.option_id + '&teamid=' + teamid + '&ladder_id=' + $this.data.ladder_id,
       })
     });
     

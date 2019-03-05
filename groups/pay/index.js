@@ -100,11 +100,11 @@ Page({
                 });
                 if ($this.data.list.teamid==0){
                   wx.reLaunch({
-                    url: '/pages/groups/order/index'
+                    url: '../order/index'
                   })
                 }else{
                   wx.reLaunch({
-                    url: '/pages/groups/groups_detail/index?teamid=' + $this.data.list.teamid,
+                    url: '../groups_detail/index?teamid=' + $this.data.list.teamid,
                   })
                 }
                 return

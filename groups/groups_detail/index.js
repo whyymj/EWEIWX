@@ -115,7 +115,7 @@ Page({
             return;
           }
           wx.navigateTo({
-            url: "/pages/groups/confirm/index?id=" + id + "&heads=0&type=groups&teamid="+$this.data.teamid+"&ladder_id="+$this.data.data.tuan_first_order.ladder_id,
+            url: "../confirm/index?id=" + id + "&heads=0&type=groups&teamid="+$this.data.teamid+"&ladder_id="+$this.data.data.tuan_first_order.ladder_id,
             success: function () {
               $this.setData({
                 layershow: false,
@@ -155,7 +155,7 @@ Page({
       })
       if ($this.data.data.goods.stock > 0) {
         wx.navigateTo({
-          url: "/pages/groups/confirm/index?id=" + goods_id + "&type=groups&teamid="+$this.data.teamid,
+          url: "../confirm/index?id=" + goods_id + "&type=groups&teamid="+$this.data.teamid,
           success: function () {
             $this.setData({
               layershow: false,
@@ -235,7 +235,7 @@ Page({
     if ($this.data.optiondata) {
       if (optiondata.stock > 0) {
         wx.navigateTo({
-          url: "/pages/groups/confirm/index?id=" + goods_id + "&type=groups&option_id=" + optiondata.id + ' &teamid='+$this.data.teamid,
+          url: "../confirm/index?id=" + goods_id + "&type=groups&option_id=" + optiondata.id + ' &teamid='+$this.data.teamid,
           success: function () {
             $this.setData({
               layershow: false,
@@ -311,7 +311,7 @@ Page({
     var $this = this;
     return {
       title:$this.data.data.shopshare.title,
-      path: '/pages/groups/groups_detail/index?teamid=' + $this.data.data.tuan_first_order.teamid ,
+      path: '../groups_detail/index?teamid=' + $this.data.data.tuan_first_order.teamid ,
       imageUrl:$this.data.data.shopshare.imgUrl
     }
    

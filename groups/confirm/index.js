@@ -161,7 +161,7 @@ Page({
           core.alert( msg.message );
           return;
         }
-        wx.navigateTo({url: '/pages/groups/pay/index?id=' + msg.orderid +'&teamid='+msg.teamid,});
+        wx.navigateTo({url: '../pay/index?id=' + msg.orderid +'&teamid='+msg.teamid,});
     });
   },
 

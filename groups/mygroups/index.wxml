@@ -14,7 +14,7 @@
 
   <!--团列表  -->
   <view class='group-list-group' wx:if='{{list.length>0}}'>
-    <navigator class='group-list' url='/pages/groups/groups_detail/index?teamid={{item.teamid}}' wx:for="{{list}}">
+    <navigator class='group-list' url='../groups_detail/index?teamid={{item.teamid}}' wx:for="{{list}}">
       <view class='group-list-header'>
         <view class='fl'>{{item.orderno}}</view>
         <view class='fr remark text-primary' wx:if="{{item.success == 0}}">团购中</view>
@@ -47,15 +47,15 @@
       <span class="icox icox-back"></span>
       <span class="label">返回商城</span>
     </navigator>
-    <navigator class='nav-item' hover-class="none" url='/pages/groups/index/index' open-type='reLaunch'>
+    <navigator class='nav-item' hover-class="none" url='../index/index' open-type='reLaunch'>
       <span class="icox icox-shouye1"></span>
       <span class="label">拼团首页</span>
     </navigator> 
-    <navigator url='/pages/groups/category/index' class='nav-item ' hover-class="none" open-type='reLaunch'>
+    <navigator url='../category/index' class='nav-item ' hover-class="none" open-type='reLaunch'>
       <span class="icox icox-quanbukanjia"></span>
       <span class="label">活动列表</span>
     </navigator>
-    <navigator class='nav-item' hover-class="none" url='/pages/groups/order/index' open-type='reLaunch'>  
+    <navigator class='nav-item' hover-class="none" url='../order/index' open-type='reLaunch'>  
       <span class="icox icox-kanjiazhong"></span>
       <span class="label">我的订单</span>
     </navigator>

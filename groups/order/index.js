@@ -109,7 +109,7 @@ Page({
   // },
   cancel: function (e) {
     var order_id = e.target.dataset.orderid;
-    order.cancel(order_id, e.detail.value, '/pages/groups/order_detail/index?order_id=' + order_id);
+    order.cancel(order_id, e.detail.value, '../order_detail/index?order_id=' + order_id);
   },
   close: function () {
     this.setData({

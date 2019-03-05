@@ -64,7 +64,7 @@ Page({
           // 单规格
           if ($this.data.data.more_spec == 0) {
             wx.navigateTo({
-              url: '/pages/groups/confirm/index?id=' + $this.data.goods_id + '&type=single',
+              url: '../confirm/index?id=' + $this.data.goods_id + '&type=single',
             })
           } else {
             // 多规格
@@ -146,7 +146,7 @@ Page({
     if ($this.data.optiondata) {
         if (optiondata.stock > 0) {
           wx.navigateTo({
-            url: "/pages/groups/confirm/index?id=" + goods_id + "&option_id=" + optiondata.id +' &type=single',
+            url: "../confirm/index?id=" + goods_id + "&option_id=" + optiondata.id +' &type=single',
             success: function () {
               $this.setData({
                 layershow: false,

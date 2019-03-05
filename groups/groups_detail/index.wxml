@@ -99,7 +99,7 @@
 
    <!--底部  -->
     <view class='detailbtn-group flex {{iphonexnavbar}}'>
-      <navigator class='back' url='/pages/groups/index/index' hover-class="none" open-type='reLaunch'>
+      <navigator class='back' url='../index/index' hover-class="none" open-type='reLaunch'>
         <view class='icox icox-homepage'></view>
         <view>拼团首页</view>
       </navigator>

@@ -9,7 +9,7 @@
   </view>
   <!--热卖  -->
  <view class='fui-list-group'  wx:if='!{{empty}}'>
-  <navigator url='/pages/groups/goods/index?id={{item.id}}' class='fui-list' wx:for='{{list}}'>
+  <navigator url='../goods/index?id={{item.id}}' class='fui-list' wx:for='{{list}}'>
     <view class='fui-list-media'>
        <image class='radius' 
         src='{{item.thumb}}'>
@@ -33,7 +33,7 @@
   <image src='/static/images/search_empty.png'></image>
   <view class='text'>未找到任何活动</view>
   <view hover-class='none' class='btn btn-danger-o' bindtap='back'>返回上一页</view>
-  <navigator url='/pages/groups/index/index' hover-class='none' class='btn btn-danger'>去首页</navigator>
+  <navigator url='../index/index' hover-class='none' class='btn btn-danger'>去首页</navigator>
 </view> 
 
 <!--底部导航  -->
@@ -42,19 +42,19 @@
       <span class="icox icox-back"></span>
       <span class="label">返回商城</span>
     </navigator>
-    <navigator class='nav-item' hover-class="none" url='/pages/groups/index/index' open-type='reLaunch'>
+    <navigator class='nav-item' hover-class="none" url='../index/index' open-type='reLaunch'>
       <span class="icox icox-shouye1"></span>
       <span class="label">拼团首页</span>
     </navigator> 
-    <navigator url='/pages/groups/category/index' class='nav-item active' hover-class="none" open-type='reLaunch'>
+    <navigator url='../category/index' class='nav-item active' hover-class="none" open-type='reLaunch'>
       <span class="icox icox-quanbukanjia"></span>
       <span class="label">活动列表</span>
     </navigator>
-    <navigator class='nav-item' hover-class="none" url='/pages/groups/order/index' open-type='reLaunch'>  
+    <navigator class='nav-item' hover-class="none" url='../order/index' open-type='reLaunch'>  
       <span class="icox icox-kanjiazhong"></span>
       <span class="label">我的订单</span>
     </navigator>
-    <navigator url='/pages/groups/mygroups/index'  class='nav-item' hover-class="none" open-type='reLaunch'>
+    <navigator url='../mygroups/index'  class='nav-item' hover-class="none" open-type='reLaunch'>
       <span class="icox icox-yigoumai"></span>
       <span class="label">我的团</span>
     </navigator>

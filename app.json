@@ -117,7 +117,7 @@
       ]
     },
     {
-      "root": "pages/groups/",
+      "root": "groups",
       "pages": [
         "index/index",
         "category/index",

@@ -73,7 +73,7 @@ Page({
             if (result.error == 0) {
               if (op == 'creat') {
                 wx.navigateTo({
-                  url: '/pages/groups/confirm/index?type=groups&id=' + id + "&heads=1"
+                  url: '../confirm/index?type=groups&id=' + id + "&heads=1"
                 })
 
               } else {
@@ -83,7 +83,7 @@ Page({
                     return;
                   }
                   wx.navigateTo({
-                    url: '/pages/groups/jointeam/index?id=' + id,
+                    url: '../jointeam/index?id=' + id,
                   })
                 });
               }
@@ -156,7 +156,7 @@ Page({
         }
 
         wx.navigateTo({
-          url: "/pages/groups/jointeam/index?id=" + $this.data.goods_id + "&ladder_id=" + $this.data.ladder_id,
+          url: "../jointeam/index?id=" + $this.data.goods_id + "&ladder_id=" + $this.data.ladder_id,
           success: function () {
             $this.setData({
               layershow: false,
@@ -168,7 +168,7 @@ Page({
       });
     }else{
       wx.navigateTo({
-        url: "/pages/groups/confirm/index?id=" + $this.data.goods_id + "&heads=1&type=groups&ladder_id=" + $this.data.ladder_id,
+        url: "../confirm/index?id=" + $this.data.goods_id + "&heads=1&type=groups&ladder_id=" + $this.data.ladder_id,
         success: function () {
           $this.setData({
             layershow: false,
@@ -231,7 +231,7 @@ Page({
     if (buyop=='creat'){
       if (optiondata.stock>0){
         wx.navigateTo({
-          url: "/pages/groups/confirm/index?id=" + goods_id + "&heads=1&type=groups&option_id=" + optiondata.id,
+          url: "../confirm/index?id=" + goods_id + "&heads=1&type=groups&option_id=" + optiondata.id,
           success: function () {
             $this.setData({
               layershow: false,
@@ -257,7 +257,7 @@ Page({
           }
 
           wx.navigateTo({
-            url: "/pages/groups/jointeam/index?id=" + goods_id + "&option_id=" + optiondata.id,
+            url: "../jointeam/index?id=" + goods_id + "&option_id=" + optiondata.id,
             success: function () {
               $this.setData({
                 layershow: false,

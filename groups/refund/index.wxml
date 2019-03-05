@@ -134,7 +134,7 @@
        <block wx:if="{{ order.refundstate>0 }}">
            <view wx:if="{{ refund.rtype ==2 &&refund.refundstatus==5}}" bindtap='confirmRecive'  class="btn btn-danger btn-sm">确认收到换货物品</view>
            <navigator wx:if="{{ refund.rtype==2 && refund.refundstatus==5}}" url=""><view class="btn btn-primary" open-type="navigate">查看换货物流</view></navigator>
-           <navigator style='width:auto' wx:if="{{ refund.refundstatus==3||refund.refundstatus==4 }}" class="btn btn-primary btn-sm" url="/pages/groups/express/number?orderid={{ order.id }}&refundid={{ refund.id }}">{{ refund.express?'修改':'填写' }}快递单号</navigator>
+           <navigator style='width:auto' wx:if="{{ refund.refundstatus==3||refund.refundstatus==4 }}" class="btn btn-primary btn-sm" url="../express/number?orderid={{ order.id }}&refundid={{ refund.id }}">{{ refund.express?'修改':'填写' }}快递单号</navigator>
 
            <view wx:if="{{ refund.refundstatus==0 }}" class='btn btn-danger-o btn-sm' bindtap="edit">修改申请</view>
 

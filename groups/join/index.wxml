@@ -22,7 +22,7 @@
   <view class='more'>更多好团</view>
   <view class='fui-goods-group block'>
     <view class="fui-goods-item" wx:for='{{teams}}'>
-      <navigator hover-class="none" url='/pages/groups/goods/index?id={{item.id}}'>
+      <navigator hover-class="none" url='../goods/index?id={{item.id}}'>
         <view class="image" style="background-image:url({{item.thumb}})"></view>
         <view class="detail goods_list_detail">
           <view class="name">

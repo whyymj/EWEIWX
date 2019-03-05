@@ -13,7 +13,7 @@
 <!--分类  -->
 <block wx:if='{{res.category.length>0 || res.recgoods.length>0 }}'>
   <view class='fui-icon-group noborder col-4' >
-    <navigator url='/pages/groups/category/index?id={{item.id}}' class="fui-icon-col external" wx:for='{{res.category}}'>
+    <navigator url='../category/index?id={{item.id}}' class="fui-icon-col external" wx:for='{{res.category}}'>
           <view class='icon'>
             <image class='radius' 
               src='{{item.thumb}}'>
@@ -26,7 +26,7 @@
   </view>
   <!--热卖  -->
   <view class='fui-list-group'>
-    <navigator class='fui-list' url='/pages/groups/goods/index?id={{item.id}}' wx:for='{{res.recgoods}}'>
+    <navigator class='fui-list' url='../goods/index?id={{item.id}}' wx:for='{{res.recgoods}}'>
       <view class='fui-list-media'>
         <image class='radius' 
               src='{{item.thumb}}'>
@@ -62,15 +62,15 @@
       <span class="icox icox-shouye1"></span>
       <span class="label">拼团首页</span>
     </navigator>
-    <navigator url='/pages/groups/category/index' class='nav-item' hover-class="none" open-type='reLaunch'>
+    <navigator url='../category/index' class='nav-item' hover-class="none" open-type='reLaunch'>
       <span class="icox icox-quanbukanjia"></span>
       <span class="label">活动列表</span>
     </navigator>
-    <navigator url='/pages/groups/order/index' class='nav-item' hover-class="none" open-type='reLaunch'>  
+    <navigator url='../order/index' class='nav-item' hover-class="none" open-type='reLaunch'>  
       <span class="icox icox-kanjiazhong"></span>
       <span class="label">我的订单</span>
     </navigator>
-    <navigator url='/pages/groups/mygroups/index' class='nav-item' hover-class="none" open-type='reLaunch'>
+    <navigator url='../mygroups/index' class='nav-item' hover-class="none" open-type='reLaunch'>
       <span class="icox icox-yigoumai"></span>
       <span class="label">我的团</span>
     </navigator>

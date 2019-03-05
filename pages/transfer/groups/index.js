@@ -23,7 +23,7 @@ Page({
       $this.onPullDownRefresh()
     }, 300)
     wx.reLaunch({
-      url: '/pages/groups/index/index',
+      url: '../../../index/index',
     })
   },
 

@@ -55,7 +55,7 @@ Page({
               core.toast(list.message, 'loading');
             }
             wx.redirectTo({
-              url: '/pages/groups/order/index'
+              url: '../order/index'
             })
           }
           
@@ -133,7 +133,7 @@ Page({
         core.get('groups/order/delete', { id: order_id }, function (result) {
           if (result.error == 0) {
             wx.reLaunch({
-              url:'/pages/groups/order/index'
+              url:'../order/index'
             });
           } else {
             core.alert(result.message);
@@ -144,7 +144,7 @@ Page({
 
     cancel: function (e) {
       var order_id = this.data.order_id;
-      order.cancel(order_id, e.detail.value, '/pages/groups/order_detail/index?order_id=' + order_id);
+      order.cancel(order_id, e.detail.value, '../order_detail/index?order_id=' + order_id);
     },
     refundcancel: function (e) {
       core.post('groups.refund.cancel', { orderid: this.data.order_id }, function (res) {
