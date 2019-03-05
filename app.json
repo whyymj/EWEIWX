@@ -74,10 +74,11 @@
     "pages/member/membercard/index",
     "pages/member/membercard/detail/index",
     "pages/member/membercard/pay/index",
-	"pages/transfer/groups/index",
+    "pages/transfer/groups/index",
     "pages/transfer/bargain/index",
     "pages/transfer/seckill/index",
-    "pages/quickbuy/index"
+    "pages/quickbuy/index",
+    "friendcoupon/index"
   ],
   "subPackages": [
     {
@@ -91,7 +92,6 @@
         "purchase/purchase"
       ]
     },
-
     {
       "root": "seckill",
       "pages": [
