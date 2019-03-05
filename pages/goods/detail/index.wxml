@@ -211,9 +211,11 @@
             </block>
             <block wx:else>
               <text wx:if="{{goods.isverify!=2}}">快递:<block wx:if="{{goods.dispatchprice == 0}}">
-                      <block wx:if="{{activity.postfree.goods}}">包邮</block></block>
-                      <block wx:else>{{goods.dispatchprice}}</block>
-                        </text>
+                  <block wx:if="{{activity.postfree.goods}}">包邮</block>
+                  <block wx:else>{{goods.dispatchprice}}</block>
+                </block>
+                <block wx:else>{{goods.dispatchprice}}</block>
+              </text>
             </block>
             <block wx:if="{{!goods.seckillinfo || (goods.seckillinfo && goods.seckillinfo.status==1)}}">
               <block wx:if="{{goods.showtotal==1}}">
